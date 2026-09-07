@@ -1,0 +1,323 @@
+/* ---------------------------------------------------------------
+   Navbar / Footer / floating WhatsApp button
+   --------------------------------------------------------------- */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  background: rgba(248, 247, 245, 0.95);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light);
+  transition: box-shadow var(--dur) ease-out;
+}
+.site-nav--scrolled {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  background: none;
+  border: none;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--mid);
+  text-decoration: none;
+  transition: color var(--dur-fast) ease-out, background var(--dur-fast) ease-out;
+}
+.nav-links a:hover {
+  color: var(--ink);
+  background: var(--paper-warm);
+}
+
+/* Active state carries weight + an underline, so it does not depend on
+   colour alone to say which page you are on. */
+.nav-links a.is-active {
+  color: var(--accent-dark);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--accent-dark);
+  border-radius: 4px 4px 0 0;
+}
+
+/* Ghost CTA in the logo's magenta. The border carries the brand hue
+   (3.74:1 on --paper, over the 3:1 a UI boundary needs); the label uses the
+   darkened step so it clears 4.5:1. */
+.nav-cta,
+.nav-links a.nav-cta {
+  gap: 0.5rem;
+  margin-left: 0.6rem;
+  min-height: 42px;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  /* Full-strength logo magenta: on a ghost button the border is the only
+     thing defining the control, so it owes 3:1. At 0.55 alpha it was 2.18:1. */
+  border: 1px solid rgb(var(--accent-2-rgb));
+  color: var(--accent-2-text);
+  font-weight: 600;
+  border-radius: 6px;
+  box-shadow: none;
+}
+.nav-links a.nav-cta:hover {
+  background: rgb(var(--accent-2-rgb) / 0.08);
+  border-color: rgb(var(--accent-2-rgb));
+  color: var(--accent-2-text);
+}
+.nav-links a.nav-cta.is-active {
+  background: rgb(var(--accent-2-rgb) / 0.1);
+  border-color: rgb(var(--accent-2-rgb));
+  color: var(--accent-2-text);
+  box-shadow: none;
+}
+.nav-cta svg {
+  flex-shrink: 0;
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  margin-right: -0.5rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--ink);
+}
+.nav-toggle:hover {
+  background: var(--paper-warm);
+}
+
+@media (max-width: 880px) {
+  .nav-toggle {
+    display: flex;
+  }
+  .nav-links {
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 0 1rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--light);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    display: none;
+  }
+  .nav-links.is-open {
+    display: flex;
+  }
+  .nav-links li {
+    width: 100%;
+  }
+  .nav-links a {
+    display: flex;
+    min-height: var(--tap);
+    padding: 0.75rem var(--container-pad);
+    border-radius: 0;
+  }
+  .nav-links a.is-active {
+    box-shadow: inset 3px 0 0 var(--accent-dark);
+    border-radius: 0;
+  }
+  .nav-links a.nav-cta {
+    margin: 0.75rem var(--container-pad) 0;
+    justify-content: center;
+    border-radius: var(--radius);
+  }
+  .nav-links a.nav-cta.is-active {
+    box-shadow: none;
+  }
+}
+
+/* --- Footer ------------------------------------------------------------
+   Every text value here previously sat between 1.4:1 and 3.3:1 against
+   --ink. Raised to the --on-ink-* scale, all of which clear 4.5:1.
+   ---------------------------------------------------------------------- */
+
+.site-footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4rem 0 1.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: 3rem;
+}
+
+.footer-heading {
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-ink-muted);
+}
+
+.footer-blurb {
+  max-width: 34ch;
+  margin-top: 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--on-ink-soft);
+}
+
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.footer-list a,
+.footer-list span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--on-ink-soft);
+  text-decoration: none;
+  transition: color var(--dur-fast) ease-out;
+}
+.footer-list a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.footer-contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: color var(--dur-fast) ease-out;
+}
+.footer-contact a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer-contact .phone {
+  font-weight: 600;
+  color: var(--on-ink-strong);
+}
+.footer-contact .email {
+  color: var(--on-ink-soft);
+}
+.footer-contact .address {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--on-ink-muted);
+}
+.footer-contact .hours {
+  font-size: 0.875rem;
+  color: var(--on-ink-muted);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--on-ink-line);
+}
+.footer-bottom p {
+  font-size: 0.875rem;
+  color: var(--on-ink-muted);
+}
+
+@media (max-width: 880px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 2rem;
+  }
+  .footer-grid > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- WhatsApp FAB ------------------------------------------------------ */
+
+.whatsapp-fab {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: var(--z-fab);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  /* WhatsApp brand green is kept exactly; the glyph goes dark because a
+     white one on #25D366 measures 1.98:1, under the 3:1 icons need.
+     Dark-on-brand measures 6.21:1. */
+  background: var(--whatsapp);
+  color: #0b3d21;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: background var(--dur-fast) ease-out, box-shadow var(--dur) ease-out;
+}
+.whatsapp-fab:hover {
+  background: #1fbe5b;
+  box-shadow: 0 6px 26px rgba(37, 211, 102, 0.5);
+}
+
+@media (max-width: 640px) {
+  .whatsapp-fab {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}

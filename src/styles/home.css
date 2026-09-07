@@ -1,0 +1,441 @@
+/* ------------------------------------------------------- Home: hero ---- */
+
+.home-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(94svh, 840px);
+  overflow: hidden;
+  background: var(--ink);
+  padding-top: var(--nav-height);
+}
+
+/* ------------------------------------------------- Hero media panel ----
+   Video behind a diagonal edge, mirroring the reference layout — except the
+   copy side stays ink rather than paper. The panel is oversized relative to
+   its frame so the parallax shift never exposes an edge.
+   ---------------------------------------------------------------------- */
+
+/* Hero-wide scrim over the copy column. The panel has its own scrim, but
+   this one is anchored to the text side rather than to the media geometry,
+   so the copy stays on ink no matter how the diagonal or the clip's framing
+   change. Worst case (a pure-white video pixel) is still >12:1 behind text. */
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgb(var(--ink-rgb)) 0%,
+    rgb(var(--ink-rgb)) 34%,
+    rgb(var(--ink-rgb) / 0.72) 46%,
+    rgb(var(--ink-rgb) / 0.24) 56%,
+    transparent 66%
+  );
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0 0 auto auto;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  width: 62%;
+  height: 100%;
+  /* Left edge slants: top sits further right than the bottom. */
+  clip-path: polygon(26% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* The frame keeps the clip's own aspect ratio rather than covering the
+   panel, so the whole box stays in shot. Only the extreme top and bottom —
+   blurred room and table reflection — fade into the ink; the fade stops well
+   clear of the subject. */
+.hero-media__inner {
+  position: relative;
+  width: 108%;
+  margin-left: -4%;
+  aspect-ratio: 1080 / 658;
+  will-change: transform;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 9%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 9%, #000 93%, transparent 100%);
+}
+
+/* Belt-and-braces: HeroMedia already gates the parallax on
+   useReducedMotion, but that is JS state. This guarantees the frame stays
+   still even if the hook is wrong, since framer writes an inline transform
+   that the global reduced-motion block cannot reach. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-media__inner {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+.hero-media__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Footage runs bright; hold it back so the copy stays dominant. */
+  filter: brightness(0.92) saturate(1);
+}
+
+.hero-media__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      100deg,
+      rgb(var(--ink-rgb)) 0%,
+      rgb(var(--ink-rgb) / 0.86) 16%,
+      rgb(var(--ink-rgb) / 0.38) 38%,
+      rgb(var(--ink-rgb) / 0.04) 64%,
+      rgb(var(--ink-rgb) / 0.18) 100%
+    ),
+    linear-gradient(to top, rgb(var(--ink-rgb) / 0.75) 0%, transparent 42%);
+}
+
+/* Hairline along the diagonal, so the cut reads as deliberate */
+.hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 1px),
+    rgb(var(--accent-4-rgb) / 0.28) 50%,
+    transparent calc(50% + 1px)
+  );
+  pointer-events: none;
+}
+
+
+.home-hero__inner {
+  position: relative;
+  z-index: 2;
+  padding: 3.5rem 0 3.5rem;
+}
+
+/* Below lg the media becomes a band under the copy, so the clearance is
+   vertical rather than horizontal. */
+@media (max-width: 1023px) {
+  .hero-media {
+    inset: auto 0 0 auto;
+    width: 100%;
+    /* Fixed height, not a percentage: as a percentage of the hero, extra
+       bottom padding grows the band too and never buys any clearance. */
+    height: 300px;
+    /* Diagonal now runs along the top edge of the band. */
+    clip-path: polygon(0 22%, 100% 0, 100% 100%, 0 100%);
+  }
+  .hero-media__inner {
+    width: 112%;
+    margin-left: -6%;
+  }
+  .hero-media__scrim {
+    background:
+      linear-gradient(to bottom, rgb(var(--ink-rgb)) 0%, rgb(var(--ink-rgb) / 0.3) 30%,
+        rgb(var(--ink-rgb) / 0.14) 58%, rgb(var(--ink-rgb) / 0.5) 100%);
+  }
+  .home-hero::before {
+    background: linear-gradient(
+      to bottom,
+      rgb(var(--ink-rgb)) 0%,
+      rgb(var(--ink-rgb)) 58%,
+      rgb(var(--ink-rgb) / 0.55) 68%,
+      transparent 78%
+    );
+  }
+  .hero-media::after {
+    background: linear-gradient(
+      to bottom right,
+      transparent calc(50% - 1px),
+      rgb(var(--accent-4-rgb) / 0.22) 50%,
+      transparent calc(50% + 1px)
+    );
+  }
+  .home-hero__inner {
+    padding-bottom: 20rem;
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.eyebrow span:first-child {
+  width: 2rem;
+  height: 2px;
+  background: var(--accent);
+}
+.eyebrow span:last-child {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-on-ink);
+}
+
+.home-hero h1 {
+  /* Capped lower than the old 7rem so the hero stays short enough for the
+     media panel to read as landscape rather than a narrow crop. */
+  font-size: clamp(2.75rem, 6vw, 5.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--paper);
+  margin-bottom: 2rem;
+}
+.home-hero h1 em {
+  font-style: normal;
+  /* The logo magenta unmodified: 4.71:1 on --ink, so it clears even the
+     normal-text threshold, let alone the 3:1 this display size needs. */
+  color: var(--accent-2);
+}
+
+.home-hero__lead {
+  max-width: 46ch;
+  margin-bottom: 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--on-ink);
+}
+
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.home-hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-top: 3.5rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--on-ink-line);
+}
+.home-hero__stat dd {
+  display: flex;
+  flex-direction: column;
+}
+.home-hero__stat .n {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--paper);
+}
+.home-hero__stat .l {
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--on-ink-soft);
+  white-space: pre-line;
+}
+
+/* ---------------------------------------------------- Home: services --- */
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+/* Separate cards, not a hairline-divided slab: the 1px grid read as one
+   block. Gap stays >=16px at every breakpoint. */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.25rem 1.75rem;
+  overflow: hidden;
+  background: var(--white);
+  /* Border does the separating work the hairline grid used to do — white
+     cards on --paper are only 1.05:1 apart on their own. */
+  border: 1px solid var(--light);
+  border-radius: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease-out, box-shadow var(--dur) ease-out;
+}
+.service-card:hover {
+  border-color: #d3d0c9;
+  box-shadow: 0 6px 20px rgb(var(--ink-rgb) / 0.08);
+}
+.service-card h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.service-card p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--mid);
+}
+.service-card__more {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.service-card:hover .service-card__more {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------- Home: partners --- */
+
+.partners-strip {
+  padding: 2rem 0;
+  background: var(--paper-warm);
+  border-top: 1px solid var(--light);
+  border-bottom: 1px solid var(--light);
+}
+.partners-strip__inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+.partners-strip__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mid);
+  white-space: nowrap;
+}
+.partners-strip__logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.partners-strip__more {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--mid);
+}
+
+/* --------------------------------------------------------- Home: CTA --- */
+
+.cta-band {
+  padding: 5rem 0;
+  background: var(--ink);
+}
+.cta-band__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+}
+.cta-band h2 {
+  max-width: 520px;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  color: var(--paper);
+}
+.cta-band__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 200px;
+}
+
+/* Compact CTA strip used at the bottom of Despre noi / Servicii */
+.cta-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.cta-strip h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: 0.5rem;
+}
+.cta-strip p {
+  color: var(--mid);
+  font-weight: 400;
+}
+.cta-strip--accent h2 {
+  max-width: 400px;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------- Responsive ---- */
+
+@media (max-width: 900px) {
+  .service-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tightened so the top of the plate stack breaks the fold on a 375x812
+     phone — the copy still leads, but there is a visual cue to scroll. */
+  .home-hero__inner {
+    padding: 2.5rem 0 17rem;
+  }
+  .hero-media {
+    height: 240px;
+  }
+  .home-hero h1 {
+    font-size: clamp(2.75rem, 12vw, 3.5rem);
+    margin-bottom: 1.5rem;
+  }
+  .home-hero__lead {
+    margin-bottom: 1.75rem;
+    font-size: 1.0625rem;
+  }
+  .eyebrow {
+    margin-bottom: 1.25rem;
+  }
+  .home-hero__stats {
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+  .home-hero__stat .n {
+    font-size: 1.875rem;
+  }
+  .cta-band__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .service-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

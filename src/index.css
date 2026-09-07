@@ -1,0 +1,11 @@
+/* Project CSS first, Tailwind utilities last — so a utility class always
+   wins over a component rule when both target the same element. */
+@import './styles/tokens.css';
+@import './styles/tw-defaults.css';
+@import './styles/global.css';
+@import './styles/layout.css';
+@import './styles/home.css';
+@import './styles/pages.css';
+
+@tailwind components;
+@tailwind utilities;
