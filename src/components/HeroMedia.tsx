@@ -58,8 +58,10 @@ export default function HeroMedia({ progress }: { progress: MotionValue<number> 
         <video
           ref={videoRef}
           className="hero-media__video"
-          src="/hero-packaging.mp4"
-          poster="/hero-packaging.jpg"
+          // BASE_URL, not a leading slash: under GitHub Pages the site is
+          // served from /Freelance/, where "/hero-packaging.mp4" 404s.
+          src={`${import.meta.env.BASE_URL}hero-packaging.mp4`}
+          poster={`${import.meta.env.BASE_URL}hero-packaging.jpg`}
           muted
           playsInline
           preload="auto"
