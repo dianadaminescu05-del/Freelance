@@ -16,6 +16,32 @@ untouched so it can be refined from here.
 | Icons | lucide-react |
 | Styling | CSS custom properties + Tailwind utilities |
 
+## Live
+
+**https://dianadaminescu05-del.github.io/Freelance/**
+
+Published by GitHub Pages from `.github/workflows/deploy.yml` on every push
+to `main`.
+
+Three things make a Vite SPA work from a repo subpath, and all three are
+load-bearing:
+
+1. **`base` is keyed on `mode`, not `command`** (`vite.config.ts`). `command`
+   is `'serve'` for *both* `vite dev` and `vite preview`, so keying on it
+   leaves preview serving at `/` while the build emits `/Freelance/` paths —
+   preview then 404s every asset and silently falls back to `index.html`, so
+   the app renders blank and the config looks fine. `mode` is `'production'`
+   for build and preview alike.
+2. **Router basename and asset URLs read `import.meta.env.BASE_URL`.** A
+   leading `/` resolves to the domain root, so `/hero-packaging.mp4` would
+   404 under `/Freelance/`.
+3. **`build` copies `index.html` to `404.html`.** Pages has no SPA rewrite;
+   it serves `404.html` for unknown paths, which loads the app and lets the
+   router take the URL from there. Deep links legitimately return HTTP 404
+   while rendering correctly — that is how the trick works, not a fault.
+
+Renaming the repo or adding a custom domain is a one-line change to `base`.
+
 ## Commands
 
 ```bash
