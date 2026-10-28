@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageHero from '../components/PageHero';
 import { EASE, fadeUpLarge, inViewOnce } from '../components/motion';
-import { CAPABILITIES, TIMELINE, VALUES } from '../data/content';
+import { CAPABILITIES, HALA, TIMELINE, VALUES } from '../data/content';
 import { SITE, yearsActive } from '../data/site';
 
 export default function DespreNoi() {
@@ -102,6 +102,49 @@ export default function DespreNoi() {
               </motion.li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------- The hall */}
+      <section className="page-section section--paper">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="section-label">Hala din Lugoj</p>
+            <div className="divider" />
+            <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', marginBottom: '0.75rem' }}>
+              Unde se face treaba
+            </h2>
+            <p className="lead" style={{ marginBottom: '2.5rem' }}>
+              Hala proprie de pe strada Tapiei, construită în 2006 și folosită de atunci pentru
+              producție și depozitare.
+            </p>
+          </motion.div>
+
+          <ul className="hall-grid">
+            {HALA.map((img, i) => (
+              <motion.li
+                key={img.slug}
+                className="hall-grid__item"
+                custom={i}
+                variants={fadeUpLarge}
+                {...inViewOnce}
+              >
+                <img
+                  src={`/depozit/${img.slug}-1400.jpg`}
+                  alt={img.alt}
+                  width={1400}
+                  height={933}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </motion.li>
+            ))}
+          </ul>
         </div>
       </section>
 

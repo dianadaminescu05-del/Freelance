@@ -8,3 +8,9 @@ dist
 # os / editor
 .DS_Store
 *.local
+
+# Photo originals — 441MB of camera files and print-resolution PNGs.
+# Kept locally as the master copies; the site ships optimised derivatives
+# from public/. Same arrangement as assets-source/.
+Poze depozit/
+Poze produse/

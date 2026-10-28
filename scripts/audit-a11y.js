@@ -47,15 +47,35 @@ window.__audit = () => {
     return r.width <= 1 || r.height <= 1;
   };
 
-  // Walk up for the first ancestor with a (near-)opaque background.
+  // Effective background behind an element's own text.
+  //
+  // Walks up to the first (near-)opaque ancestor, then composites every
+  // translucent layer back down — including the element's OWN background.
+  // Skipping that step scores a white-on-dark-pill badge against whatever
+  // sits behind the pill, which reads as a 1:1 failure when the real
+  // contrast is fine.
   const bgOf = (el) => {
+    const layers = [];
     let n = el;
+    let base = [255, 255, 255];
     while (n && n !== document.documentElement) {
       const c = parse(getComputedStyle(n).backgroundColor);
-      if (c && (c.length < 4 || c[3] > 0.9)) return c.slice(0, 3);
+      if (c) {
+        const a = c.length < 4 ? 1 : c[3];
+        if (a > 0.99) {
+          base = c.slice(0, 3);
+          break;
+        }
+        if (a > 0) layers.push([c.slice(0, 3), a]);
+      }
       n = n.parentElement;
     }
-    return [255, 255, 255];
+    // Farthest layer first, so each one paints over the result so far.
+    for (let i = layers.length - 1; i >= 0; i--) {
+      const [rgb, a] = layers[i];
+      base = [0, 1, 2].map((k) => Math.round(rgb[k] * a + base[k] * (1 - a)));
+    }
+    return base;
   };
 
   const contrastFails = [];

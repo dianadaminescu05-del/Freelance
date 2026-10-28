@@ -777,8 +777,10 @@
   min-height: var(--tap);
   padding: 0.6rem 1.25rem;
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  /* 0.18 lightened the ground enough to drop the white label to 4.15:1.
+     At 0.10 it is 4.89:1; the border still carries the button's shape. */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   color: #fff;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -786,7 +788,7 @@
   transition: background var(--dur-fast) ease-out;
 }
 .partner-cta a:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* ====================================================== Contact ========= */

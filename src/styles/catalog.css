@@ -1,0 +1,380 @@
+/* ---------------------------------------------------------------
+   Product catalogue — grid, cards and the detail dialog
+   --------------------------------------------------------------- */
+
+.catalog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+.catalog-count {
+  font-size: 0.9375rem;
+  color: var(--mid);
+}
+
+.catalog-note {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 2rem;
+  font-size: 0.9375rem;
+  color: var(--mid);
+}
+
+/* --- Range opener ------------------------------------------------------ */
+
+.range-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
+}
+
+.range-intro__media {
+  overflow: hidden;
+  border: 1px solid var(--light);
+  border-radius: 1rem;
+  background: var(--white);
+}
+.range-intro__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .range-intro {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* --- Grid -------------------------------------------------------------- */
+
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  list-style: none;
+}
+
+.pcard {
+  display: flex;
+}
+
+.pcard__btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--light);
+  border-radius: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease-out, box-shadow var(--dur) ease-out,
+    transform var(--dur) var(--ease-out);
+}
+.pcard__btn:hover {
+  border-color: #d3d0c9;
+  box-shadow: 0 6px 20px rgb(var(--ink-rgb) / 0.08);
+  transform: translateY(-3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pcard__btn:hover {
+    transform: none;
+  }
+}
+
+/* --- Media: two stacked images, crossfaded on hover -------------------- */
+
+.pcard__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--white);
+}
+.pcard__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* The shots are on white with generous margin; a slight inset keeps the
+     product from touching the card edge. */
+  padding: 0.5rem;
+}
+.pcard__img--alt {
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+/* Pointer devices only — on touch the tap opens the dialog instead, where
+   every image is reachable. */
+@media (hover: hover) and (pointer: fine) {
+  .pcard__btn:hover .pcard__img--alt,
+  .pcard__btn:focus-visible .pcard__img--alt {
+    opacity: 1;
+  }
+}
+
+.pcard__count {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgb(var(--ink-rgb) / 0.72);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pcard__cue {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--paper-warm);
+  color: var(--mid);
+  opacity: 0;
+  transition: opacity var(--dur-fast) ease-out, background var(--dur-fast) ease-out;
+}
+.pcard__btn:hover .pcard__cue,
+.pcard__btn:focus-visible .pcard__cue {
+  opacity: 1;
+  background: var(--accent-dark);
+  color: #fff;
+}
+
+/* --- Card body --------------------------------------------------------- */
+
+.pcard__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.1rem 1.25rem;
+  border-top: 1px solid var(--light);
+}
+.pcard__cat {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-darker);
+}
+.pcard__name {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.pcard__dim {
+  font-size: 0.875rem;
+  color: var(--mid);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Detail dialog ----------------------------------------------------- */
+
+.pdialog {
+  /* The global `* { margin: 0 }` reset wipes the UA stylesheet's
+     `margin: auto` on <dialog>, which is what centres a modal — without
+     this it pins to the top-left corner. */
+  margin: auto;
+  width: min(960px, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: none;
+  border-radius: 1rem;
+  background: var(--white);
+  color: var(--ink);
+  overflow: hidden;
+}
+.pdialog::backdrop {
+  background: rgb(var(--ink-rgb) / 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.pdialog__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  max-height: calc(100dvh - 2rem);
+}
+
+.pdialog__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  border: 1px solid var(--light);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background var(--dur-fast) ease-out;
+}
+.pdialog__close:hover {
+  background: var(--paper-warm);
+}
+
+.pdialog__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--paper);
+  border-right: 1px solid var(--light);
+}
+.pdialog__media img {
+  width: 100%;
+  height: auto;
+  max-height: 60dvh;
+  object-fit: contain;
+}
+
+.pdialog__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2.5rem 2rem 2rem;
+  overflow-y: auto;
+}
+.pdialog__cat {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-darker);
+}
+.pdialog__info h2 {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  letter-spacing: -0.02em;
+}
+.pdialog__dim {
+  font-size: 1rem;
+  color: var(--mid);
+  font-variant-numeric: tabular-nums;
+}
+
+.pdialog__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0.5rem;
+}
+.pdialog__thumb {
+  width: 64px;
+  height: 64px;
+  padding: 2px;
+  border: 1px solid var(--light);
+  border-radius: 0.6rem;
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease-out;
+}
+.pdialog__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pdialog__thumb:hover {
+  border-color: var(--mid);
+}
+.pdialog__thumb.is-active {
+  border-color: var(--accent-dark);
+  box-shadow: inset 0 0 0 1px var(--accent-dark);
+}
+
+.pdialog__cta {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+@media (max-width: 760px) {
+  .pdialog__inner {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .pdialog__media {
+    border-right: none;
+    border-bottom: 1px solid var(--light);
+    padding: 1rem;
+  }
+  .pdialog__media img {
+    max-height: 42dvh;
+  }
+  .pdialog__info {
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+  .pdialog__cta {
+    align-self: stretch;
+    margin-top: 1.5rem;
+  }
+}
+
+/* --- Hall photographs (Despre noi) ------------------------------------
+   First image spans two columns: it is the wide establishing shot and
+   carries the section, the rest are supporting detail.
+   -------------------------------------------------------------------- */
+
+.hall-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  list-style: none;
+}
+.hall-grid__item {
+  overflow: hidden;
+  border: 1px solid var(--light);
+  border-radius: 1rem;
+  background: var(--paper-warm);
+}
+.hall-grid__item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.hall-grid__item:first-child {
+  grid-column: span 2;
+}
+.hall-grid__item:first-child img {
+  aspect-ratio: 21 / 9;
+}
+
+@media (max-width: 700px) {
+  .hall-grid {
+    grid-template-columns: 1fr;
+  }
+  .hall-grid__item:first-child {
+    grid-column: span 1;
+  }
+  .hall-grid__item:first-child img {
+    aspect-ratio: 3 / 2;
+  }
+}

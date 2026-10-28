@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
-import { Box, Megaphone, FileText, Truck } from 'lucide-react';
+import { Box, Boxes, PawPrint, Truck } from 'lucide-react';
+import { PRODUSE, type Categorie } from './produse';
 
 /* ---------------------------------------------------------------- Home */
 
@@ -15,35 +16,39 @@ export type ServiceCard = {
   icon: LucideIcon;
 };
 
+/** Counts come from the catalogue so a card can never claim a range the
+ *  product list does not actually contain. */
+const count = (c: Categorie) => PRODUSE.filter((p) => p.categorie === c).length;
+
 export const SERVICE_CARDS: ServiceCard[] = [
   {
-    label: 'Ambalaje',
-    sub: '12+ categorii personalizate',
-    to: '/servicii',
+    label: 'Cutii personalizate',
+    sub: `${count('Cutii personalizate')} modele, cu sau fără tipar`,
+    to: '/servicii?categorie=Cutii+personalizate',
     color: '#0099CC',
     textColor: '#007EA8',
     icon: Box,
   },
   {
-    label: 'Printuri mari',
-    sub: 'Bannere, roll-up, autocolante',
-    to: '/servicii',
+    label: 'Ambalaje alimentare',
+    sub: `${count('Ambalaje alimentare')} modele pentru pizza și fastfood`,
+    to: '/servicii?categorie=Ambalaje+alimentare',
     color: '#E8318A',
     textColor: '#C5166B',
-    icon: Megaphone,
+    icon: Boxes,
   },
   {
-    label: 'Printuri mici',
-    sub: 'Cărți de vizită, broșuri, fluturași',
-    to: '/servicii',
+    label: 'Hrană animale',
+    sub: `${count('Hrană animale')} formate, dimensiuni la cerere`,
+    to: '/servicii?categorie=Hrană+animale',
     color: '#F5C200',
-    textColor: '#896C00',
-    icon: FileText,
+    textColor: '#816600',
+    icon: PawPrint,
   },
   {
-    label: 'B2B & Livrare',
-    sub: 'Transport propriu, 7 zone regionale',
-    to: '/b2b',
+    label: 'Transport & depozitare',
+    sub: `${count('Transport & depozitare')} modele, plus separatoare`,
+    to: '/servicii?categorie=Transport+%26+depozitare',
     color: '#111111',
     textColor: '#111111',
     icon: Truck,
@@ -136,65 +141,6 @@ export const CAPABILITIES = [
   { val: 'Carton & hârtie', label: 'prelucrare integrală' },
 ];
 
-/* -------------------------------------------------------------- Servicii */
-
-export type ServiceItem = { titlu: string; desc: string };
-export type ServiceGroup = { label: string; items: ServiceItem[] };
-
-export const SERVICE_GROUPS = {
-  ambalaje: {
-    label: 'Ambalaje',
-    items: [
-      { titlu: 'Cutii personalizate', desc: 'Cutii offset full-color, biguire și decupaj personalizat.' },
-      { titlu: 'Cutii albe / simple', desc: 'Ambalaj standard, dimensiuni variate.' },
-      { titlu: 'Pungi hârtie', desc: 'Pungi kraft sau cretate cu mâner, tipărite sau plain.' },
-      { titlu: 'Plicuri personalizate', desc: 'Offset sau digital, format standard sau la comandă.' },
-      { titlu: 'Etichete adezive', desc: 'Rolă sau coală, mat, luciu sau transparente.' },
-      { titlu: 'Etichete alimentare', desc: 'Rezistente la umiditate, certificate food-grade.' },
-      { titlu: 'Folii termocontractibile', desc: 'Folie shrink pentru grupare produse.' },
-      { titlu: 'Ambalaje alimentare', desc: 'Cutii pizza, tăvi, pungi food-grade.' },
-      { titlu: 'Ambalaje cosmetice', desc: 'Cutii și etui pentru parfumuri, creme, beauty.' },
-      { titlu: 'Tuburi carton', desc: 'Tuburi rotunde pentru postere sau produse cilindrice.' },
-      { titlu: 'Separatoare carton', desc: 'Inserts pentru organizarea produselor în cutie.' },
-      { titlu: 'Ambalaje eco (kraft)', desc: 'Carton reciclat sau kraft natur.' },
-    ],
-  },
-  printuriMari: {
-    label: 'Printuri mari',
-    items: [
-      { titlu: 'Bannere publicitare', desc: 'Flex, mesh sau backlit — interior și exterior.' },
-      { titlu: 'Roll-up & X-banner', desc: 'Standuri expoziționale, husă inclusă.' },
-      { titlu: 'Afișe mari format', desc: 'A0, A1 pe hârtie fotografică sau coated.' },
-      { titlu: 'Mesh și plase', desc: 'Materiale perforate pentru fatade și garduri.' },
-      { titlu: 'Autocolante de perete', desc: 'Viniluri decorative pentru spații comerciale.' },
-      { titlu: 'Autocolante auto / geam', desc: 'Branding auto și vitrine din vinil.' },
-    ],
-  },
-  printuriMici: {
-    label: 'Printuri mici',
-    items: [
-      { titlu: 'Cărți de vizită', desc: '85×55mm sau formate speciale, mat/luciu/soft-touch.' },
-      { titlu: 'Reviste & cataloage', desc: 'Offset, copertă cretată, interior 80g sau 100g.' },
-      { titlu: 'Broșuri & pliante', desc: 'Bi-fold, tri-fold sau format liber.' },
-      { titlu: 'Fluturași & flyer-e', desc: 'Formate A4–A6, față-verso, tiraj rapid.' },
-      { titlu: 'Mape de prezentare', desc: 'Coperți rigide cu buzunare, personalizate.' },
-      { titlu: 'Calendare', desc: 'De birou, perete sau agendă, grafică personalizată.' },
-    ],
-  },
-} satisfies Record<string, ServiceGroup>;
-
-export type ServiceGroupKey = keyof typeof SERVICE_GROUPS;
-
-export const FINISHES = [
-  { f: 'Laminare mat', d: 'Finisaj elegant, fără reflexii' },
-  { f: 'Laminare luciu', d: 'Culori vii, suprafață strălucitoare' },
-  { f: 'Soft-touch', d: 'Efect catifea la atingere' },
-  { f: 'UV selectiv', d: 'Lac UV pe zone specifice' },
-  { f: 'Embosare', d: 'Relief pe suprafață' },
-  { f: 'Folie aurie / argintie', d: 'Accent metalic premium' },
-  { f: 'Stanțare', d: 'Forme personalizate de decupaj' },
-  { f: 'Biguire', d: 'Linii de pliere precise' },
-];
 
 /* --------------------------------------------------------------- Comenzi */
 
@@ -335,6 +281,19 @@ export const B2B_BENEFITS = [
   'Prioritate la producție în perioadele aglomerate',
   'Rapoarte lunare de consum și cost',
 ];
+
+/* Warehouse photographs, hand-picked from "Poze depozit". Captions state
+   only what is visible — no throughput or capacity figures, since no
+   document gives any. */
+export const HALA = [
+  { slug: 'hala-3', alt: 'Hala de producție din Lugoj, cu paleți de carton pregătiți' },
+  { slug: 'stoc-paleti', alt: 'Paleți cu coli de carton ondulat, depozitate' },
+  { slug: 'transpalet', alt: 'Transpalet manual lângă un palet de carton ondulat' },
+  { slug: 'coli-tiparite', alt: 'Coli de carton tipărite, pregătite pentru ștanțare' },
+  { slug: 'hala-1', alt: 'Paleți cu carton aliniați pe lungimea halei' },
+];
+/* Five, not four: the first image spans both columns, so an even number
+   after it leaves the last tile stranded in a half-empty row. */
 
 /* --------------------------------------------------------------- Contact */
 

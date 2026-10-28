@@ -317,6 +317,53 @@ Two deliberate departures from the original, both flagged rather than silent:
 call `__audit()` on each route. It reports contrast failures with measured
 ratios, sub-14px body text, and undersized targets.
 
+## Images
+
+Originals live in `Poze produse/` and `Poze depozit/` — 441MB of
+print-resolution PNGs and 6000x4000 camera files. **Both are gitignored.**
+`scripts/build-images.mjs` renders the web copies into `public/`, and those
+ARE committed, because the Actions runner has neither the originals nor
+ffmpeg.
+
+```bash
+npm run images     # after adding or replacing a photo
+```
+
+Products go out at 600px and 1200px for `srcset` (23KB and 71KB on average);
+hall shots at 1400px. Total shipped: **5.6MB from a 441MB source.**
+
+The source-to-slug map in the script is explicit rather than derived — the
+file names carry typos (`individiala`), trailing spaces and inconsistent
+variant suffixes. One pair was mislabelled at source: `Cutie fastfood .png`
+is the *open* box, not the closed one. Verified by eye; noted in the script.
+
+## The catalogue
+
+`/servicii` is a real catalogue of 21 products built from the client's own
+photography. It replaces an invented taxonomy that advertised banners,
+roll-ups, business cards and calendars — none of which appear anywhere in the
+documents or in 42 commissioned product photos.
+
+`src/data/produse.ts` carries **no marketing descriptions on purpose.** No
+source document supplies any, and inventing them is exactly how the prototype
+ended up claiming presses the company does not own. Cards show the name, the
+category, and dimensions only where the client stated them.
+
+Interaction notes:
+
+- The card is a `<button>`, not a clickable div, so tap and keyboard both
+  work. The hover image swap is decorative enhancement, gated behind
+  `@media (hover: hover)` — on touch the tap opens the dialog, where every
+  image is reachable.
+- The detail view is a native `<dialog>` with `showModal()`, which gives
+  focus trapping, Escape, inert background and focus restore for free.
+  It needs an explicit `margin: auto`: the global `* { margin: 0 }` reset
+  wipes the UA rule that centres a modal.
+- The category filter lives in the URL (`?categorie=...`), so the home cards
+  deep-link into a filter and a filtered view is shareable.
+- Home card counts derive from `PRODUSE`, so a card cannot claim a range the
+  catalogue does not contain.
+
 ## Content sources
 
 Copy and figures come from three client documents (not in the repo):
@@ -355,13 +402,11 @@ block in `pages/Comenzi.tsx`. Nothing else depends on it.
 
 Blocking, in rough priority:
 
-1. **Does the company still do small-format printing?** The documents say
-   printing was the business 1999–2002 only, and that it now makes
-   *"ambalaje si cutii din carton"*. All 20 product photos are cardboard. But
-   the site still sells **Printuri mari** (bannere, roll-up, viniluri) and
-   **Printuri mici** (cărți de vizită, broșuri, calendare), plus pungi,
-   plicuri, etichete, folii and tuburi under Ambalaje. If those are not real
-   services, roughly half the catalogue needs removing.
+1. ~~**Does the company still do small-format printing?**~~ **Resolved.**
+   42 commissioned product photos are all cardboard packaging. The invented
+   Printuri mari / Printuri mici categories are gone; `/servicii` is now the
+   real catalogue. If the company *does* also print small-format, that is now
+   a gap to fill rather than a claim to remove.
 2. **PNRR branding.** Funding rules require the EU / Government / PNRR logos
    in polychrome, in that order, visible without scrolling, plus the footer
    text, disclaimer and two links. The current full-bleed hero has no room —
