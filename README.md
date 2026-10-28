@@ -317,6 +317,67 @@ Two deliberate departures from the original, both flagged rather than silent:
 call `__audit()` on each route. It reports contrast failures with measured
 ratios, sub-14px body text, and undersized targets.
 
+## Content sources
+
+Copy and figures come from three client documents (not in the repo):
+*Prezentare generala SC Tipografia Almariones*, *Prezentare firma - descriere*
+and *Poze pe categorii web site*.
+
+Everything in `src/data/` that states a fact traces to one of them. The
+prototype had carried invented values, corrected on 2026-10-28:
+
+| Was | Now | Source |
+|---|---|---|
+| "15+ ani experiență" | founding year 1999 | registration date 01.11.1999 |
+| "Hellout", "Oliv" | Hella, Autoliv | client list |
+| "Almariones SRL" | SC Tipografia Almariones | both documents |
+| "Strada Tapiei FN" | Strada Tapiei nr. 49F | *Prezentare generala* |
+| Heidelberg / Roland presses | company figures | nowhere — invented |
+| "7 zone", "3.5t", "24h" | *still live on /b2b* | nowhere — invented |
+
+`yearsActive()` in `site.ts` computes age from the founding date so it cannot
+go stale, and increments on the anniversary rather than on 1 January. The hero
+shows the founding year instead, because until 01.11.2026 the computed age is
+also 26 and two identical numbers read as a bug.
+
+## No prices, deliberately
+
+`/comenzi` configures a **request**, not a quote. The tariffs it used to show
+were prototype placeholders; no document gives real ones, and invented prices
+are worse than none because a visitor treats them as binding.
+
+The page keeps the product/quantity/finish picker, then hands the selection to
+the contact form via router state, which pre-fills the subject and drafts the
+message. To restore pricing: add `pret` back to `QuantityTier` and the totals
+block in `pages/Comenzi.tsx`. Nothing else depends on it.
+
+## Open questions for the client
+
+Blocking, in rough priority:
+
+1. **Does the company still do small-format printing?** The documents say
+   printing was the business 1999–2002 only, and that it now makes
+   *"ambalaje si cutii din carton"*. All 20 product photos are cardboard. But
+   the site still sells **Printuri mari** (bannere, roll-up, viniluri) and
+   **Printuri mici** (cărți de vizită, broșuri, calendare), plus pungi,
+   plicuri, etichete, folii and tuburi under Ambalaje. If those are not real
+   services, roughly half the catalogue needs removing.
+2. **PNRR branding.** Funding rules require the EU / Government / PNRR logos
+   in polychrome, in that order, visible without scrolling, plus the footer
+   text, disclaimer and two links. The current full-bleed hero has no room —
+   this needs a hero redesign, and the logo files plus the programme's
+   Facebook URL.
+3. **Permission to name clients.** The documents list 17; the site shows 4.
+4. **Delivery claims on /b2b** (3.5t fleet, 7 zones, weekly routes, 24h) have
+   no source and are still live. Left untouched rather than invented away.
+5. **Product photography.** The 20 existing shots are usable but were taken on
+   an office desk with visible clutter. The brief also asks for exterior,
+   interior static and interior dynamic shots, none of which exist yet.
+6. **Pizza box photos (19–20)** carry other businesses' branding.
+
+Not for the website: the banking details in *Prezentare generala* (Unicredit,
+Alpha Bank, CEC, overdraft facility) are internal background only.
+
 ## Known gaps
 
 - The contact form validates and shows a success state but sends nothing. Wire

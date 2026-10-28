@@ -59,7 +59,7 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.35, ease: EASE }}
               >
                 <Link to="/comenzi" className="btn btn--ghost-dark">
-                  Calculator preț
+                  Cere o ofertă
                 </Link>
                 <Link to="/servicii" className="btn btn--accent">
                   Vezi serviciile
@@ -222,7 +222,7 @@ export default function Home() {
             >
               <p className="section-label">Gata să începem?</p>
               <div className="divider" />
-              <h2>Calculează prețul sau cere o ofertă personalizată</h2>
+              <h2>Spune-ne ce ai nevoie și revenim cu o ofertă</h2>
             </motion.div>
 
             <motion.div
@@ -233,7 +233,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
             >
               <Link to="/comenzi" className="btn btn--accent">
-                Calculator preț
+                Cere o ofertă
               </Link>
               <Link to="/contact" className="btn btn--outline-dark">
                 Contactează-ne

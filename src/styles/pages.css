@@ -92,6 +92,116 @@
   color: var(--paper);
 }
 
+/* --- Timeline (Despre noi) --------------------------------------------
+   A rail with a node per milestone. The rail is drawn on the <ol>, not on
+   each <li>, so it cannot drift out of alignment with the markers.
+   -------------------------------------------------------------------- */
+
+.timeline {
+  position: relative;
+  list-style: none;
+  padding-left: 2.25rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 7px;
+  width: 2px;
+  background: var(--light);
+}
+
+.timeline__item {
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+.timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline__marker {
+  position: absolute;
+  top: 0.45rem;
+  left: -2.25rem;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--paper-warm);
+  border-radius: 50%;
+  background: var(--accent-dark);
+}
+/* Each milestone picks up a logo colour, matching the numbered values list */
+.timeline__item:nth-child(2) .timeline__marker {
+  background: var(--accent-2-text);
+}
+.timeline__item:nth-child(3) .timeline__marker {
+  background: var(--accent-3-text);
+}
+.timeline__item:nth-child(4) .timeline__marker {
+  background: var(--ink);
+}
+
+/* The timeline sits on --paper-warm, where --accent-dark is only 4.16:1.
+   The darker step clears 4.5:1 — same reason .section-label uses it. */
+.timeline__an {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-darker);
+}
+.timeline__item:nth-child(2) .timeline__an {
+  color: var(--accent-2-text);
+}
+.timeline__item:nth-child(3) .timeline__an {
+  color: var(--accent-3-text);
+}
+.timeline__item:nth-child(4) .timeline__an {
+  color: var(--ink);
+}
+
+.timeline__titlu {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.timeline__text {
+  max-width: 62ch;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--mid);
+}
+
+@media (min-width: 900px) {
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-left: 0;
+  }
+  .timeline::before {
+    top: 7px;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 2px;
+  }
+  .timeline__item {
+    padding-bottom: 0;
+    padding-top: 2.5rem;
+  }
+  .timeline__marker {
+    top: 0;
+    left: 0;
+  }
+  .timeline__text {
+    font-size: 0.9rem;
+  }
+}
+
 /* ==================================================== Servicii ========== */
 
 .tabs {
@@ -431,6 +541,19 @@
   margin-bottom: 1.25rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--on-ink-line);
+}
+.calc__summary-label {
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--on-ink-muted);
+}
+.calc__summary {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--paper);
 }
 .calc__total-row {
   display: flex;

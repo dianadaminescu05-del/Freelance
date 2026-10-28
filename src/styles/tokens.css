@@ -27,7 +27,7 @@
   --accent-dark-rgb: 0 122 163;
   --accent-darker-rgb: 0 107 143;
   --accent-2-text-rgb: 197 22 107;
-  --accent-3-text-rgb: 137 108 0;
+  --accent-3-text-rgb: 129 102 0;
 
   /* Neutrals */
   --ink: rgb(var(--ink-rgb));
@@ -53,7 +53,8 @@
      for the hover/active magenta tint underneath it (4.62:1 there). */
   --accent-2-text: rgb(var(--accent-2-text-rgb));
   /* Brand yellow is 1.56:1 on --paper — unusable as text. Same hue darkened
-     to 4.66:1 on --paper, 4.99:1 on white. */
+     until it clears 4.5:1 on every light ground it lands on: 5.12:1 on
+     --paper, 4.68:1 on the darker --paper-warm, 5.5:1 on white. */
   --accent-3-text: rgb(var(--accent-3-text-rgb));
   --accent-on-ink: rgb(var(--accent-4-rgb)); /* accent text on --ink: 8.25:1 */
 

@@ -1,4 +1,5 @@
 import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AlertCircle, Check, Mail, MapPin, MessageCircle, MessagesSquare, Phone } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import { CONTACT_SUBJECTS } from '../data/content';
@@ -40,7 +41,9 @@ function validate(form: FormState): Errors {
 }
 
 export default function Contact() {
-  const [form, setForm] = useState<FormState>(EMPTY);
+  // Comenzi hands over the configured request so nothing is retyped.
+  const handover = useLocation().state as Partial<FormState> | null;
+  const [form, setForm] = useState<FormState>({ ...EMPTY, ...handover });
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
   const [sent, setSent] = useState(false);

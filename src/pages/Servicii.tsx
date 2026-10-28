@@ -119,9 +119,9 @@ export default function Servicii() {
       {/* -------------------------------------------------------------- CTA */}
       <section className="section--accent" style={{ padding: '4rem 0' }}>
         <div className="container cta-strip cta-strip--accent">
-          <h2>Calculează prețul acum</h2>
+          <h2>Cere o ofertă pentru proiectul tău</h2>
           <Link to="/comenzi" className="btn btn--on-accent">
-            Calculator preț
+            Cere o ofertă
             <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
           </Link>
         </div>

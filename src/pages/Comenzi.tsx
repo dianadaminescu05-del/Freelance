@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import { PRODUCTS, PRODUCT_CATEGORIES } from '../data/content';
 import { SITE } from '../data/site';
 
-const TABLE_HEADERS = ['Produs', 'Categorie', 'Cant. bază', 'Preț de la', ''];
+const TABLE_HEADERS = ['Produs', 'Categorie', 'Cantitate uzuală', ''];
 
 export default function Comenzi() {
   const [category, setCategory] = useState('Toate');
@@ -23,11 +23,8 @@ export default function Comenzi() {
     [category],
   );
 
-  const basePrice = tier.pret + (finish?.surcharge ?? 0);
   const typedQty = parseInt(customQty, 10) || 0;
-  const hasCustomQty = Boolean(customQty) && typedQty > 0;
-  const price = hasCustomQty ? Math.round(basePrice * (typedQty / tier.cant)) : basePrice;
-  const quantity = hasCustomQty ? typedQty : tier.cant;
+  const quantity = typedQty > 0 ? typedQty : tier.cant;
 
   const selectProduct = (id: string) => {
     setProductId(id);
@@ -36,12 +33,23 @@ export default function Comenzi() {
     setCustomQty('');
   };
 
+  // Handed to the contact form so the visitor does not retype the choices.
+  const requestDraft = [
+    `Produs: ${product.nume}`,
+    `Cantitate: ${quantity.toLocaleString('ro-RO')} ${product.unitMeasure}`,
+    finish ? `Finisaj: ${finish}` : null,
+    '',
+    'Detalii suplimentare (dimensiuni, grafică, termen dorit):',
+  ]
+    .filter((line) => line !== null)
+    .join('\n');
+
   return (
     <>
       <PageHero
-        title="Comenzi online"
-        breadcrumb="Comenzi online"
-        subtitle="Selectează produsul și cantitatea pentru un preț estimativ. Comanda finală se confirmă prin contact direct."
+        title="Cere o ofertă"
+        breadcrumb="Cere o ofertă"
+        subtitle="Alege produsul și cantitatea, iar noi revenim cu un preț. Fiecare comandă se calculează în funcție de dimensiuni, material și tiraj."
       />
 
       <section className="page-section section--paper" style={{ paddingTop: '2.5rem' }}>
@@ -90,9 +98,8 @@ export default function Comenzi() {
                           </td>
                           <td className="cell-cat">{p.categorie}</td>
                           <td className="cell-qty">
-                            {p.tiers[0].cant} {p.unitMeasure}
+                            de la {p.tiers[0].cant.toLocaleString('ro-RO')} {p.unitMeasure}
                           </td>
-                          <td className="cell-price">{p.tiers[0].pret} RON</td>
                           <td>
                             <button
                               type="button"
@@ -103,9 +110,7 @@ export default function Comenzi() {
                                 selectProduct(p.id);
                               }}
                             >
-                              {selected && (
-                                <Check size={13} strokeWidth={3} aria-hidden="true" />
-                              )}
+                              {selected && <Check size={13} strokeWidth={3} aria-hidden="true" />}
                               {selected ? 'Selectat' : 'Selectează'}
                               <span className="sr-only"> {p.nume}</span>
                             </button>
@@ -118,9 +123,9 @@ export default function Comenzi() {
               </div>
             </div>
 
-            {/* -------------------------------------------------- Calculator */}
+            {/* --------------------------------------------- Request builder */}
             <aside className="calc">
-              <p className="calc__eyebrow">Calculator preț</p>
+              <p className="calc__eyebrow">Cererea ta</p>
               <h3>{product.nume}</h3>
 
               <div className="calc__field">
@@ -139,7 +144,7 @@ export default function Comenzi() {
                           setCustomQty('');
                         }}
                       >
-                        {t.cant}
+                        {t.cant.toLocaleString('ro-RO')}
                         <span className="sr-only"> {product.unitMeasure}</span>
                       </button>
                     );
@@ -173,9 +178,8 @@ export default function Comenzi() {
                     onChange={(e) => setFinishIndex(parseInt(e.target.value, 10))}
                   >
                     {product.finisaje.map((f, i) => (
-                      <option key={f.label} value={i} style={{ background: '#111', color: '#fff' }}>
-                        {f.label}
-                        {f.surcharge > 0 ? ` (+${f.surcharge} RON)` : ''}
+                      <option key={f} value={i} style={{ background: '#111', color: '#fff' }}>
+                        {f}
                       </option>
                     ))}
                   </select>
@@ -183,26 +187,24 @@ export default function Comenzi() {
               )}
 
               <div className="calc__total">
-                <div className="calc__total-row">
-                  <span>Preț estimativ</span>
-                  <span>
-                    {quantity} {product.unitMeasure}
-                  </span>
-                </div>
-                {/* The price changes on every control above it; without a live
-                    region a screen-reader user hears nothing when it moves. */}
-                <p className="calc__price" aria-live="polite">
-                  <span className="sr-only">
-                    {product.nume}, {quantity} {product.unitMeasure}:{' '}
-                  </span>
-                  {price.toLocaleString('ro-RO')}
-                  <small>RON</small>
+                <p className="calc__summary-label">Rezumat</p>
+                <p className="calc__summary" aria-live="polite">
+                  {quantity.toLocaleString('ro-RO')} {product.unitMeasure}
+                  {finish ? ` · ${finish}` : ''}
                 </p>
-                <p className="calc__disclaimer">* fără TVA · preț orientativ</p>
+                <p className="calc__disclaimer">
+                  Prețul depinde de dimensiuni, material și tiraj — îl stabilim după ce vedem
+                  cerința.
+                </p>
               </div>
 
-              <Link to="/contact" className="btn btn--accent btn--block">
-                Trimite cerere de ofertă
+              <Link
+                to="/contact"
+                state={{ produs: product.subject, mesaj: requestDraft }}
+                className="btn btn--accent btn--block"
+              >
+                Continuă cererea
+                <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
               </Link>
               <p className="calc__phone">
                 sau sună <a href={SITE.phoneHref}>{SITE.phone}</a>

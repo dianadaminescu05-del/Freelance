@@ -2,12 +2,17 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageHero from '../components/PageHero';
 import { EASE, fadeUpLarge, inViewOnce } from '../components/motion';
-import { CAPABILITIES, VALUES } from '../data/content';
+import { CAPABILITIES, TIMELINE, VALUES } from '../data/content';
+import { SITE, yearsActive } from '../data/site';
 
 export default function DespreNoi() {
   return (
     <>
-      <PageHero title="Despre noi" breadcrumb="Despre noi" />
+      <PageHero
+        title="Despre noi"
+        breadcrumb="Despre noi"
+        subtitle={`Producem ambalaje și cutii din carton în Lugoj de ${yearsActive()} de ani.`}
+      />
 
       {/* ---------------------------------------------------------- Story */}
       <section className="page-section section--paper">
@@ -22,20 +27,24 @@ export default function DespreNoi() {
               <p className="section-label">Povestea noastră</p>
               <div className="divider" />
               <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', marginBottom: '1.75rem' }}>
-                O tipografie cu rădăcini în Lugoj
+                De la tiparniță la hala de ambalaje
               </h2>
               <p className="lead" style={{ marginBottom: '1.25rem' }}>
-                De peste 15 ani, Almariones este partenerul de încredere al companiilor din vestul
-                României pentru tipăritură de calitate și ambalaje personalizate.
+                {SITE.legalName} a fost înființată în 1999, cu capital privat românesc 100%. În
+                primii trei ani am tipărit documente, cărți, registre și reviste — iar din 2002 ne-am
+                orientat către ceea ce facem și astăzi: prelucrarea hârtiei și a cartonului.
               </p>
               <p className="lead">
-                Începând ca o mică tipografie locală, astăzi deservim companii din 7 județe, inclusiv
-                multinaționale cu standarde ridicate de calitate.
+                Astăzi producem ambalaje și cutii din carton pentru clienți care merg de la firme
+                mici de familie până la companii multinaționale. Livrăm ambalaje pentru 85% dintre
+                pizzeriile din Lugoj, dar și în Caransebeș, Oțelul Roșu și Timișoara.
               </p>
 
               <div className="callout">
-                <p style={{ fontStyle: 'italic' }}>
-                  * Textul de prezentare urmează să fie sincronizat cu clientul.
+                <p>
+                  <strong style={{ color: 'var(--ink)' }}>Oportunități fructificate.</strong>{' '}
+                  Creșterea constantă a cifrei de afaceri a venit din investiții în mijloacele de
+                  producție și în logistică — nu din promisiuni.
                 </p>
               </div>
             </motion.div>
@@ -61,7 +70,42 @@ export default function DespreNoi() {
         </div>
       </section>
 
-      {/* --------------------------------------------------- Capabilities */}
+      {/* ------------------------------------------------------- Timeline */}
+      <section className="page-section section--paper-warm">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="section-label">Etape</p>
+            <div className="divider" />
+            <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', marginBottom: '3rem' }}>
+              Cum am ajuns aici
+            </h2>
+          </motion.div>
+
+          <ol className="timeline">
+            {TIMELINE.map((t, i) => (
+              <motion.li
+                key={t.an}
+                className="timeline__item"
+                custom={i}
+                variants={fadeUpLarge}
+                {...inViewOnce}
+              >
+                <div className="timeline__marker" aria-hidden="true" />
+                <div className="timeline__an">{t.an}</div>
+                <h3 className="timeline__titlu">{t.titlu}</h3>
+                <p className="timeline__text">{t.text}</p>
+              </motion.li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------- The company */}
       <section className="page-section section--ink">
         <div className="container">
           <motion.div
@@ -70,9 +114,9 @@ export default function DespreNoi() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="section-label">Capacități tehnice</p>
+            <p className="section-label">Societatea în cifre</p>
             <div className="divider" style={{ margin: '1rem 0 2.5rem' }} />
-            <h2 className="heading-dark">Echipamente profesionale, rezultate de excepție</h2>
+            <h2 className="heading-dark">O afacere locală, construită pas cu pas</h2>
           </motion.div>
 
           <div className="capability-grid">
@@ -94,7 +138,7 @@ export default function DespreNoi() {
 
       {/* ------------------------------------------------------------ CTA */}
       <motion.section
-        className="section--paper-warm"
+        className="section--paper"
         style={{ padding: '4rem 0' }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -104,7 +148,7 @@ export default function DespreNoi() {
         <div className="container cta-strip">
           <div>
             <h2>Vrei să colaborăm?</h2>
-            <p>Contactează-ne pentru o discuție despre nevoile tale.</p>
+            <p>Spune-ne ce ai nevoie și revenim cu o ofertă.</p>
           </div>
           <Link to="/contact" className="btn btn--primary" style={{ whiteSpace: 'nowrap' }}>
             Trimite o cerere

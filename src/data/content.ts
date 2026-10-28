@@ -50,46 +50,90 @@ export const SERVICE_CARDS: ServiceCard[] = [
   },
 ];
 
-export const PARTNER_LOGOS = ['Hellout', 'Oliv', 'Mondial', 'Honeywell'];
+/* Client names exactly as written in "Prezentare generala". The site
+   previously showed "Hellout" and "Oliv", which match no company in any
+   document — almost certainly garbled Hella and Autoliv. */
+export const PARTNER_LOGOS = ['Honeywell', 'Hella', 'Autoliv', 'Mondial'];
 
+/* Each figure traces to a source document:
+   - years  : founding date 01.11.1999, computed so it cannot go stale
+   - 26     : "Nr. angajati actuali: 26" (Prezentare firma)
+   - 85%    : "livreaza ambalaje pentru 85% dintre pizzeriile din Lugoj"
+   The previous values (15+ years, 12+ categories, 7 delivery zones) had no
+   source and understated the company's age by more than a decade. */
 export const HERO_STATS = [
-  { n: '15+', l: 'ani\nexperiență' },
-  { n: '12+', l: 'categorii\nambalaje' },
-  { n: '7', l: 'zone de\nlivrare' },
+  // Founding year rather than a computed age: until 01.11.2026 the age is
+  // also 26, and two identical numbers side by side read as a bug. The
+  // computed figure is still used in the Despre noi subtitle.
+  { n: '1999', l: 'anul\nînființării' },
+  { n: '26', l: 'angajați\nîn producție' },
+  { n: '85%', l: 'din pizzeriile\ndin Lugoj' },
 ];
 
 /* ----------------------------------------------------------- Despre noi */
 
+/* Rewritten from the company's own words in "Prezentare firma":
+   "respect pentru parteneri, indeplinirea in termen si la standarde de
+   calitate a tuturor comenzilor" and "eficienta, siguranta calitatii,
+   respectarea termenilor de livrare". */
 export const VALUES = [
   {
     n: '01',
-    titlu: 'Calitate certificată',
-    text: 'Materiale premium, cerneală de ultimă generație și control strict al calității la fiecare tiraj.',
+    titlu: 'Respect pentru parteneri',
+    text: 'Clienții noștri sunt tratați cu seriozitate, de la firme mici până la companii multinaționale. Majoritatea revin cu contracte noi.',
   },
   {
     n: '02',
     titlu: 'Termene respectate',
-    text: 'Planificăm producția pentru ca fiecare comandă să ajungă exact când ai nevoie.',
+    text: 'Respectarea termenelor de livrare este criteriul după care ne organizăm producția, nu o promisiune de marketing.',
   },
   {
     n: '03',
-    titlu: 'Relații pe termen lung',
-    text: 'Lucrăm cu multinaționale din regiune și construim parteneriate bazate pe încredere.',
+    titlu: 'Siguranța calității',
+    text: 'Fiecare comandă este executată la standardele de calitate convenite cu partenerul, indiferent de volum.',
   },
   {
     n: '04',
-    titlu: 'Flexibilitate totală',
-    text: 'Tiraje mici sau mari, formate standard sau personalizate — ne adaptăm nevoilor tale.',
+    titlu: 'Eficiență',
+    text: 'Investiția constantă în mijloacele de producție și în logistică ne permite randamente bune și costuri previzibile.',
   },
 ];
 
+/* Company history, from "Prezentare generala" and "Prezentare firma".
+   Replaces the placeholder note that was live on Despre noi. */
+export const TIMELINE = [
+  {
+    an: '1999',
+    titlu: 'Înființarea societății',
+    text: 'SC Tipografia Almariones ia ființă la 1 noiembrie, cu capital privat românesc 100% și trei angajați. Obiectul de activitate: tipărirea de documente, cărți, registre și reviste, monocolor și color.',
+  },
+  {
+    an: '2002',
+    titlu: 'Trecerea la ambalaje',
+    text: 'Administratorul Baboniu Marius decide diversificarea activității către prelucrarea hârtiei și a cartonului, prin execuția de ambalaje din aceste materiale.',
+  },
+  {
+    an: '2006',
+    titlu: 'Hală proprie',
+    text: 'După patru ani într-un spațiu închiriat, societatea concesionează teren în zona industrială a Lugojului și își construiește hala proprie pe strada Tapiei nr. 49F, unde își desfășoară activitatea și astăzi.',
+  },
+  {
+    an: 'Azi',
+    titlu: 'Creștere constantă',
+    text: 'De la trei la 26 de angajați pe 14 posturi distincte, cu investiții constante în mijloacele de producție și în aria logistică, și contracte de la firme mici până la multinaționale.',
+  },
+];
+
+/* Replaces a list of equipment brands (Heidelberg, Roland, UV finishing,
+   24h runs, Pantone) that appears in none of the source documents. Every
+   entry below comes from "Prezentare firma" or "Prezentare generala". */
 export const CAPABILITIES = [
-  { val: 'Heidelberg', label: 'prese offset' },
-  { val: 'Roland', label: 'mașini de tipar' },
-  { val: 'UV + Laminare', label: 'finisaje' },
-  { val: '24h', label: 'tiraj urgent' },
-  { val: 'CMYK + Pantone', label: 'sisteme culoare' },
-  { val: 'Stanțare & Biguire', label: 'prelucrare mecanică' },
+  { val: '1999', label: 'anul înființării' },
+  { val: '100%', label: 'capital privat românesc' },
+  { val: 'Hală proprie', label: 'construită în 2006' },
+  { val: '3 → 26', label: 'creștere a echipei' },
+  { val: '14', label: 'posturi distincte' },
+  { val: 'Carton & hârtie', label: 'prelucrare integrală' },
 ];
 
 /* -------------------------------------------------------------- Servicii */
@@ -154,16 +198,30 @@ export const FINISHES = [
 
 /* --------------------------------------------------------------- Comenzi */
 
-export type PriceTier = { cant: number; pret: number };
-export type Finish = { label: string; surcharge: number };
+/**
+ * No prices here, deliberately.
+ *
+ * The figures that used to sit in this file (45 RON for 100 business cards,
+ * and so on) were placeholders carried over from the prototype — no source
+ * document gives real tariffs. Publishing invented prices is worse than
+ * publishing none: a visitor reasonably treats them as a quote.
+ *
+ * So the page configures a REQUEST rather than computing a total. Restore
+ * pricing by adding `pret` back to the tiers once the client supplies real
+ * ones; the UI changes needed are isolated to pages/Comenzi.tsx.
+ */
+export type QuantityTier = { cant: number };
 
 export type Product = {
   id: string;
   nume: string;
   categorie: string;
   unitMeasure: string;
-  tiers: PriceTier[];
-  finisaje?: Finish[];
+  /** Common order sizes, offered as shortcuts — not price breaks. */
+  tiers: QuantityTier[];
+  finisaje?: string[];
+  /** Pre-selects the matching option on the contact form. */
+  subject: string;
 };
 
 export const PRODUCTS: Product[] = [
@@ -172,119 +230,69 @@ export const PRODUCTS: Product[] = [
     nume: 'Cărți de vizită',
     categorie: 'Printuri mici',
     unitMeasure: 'buc',
-    tiers: [
-      { cant: 100, pret: 45 },
-      { cant: 250, pret: 85 },
-      { cant: 500, pret: 140 },
-      { cant: 1000, pret: 200 },
-    ],
-    finisaje: [
-      { label: 'Standard luciu', surcharge: 0 },
-      { label: 'Mat UV', surcharge: 20 },
-      { label: 'Soft-touch', surcharge: 35 },
-    ],
+    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
+    finisaje: ['Standard luciu', 'Mat UV', 'Soft-touch'],
+    subject: 'Cărți de vizită',
   },
   {
     id: 'fl',
     nume: 'Fluturași A5',
     categorie: 'Printuri mici',
     unitMeasure: 'buc',
-    tiers: [
-      { cant: 500, pret: 80 },
-      { cant: 1000, pret: 120 },
-      { cant: 2500, pret: 220 },
-      { cant: 5000, pret: 350 },
-    ],
-    finisaje: [
-      { label: 'Față simplu', surcharge: 0 },
-      { label: 'Față-verso', surcharge: 30 },
-    ],
+    tiers: [{ cant: 500 }, { cant: 1000 }, { cant: 2500 }, { cant: 5000 }],
+    finisaje: ['Față simplu', 'Față-verso'],
+    subject: 'Fluturași / Flyer-e',
   },
   {
     id: 'brosuri',
     nume: 'Broșuri A4 bi-fold',
     categorie: 'Printuri mici',
     unitMeasure: 'buc',
-    tiers: [
-      { cant: 100, pret: 120 },
-      { cant: 250, pret: 220 },
-      { cant: 500, pret: 360 },
-      { cant: 1000, pret: 580 },
-    ],
-    finisaje: [
-      { label: 'Hârtie 115g', surcharge: 0 },
-      { label: 'Hârtie 150g', surcharge: 25 },
-    ],
+    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
+    finisaje: ['Hârtie 115g', 'Hârtie 150g'],
+    subject: 'Broșuri / Cataloage',
   },
   {
     id: 'banner',
     nume: 'Banner flex exterior',
     categorie: 'Printuri mari',
     unitMeasure: 'm²',
-    tiers: [
-      { cant: 1, pret: 35 },
-      { cant: 5, pret: 30 },
-      { cant: 10, pret: 26 },
-      { cant: 25, pret: 22 },
-    ],
+    tiers: [{ cant: 1 }, { cant: 5 }, { cant: 10 }, { cant: 25 }],
+    subject: 'Bannere / Printuri mari',
   },
   {
     id: 'rollup',
     nume: 'Roll-up 85cm',
     categorie: 'Printuri mari',
     unitMeasure: 'buc',
-    tiers: [
-      { cant: 1, pret: 180 },
-      { cant: 3, pret: 165 },
-      { cant: 5, pret: 150 },
-    ],
+    tiers: [{ cant: 1 }, { cant: 3 }, { cant: 5 }],
+    subject: 'Bannere / Printuri mari',
   },
   {
     id: 'cutii',
     nume: 'Cutii personalizate',
     categorie: 'Ambalaje',
     unitMeasure: 'buc',
-    tiers: [
-      { cant: 100, pret: 200 },
-      { cant: 250, pret: 380 },
-      { cant: 500, pret: 650 },
-      { cant: 1000, pret: 1100 },
-    ],
-    finisaje: [
-      { label: 'Offset standard', surcharge: 0 },
-      { label: '+ Laminare mat', surcharge: 60 },
-      { label: '+ Laminare luciu', surcharge: 50 },
-      { label: '+ UV selectiv', surcharge: 90 },
-    ],
+    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
+    finisaje: ['Offset standard', 'Laminare mat', 'Laminare luciu', 'UV selectiv'],
+    subject: 'Ambalaje personalizate',
   },
   {
     id: 'etichete',
     nume: 'Etichete adezive',
     categorie: 'Ambalaje',
     unitMeasure: 'buc',
-    tiers: [
-      { cant: 500, pret: 90 },
-      { cant: 1000, pret: 150 },
-      { cant: 2500, pret: 290 },
-      { cant: 5000, pret: 480 },
-    ],
-    finisaje: [
-      { label: 'Mat', surcharge: 0 },
-      { label: 'Luciu', surcharge: 10 },
-      { label: 'Transparent', surcharge: 20 },
-    ],
+    tiers: [{ cant: 500 }, { cant: 1000 }, { cant: 2500 }, { cant: 5000 }],
+    finisaje: ['Mat', 'Luciu', 'Transparent'],
+    subject: 'Etichete adezive',
   },
   {
     id: 'pungi',
     nume: 'Pungi hârtie kraft',
     categorie: 'Ambalaje',
     unitMeasure: 'buc',
-    tiers: [
-      { cant: 100, pret: 80 },
-      { cant: 250, pret: 160 },
-      { cant: 500, pret: 270 },
-      { cant: 1000, pret: 450 },
-    ],
+    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
+    subject: 'Ambalaje simple / albe',
   },
 ];
 
@@ -309,11 +317,14 @@ export const FLEET_STATS = [
   { val: '24h', label: 'livrare urgentă' },
 ];
 
+/* Names corrected against "Prezentare generala". The document lists 17
+   clients in total; this stays at four pending permission to publish the
+   rest — see the note in README under "Open questions". */
 export const PARTNERS = [
-  { nume: 'Hellout', sector: 'Producție' },
-  { nume: 'Oliv', sector: 'Alimentar' },
-  { nume: 'Mondial', sector: 'Distribuție' },
   { nume: 'Honeywell', sector: 'Industrial' },
+  { nume: 'Hella', sector: 'Automotive' },
+  { nume: 'Autoliv', sector: 'Automotive' },
+  { nume: 'Mondial', sector: 'Materiale de construcții' },
 ];
 
 export const B2B_BENEFITS = [
