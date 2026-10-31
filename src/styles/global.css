@@ -359,7 +359,7 @@ svg {
   position: relative;
   overflow: hidden;
   background: var(--ink);
-  padding-top: calc(var(--nav-height) + 2.5rem);
+  padding-top: calc(var(--header-height) + 2.5rem);
   padding-bottom: 5rem;
 }
 .page-hero h1 {
@@ -407,6 +407,8 @@ svg {
 @media (max-width: 640px) {
   :root {
     --container-pad: 1.25rem;
+    /* The emblem strip wraps to two rows here, so content must clear more. */
+    --header-height: calc(var(--nav-height) + var(--pnrr-height-mobile));
   }
   /* Keep the fixed WhatsApp button from covering the end of the page. */
   main {
@@ -416,7 +418,7 @@ svg {
     padding: 3.5rem 0;
   }
   .page-hero {
-    padding-top: calc(var(--nav-height) + 1.75rem);
+    padding-top: calc(var(--header-height) + 1.75rem);
     padding-bottom: 3rem;
   }
 }

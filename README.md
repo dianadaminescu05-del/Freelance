@@ -364,6 +364,51 @@ Interaction notes:
 - Home card counts derive from `PRODUSE`, so a card cannot claim a range the
   catalogue does not contain.
 
+## PNRR funding visibility
+
+The project is PNRR-funded, which carries mandatory publicity rules.
+
+**Top of every page** (`components/PnrrLogos.tsx` → `PnrrBar`, rendered
+inside the fixed header above the nav): the EU emblem with the "Finanțat de
+Uniunea Europeană / NextGenerationEU" wording, then the Government of
+Romania emblem, then the PNRR logo — **in that order, polychrome, visible
+without scrolling.** That last constraint is why the strip lives in the
+fixed header rather than in page flow.
+
+On screens ≤640px the three do not fit on one line. The strip wraps to two
+rows rather than scrolling horizontally, because a horizontally scrolled
+third emblem is exactly the "needs scrolling" case the rule forbids.
+`--header-height` grows to match so nothing hides behind it.
+
+**Footer** (`PnrrNotice`): the slogan "PNRR. Finanțat de Uniunea Europeană –
+UrmătoareaGenerațieUE", the disclaimer, and the programme links.
+
+### Missing assets — the bar is not yet compliant
+
+Only the EU emblem is in place, and it is **drawn to the published geometric
+spec** (`public/pnrr/ue.svg`: 3:2 field, Reflex Blue, 12 gold stars on a
+circle of radius H/3, star circumradius H/18), not the official file.
+
+Still needed, dropped into `public/pnrr/`:
+
+| File | What |
+|---|---|
+| `guvern.svg` | Government of Romania emblem |
+| `pnrr.svg` | PNRR logo |
+| `ue.svg` | optional — replace with the official NextGenerationEU lockup |
+
+Source: **"Pachet logo-uri PNRR"** on <https://mfe.gov.ro/pnrr/>, together
+with the 2024 Manual de Identitate Vizuală, which sets sizing and spacing.
+Use that kit rather than assembling emblems from elsewhere — it carries the
+approved Romanian wording and the correct Government variant.
+
+Until the files exist, each slot renders a red dashed placeholder. That is
+deliberate: a missing mandatory emblem is a compliance failure and should
+look broken rather than disappear quietly.
+
+`SITE.pnrrFacebook` is empty, so the Facebook link is omitted rather than
+guessed. Fill it in and the link appears.
+
 ## Content sources
 
 Copy and figures come from three client documents (not in the repo):
@@ -407,11 +452,16 @@ Blocking, in rough priority:
    Printuri mari / Printuri mici categories are gone; `/servicii` is now the
    real catalogue. If the company *does* also print small-format, that is now
    a gap to fill rather than a claim to remove.
-2. **PNRR branding.** Funding rules require the EU / Government / PNRR logos
-   in polychrome, in that order, visible without scrolling, plus the footer
-   text, disclaimer and two links. The current full-bleed hero has no room —
-   this needs a hero redesign, and the logo files plus the programme's
-   Facebook URL.
+2. **PNRR branding — built, two files short.** The bar, footer notice,
+   ordering and placement are done. Still needed: `guvern.svg` and
+   `pnrr.svg` from the official kit, and the programme's Facebook URL.
+   See "PNRR funding visibility" above.
+3. **The company does offer small-format printing after all.** A poster
+   photographed in their own facility (`Servicii.JPG` in the client folder)
+   advertises *Servicii tipărire*: Logo, Flyers, Cărți de vizită, Broșuri,
+   Postere, Calendare, Banner. The catalogue currently covers packaging
+   only, because that is all that was photographed. These services need
+   adding back — as a services list, not a photo catalogue.
 3. **Permission to name clients.** The documents list 17; the site shows 4.
 4. **Delivery claims on /b2b** (3.5t fleet, 7 zones, weekly routes, 24h) have
    no source and are still live. Left untouched rather than invented away.

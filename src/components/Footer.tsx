@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import { PnrrNotice } from './PnrrLogos';
 import { FOOTER_PRODUCTS, NAV_ITEMS, SITE } from '../data/site';
 
 export default function Footer() {
@@ -50,6 +51,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        <PnrrNotice facebookUrl={SITE.pnrrFacebook || undefined} />
 
         <div className="footer-bottom">
           <p>

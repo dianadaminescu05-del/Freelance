@@ -74,6 +74,11 @@
 
   /* Layout */
   --nav-height: 64px;
+  /* Mandatory PNRR emblem strip, stacked above the nav inside the fixed
+     header. --header-height is what page content must clear. */
+  --pnrr-height: 52px;
+  --pnrr-height-mobile: 74px;
+  --header-height: calc(var(--nav-height) + var(--pnrr-height));
   --container: 1200px;
   --container-pad: 2.5rem;
   --radius: 8px;

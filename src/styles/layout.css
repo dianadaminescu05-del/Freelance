@@ -127,7 +127,8 @@
   }
   .nav-links {
     position: absolute;
-    top: var(--nav-height);
+    /* Below the nav row, which the emblem strip has pushed down. */
+    top: var(--header-height);
     left: 0;
     right: 0;
     flex-direction: column;
@@ -320,4 +321,138 @@
     right: 1rem;
     bottom: 1rem;
   }
+}
+
+/* ---------------------------------------------------------------
+   PNRR funding visibility
+   --------------------------------------------------------------- */
+
+/* Emblem strip, above the nav inside the fixed header. The funding rules
+   require the marks polychrome and visible without scrolling, so this is
+   a light band — the emblems are designed for white, not for --ink. */
+.pnrr-bar {
+  height: var(--pnrr-height);
+  background: #ffffff;
+  border-bottom: 1px solid var(--light);
+}
+
+.pnrr-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pnrr-bar__inner::-webkit-scrollbar {
+  display: none;
+}
+
+.pnrr-bar__eu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.pnrr-bar__eu-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.pnrr-bar__eu-text strong {
+  font-weight: 700;
+}
+
+.pnrr-slot {
+  height: 30px;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.pnrr-slot--flag {
+  /* The emblem is a flag: a hairline keeps it from bleeding into white. */
+  border: 1px solid rgb(var(--ink-rgb) / 0.12);
+}
+
+/* A missing mandatory emblem is a compliance failure — make it obvious
+   rather than letting it fail silently. */
+.pnrr-slot--missing {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.6rem;
+  border: 1px dashed #b3261e;
+  border-radius: 4px;
+  color: #b3261e;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* On a phone the three emblems do not fit on one line, and horizontal
+   scrolling would hide the third — which is exactly what the funding rule
+   forbids. The strip wraps to two rows instead: EU lockup, then the
+   Government and PNRR marks. */
+@media (max-width: 640px) {
+  .pnrr-bar {
+    height: var(--pnrr-height-mobile);
+  }
+  .pnrr-bar__inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 0.3rem 0.9rem;
+    overflow-x: visible;
+  }
+  .pnrr-slot {
+    height: 22px;
+  }
+  .pnrr-bar__eu-text {
+    font-size: 0.625rem;
+  }
+}
+
+/* --- Footer notice ----------------------------------------------------- */
+
+.pnrr-notice {
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--on-ink-line);
+}
+.pnrr-notice__slogan {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--on-ink-strong);
+}
+.pnrr-notice__disclaimer {
+  max-width: 68ch;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--on-ink-soft);
+}
+.pnrr-notice__links {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+}
+.pnrr-notice__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--accent-on-ink);
+  text-decoration: none;
+}
+.pnrr-notice__links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pnrr-notice__links span[aria-hidden] {
+  color: var(--on-ink-muted);
 }

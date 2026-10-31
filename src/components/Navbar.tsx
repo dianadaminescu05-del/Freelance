@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, Phone, X } from 'lucide-react';
 import Logo from './Logo';
+import { PnrrBar } from './PnrrLogos';
 import { NAV_ITEMS } from '../data/site';
 
 export default function Navbar() {
@@ -45,6 +46,10 @@ export default function Navbar() {
 
   return (
     <nav ref={navRef} className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}`}>
+      {/* Mandatory emblems sit above the nav, inside the fixed header, so
+          they are visible at the top of the screen without scrolling. */}
+      <PnrrBar />
+
       <div className="nav-inner">
         <Link to="/" className="nav-logo" aria-label="Almariones — acasă">
           <Logo size="sm" />

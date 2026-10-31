@@ -442,7 +442,7 @@
 /* Calculator panel */
 .calc {
   position: sticky;
-  top: calc(var(--nav-height) + 1rem);
+  top: calc(var(--header-height) + 1rem);
   z-index: var(--z-sticky);
   padding: 2rem;
   background: var(--ink);

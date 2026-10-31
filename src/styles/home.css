@@ -7,7 +7,7 @@
   min-height: min(94svh, 840px);
   overflow: hidden;
   background: var(--ink);
-  padding-top: var(--nav-height);
+  padding-top: var(--header-height);
 }
 
 /* ------------------------------------------------- Hero media panel ----
