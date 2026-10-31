@@ -25,11 +25,10 @@ export const SITE = {
   maps: 'https://maps.google.com/?q=Strada+Tapiei+49F+Lugoj',
   address: { street: 'Strada Tapiei nr. 49F', city: 'Lugoj', zip: '305500' },
   hours: 'Lu–Vi: 08:00–17:00',
-  /* PNRR requires a link to the programme's Facebook page alongside the
-     mfe.gov.ro link. The requirement document shows it behind a login
-     wall, so the URL is not yet known — the link is omitted until this is
-     filled in rather than guessed, since a wrong one is worse than none. */
-  pnrrFacebook: '',
+  /* From the Manual de Identitate Vizuală PNRR 2024, p.28 — the same
+     paragraph that sets the website rules, so this is the programme's own
+     stated page rather than a guess. */
+  pnrrFacebook: 'https://www.facebook.com/PNRROficial',
   blurb:
     'Ambalaje și cutii din carton, produse în Lugoj din 1999. Capital integral românesc, hală proprie și relații de lungă durată cu partenerii noștri.',
 } as const;

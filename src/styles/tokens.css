@@ -76,8 +76,14 @@
   --nav-height: 64px;
   /* Mandatory PNRR emblem strip, stacked above the nav inside the fixed
      header. --header-height is what page content must clear. */
-  --pnrr-height: 52px;
-  --pnrr-height-mobile: 74px;
+  /* Manual de Identitate Vizuală PNRR 2024, p.8:
+       - minimum logo size 1 cm, which is ~38px at 96dpi — 40px clears it
+       - spacing between logos at least 1x the EU logo's size; the EU
+         emblem is 3:2, so at 40px tall it is 60px wide, hence the gap */
+  --pnrr-logo-h: 40px;
+  --pnrr-gap: calc(var(--pnrr-logo-h) * 1.5);
+  --pnrr-height: 64px;
+  --pnrr-height-mobile: 104px;
   --header-height: calc(var(--nav-height) + var(--pnrr-height));
   --container: 1200px;
   --container-pad: 2.5rem;

@@ -339,7 +339,7 @@
 .pnrr-bar__inner {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--pnrr-gap);
   height: 100%;
   max-width: var(--container);
   margin: 0 auto;
@@ -370,7 +370,7 @@
 }
 
 .pnrr-slot {
-  height: 30px;
+  height: var(--pnrr-logo-h);
   width: auto;
   flex-shrink: 0;
   object-fit: contain;
@@ -406,11 +406,9 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-    gap: 0.3rem 0.9rem;
+    /* Row gap is tight; the column gap keeps the manual's 1x-EU-logo rule. */
+    gap: 0.4rem var(--pnrr-gap);
     overflow-x: visible;
-  }
-  .pnrr-slot {
-    height: 22px;
   }
   .pnrr-bar__eu-text {
     font-size: 0.625rem;

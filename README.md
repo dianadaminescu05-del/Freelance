@@ -383,31 +383,38 @@ third emblem is exactly the "needs scrolling" case the rule forbids.
 **Footer** (`PnrrNotice`): the slogan "PNRR. Finanțat de Uniunea Europeană –
 UrmătoareaGenerațieUE", the disclaimer, and the programme links.
 
-### Missing assets — the bar is not yet compliant
+### Sizing rules, from the manual
 
-Only the EU emblem is in place, and it is **drawn to the published geometric
-spec** (`public/pnrr/ue.svg`: 3:2 field, Reflex Blue, 12 gold stars on a
-circle of radius H/3, star circumradius H/18), not the official file.
+Manual de Identitate Vizuală PNRR 2024, p.8 — these are enforced in
+`tokens.css` rather than eyeballed:
 
-Still needed, dropped into `public/pnrr/`:
+| Rule | Manual | Implementation |
+|---|---|---|
+| Minimum logo size | 1 cm | `--pnrr-logo-h: 40px` (1cm ≈ 38px at 96dpi) |
+| Gap between logos | ≥ 1× the EU logo's size | `--pnrr-gap: calc(logo-h * 1.5)` — the emblem is 3:2, so 60px at 40px tall |
 
-| File | What |
+The first draft used 30px logos and 24px gaps; both were under the minimum.
+
+### Remaining asset
+
+| File | Status |
 |---|---|
-| `guvern.svg` | Government of Romania emblem |
-| `pnrr.svg` | PNRR logo |
-| `ue.svg` | optional — replace with the official NextGenerationEU lockup |
+| `ue.svg` | drawn to the published geometric spec (3:2, Reflex Blue, 12 gold stars on a circle of radius H/3) |
+| `guvern.svg` | **supplied by the client** — official RGB seal, viewBox tightened from a 3509×2480 page canvas to the artwork (it occupied 16% of it and rendered at a fraction of its slot) |
+| `pnrr.svg` | **still missing** → red dashed placeholder |
 
-Source: **"Pachet logo-uri PNRR"** on <https://mfe.gov.ro/pnrr/>, together
-with the 2024 Manual de Identitate Vizuală, which sets sizing and spacing.
-Use that kit rather than assembling emblems from elsewhere — it carries the
-approved Romanian wording and the correct Government variant.
+Sources:
+- **"Pachet logo-uri PNRR"** — <https://mfe.gov.ro/pnrr/>
+- Official Romanian NextGenerationEU emblem pack, if the auditor wants the
+  exact EU file rather than the spec-drawn one —
+  `ec.europa.eu/regional_policy/sources/information/logos_downloadcenter/nextgenerationeu_ro.zip`
 
-Until the files exist, each slot renders a red dashed placeholder. That is
-deliberate: a missing mandatory emblem is a compliance failure and should
-look broken rather than disappear quietly.
+A missing slot renders a conspicuous red dashed placeholder on purpose: a
+missing mandatory emblem is a compliance failure and should look broken
+rather than disappear quietly.
 
-`SITE.pnrrFacebook` is empty, so the Facebook link is omitted rather than
-guessed. Fill it in and the link appears.
+The Facebook URL (`https://www.facebook.com/PNRROficial`) comes from p.28 of
+the manual — the same paragraph that states the website rules.
 
 ## Content sources
 
