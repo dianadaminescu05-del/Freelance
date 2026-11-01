@@ -1,7 +1,8 @@
 import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { useLocation } from 'react-router-dom';
-import { AlertCircle, Check, Mail, MapPin, MessageCircle, MessagesSquare, Phone } from 'lucide-react';
+import { AlertCircle, Check, Mail, MapPin, MessagesSquare, Phone } from 'lucide-react';
 import PageHero from '../components/PageHero';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 import { CONTACT_SUBJECTS } from '../data/content';
 import { SITE } from '../data/site';
 
@@ -144,7 +145,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle size={18} strokeWidth={2} aria-hidden="true" />
+                <WhatsAppIcon size={20} />
                 Scrie pe WhatsApp
                 <span className="sr-only"> (se deschide într-o filă nouă)</span>
               </a>

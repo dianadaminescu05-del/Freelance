@@ -1,4 +1,4 @@
-import { MessageCircle } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { SITE } from '../data/site';
 
 export default function WhatsAppFab() {
@@ -10,7 +10,7 @@ export default function WhatsAppFab() {
       rel="noopener noreferrer"
       aria-label="Scrie pe WhatsApp"
     >
-      <MessageCircle size={26} strokeWidth={2} aria-hidden="true" />
+      <WhatsAppIcon size={28} />
     </a>
   );
 }
