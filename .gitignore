@@ -14,3 +14,6 @@ dist
 # from public/. Same arrangement as assets-source/.
 Poze depozit/
 Poze produse/
+
+# Hero footage master — large, and only needed to re-cut the clip.
+assets-source/*.mp4
