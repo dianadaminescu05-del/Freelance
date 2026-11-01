@@ -8,14 +8,17 @@
   left: 0;
   right: 0;
   z-index: var(--z-nav);
-  background: rgba(248, 247, 245, 0.95);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--light);
+  /* Opaque, not the translucent blur this used to be. Over a light page a
+     0.95 ink lifts to ~#1D1D1D, which drops the magenta CTA label to
+     4.20:1 — under the 4.5:1 it owes. Solid --ink holds 4.71:1 on every
+     route. */
+  background: var(--ink);
+  border-bottom: 1px solid var(--on-ink-line);
   transition: box-shadow var(--dur) ease-out;
 }
 .site-nav--scrolled {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  /* A 0.08 black shadow is invisible against a dark bar. */
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
 }
 
 .nav-inner {
@@ -54,27 +57,30 @@
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: var(--mid);
+  color: var(--on-ink); /* 9.3:1 */
   text-decoration: none;
   transition: color var(--dur-fast) ease-out, background var(--dur-fast) ease-out;
 }
 .nav-links a:hover {
-  color: var(--ink);
-  background: var(--paper-warm);
+  color: var(--paper);
+  background: var(--on-ink-fill);
 }
 
 /* Active state carries weight + an underline, so it does not depend on
    colour alone to say which page you are on. */
 .nav-links a.is-active {
-  color: var(--accent-dark);
+  /* --accent-dark is tuned for light grounds and goes muddy here; the
+     on-ink step measures 8.25:1. */
+  color: var(--accent-on-ink);
   font-weight: 600;
-  box-shadow: inset 0 -2px 0 var(--accent-dark);
+  box-shadow: inset 0 -2px 0 var(--accent-on-ink);
   border-radius: 4px 4px 0 0;
 }
 
-/* Ghost CTA in the logo's magenta. The border carries the brand hue
-   (3.74:1 on --paper, over the 3:1 a UI boundary needs); the label uses the
-   darkened step so it clears 4.5:1. */
+/* Ghost CTA in the logo's magenta. On ink the full-strength hue does both
+   jobs on its own — 4.71:1, clearing 4.5:1 as a label and 3:1 as the border
+   that defines the control. The darkened --accent-2-text step is for light
+   grounds and is unreadable here. */
 .nav-cta,
 .nav-links a.nav-cta {
   gap: 0.5rem;
@@ -85,20 +91,21 @@
   /* Full-strength logo magenta: on a ghost button the border is the only
      thing defining the control, so it owes 3:1. At 0.55 alpha it was 2.18:1. */
   border: 1px solid rgb(var(--accent-2-rgb));
-  color: var(--accent-2-text);
+  color: rgb(var(--accent-2-rgb));
   font-weight: 600;
   border-radius: 6px;
   box-shadow: none;
 }
-.nav-links a.nav-cta:hover {
-  background: rgb(var(--accent-2-rgb) / 0.08);
-  border-color: rgb(var(--accent-2-rgb));
-  color: var(--accent-2-text);
-}
+/* Hover and active invert the button rather than tinting behind the label.
+   Magenta on ink is 4.71:1 — barely over the line — so lightening that
+   ground at all breaks it: a 0.2 magenta wash measures 3.89:1, and even a
+   neutral 0.08 white gives 3.89:1. Filled, the pair swaps to ink on
+   magenta, which is the same 4.71:1 read the other way round. */
+.nav-links a.nav-cta:hover,
 .nav-links a.nav-cta.is-active {
-  background: rgb(var(--accent-2-rgb) / 0.1);
+  background: rgb(var(--accent-2-rgb));
   border-color: rgb(var(--accent-2-rgb));
-  color: var(--accent-2-text);
+  color: var(--ink);
   box-shadow: none;
 }
 .nav-cta svg {
@@ -115,10 +122,10 @@
   background: none;
   border: none;
   border-radius: var(--radius);
-  color: var(--ink);
+  color: var(--on-ink-strong);
 }
 .nav-toggle:hover {
-  background: var(--paper-warm);
+  background: var(--on-ink-fill);
 }
 
 @media (max-width: 880px) {
@@ -135,9 +142,9 @@
     align-items: stretch;
     gap: 0;
     padding: 0.5rem 0 1rem;
-    background: var(--paper);
-    border-bottom: 1px solid var(--light);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    background: var(--ink);
+    border-bottom: 1px solid var(--on-ink-line);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     display: none;
   }
   .nav-links.is-open {
@@ -153,7 +160,7 @@
     border-radius: 0;
   }
   .nav-links a.is-active {
-    box-shadow: inset 3px 0 0 var(--accent-dark);
+    box-shadow: inset 3px 0 0 var(--accent-on-ink);
     border-radius: 0;
   }
   .nav-links a.nav-cta {

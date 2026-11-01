@@ -52,7 +52,7 @@ export default function Navbar() {
 
       <div className="nav-inner">
         <Link to="/" className="nav-logo" aria-label="Almariones — acasă">
-          <Logo size="sm" />
+          <Logo size="sm" darkBg />
         </Link>
 
         <ul id="nav-menu" className={`nav-links${open ? ' is-open' : ''}`}>
