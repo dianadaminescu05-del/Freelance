@@ -493,8 +493,14 @@ duplex", so choosing by eye is one click and nothing to type. Quantity is a
 band rather than a figure — and unlike the tiers it replaced, a band states
 what the *buyer* wants, so it claims nothing about Almariones' order sizes.
 The free-text dimensions box is gone; that detail belongs in the contact
-form's message field, which this page already pre-fills. The page now
-renders zero `input`, `select` or `textarea` elements.
+form's message field, which this page already pre-fills. The page renders no
+form control at all until one is asked for: "Altă cantitate" is the single
+exception to the no-typing rule, and the field only exists once that band
+is chosen (focused on reveal, so choosing the band is the only click).
+
+The request panel shares the picker cards' shell — white, hairline border,
+1rem radius — rather than sitting as a dark box against a light grid. Every
+value inside had been picked for `--ink` and was re-picked for `--white`.
 
 The seven printing services have no photograph — nothing was shot for them
 — so they fall back to a plain tile rather than borrowing someone else's

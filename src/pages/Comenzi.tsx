@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import PageHero from '../components/PageHero';
@@ -19,13 +19,27 @@ import { SITE } from '../data/site';
  * Anything finer — exact dimensions, material, artwork — is left to the
  * contact form's message field, which this page pre-fills. Asking for it
  * twice would be the third input in a row.
+ *
+ * "Altă cantitate" is the single exception to the no-typing rule, and it
+ * costs nothing to anyone who does not want it: the field only exists once
+ * that band is chosen.
  */
+
+const CUSTOM = 'Altă cantitate';
 export default function Comenzi() {
   const [category, setCategory] = useState('Toate');
   const [itemId, setItemId] = useState(REQUEST_ITEMS[0].id);
   const [band, setBand] = useState<string | null>(null);
+  const [customQty, setCustomQty] = useState('');
+  const customRef = useRef<HTMLInputElement>(null);
 
   const item = REQUEST_ITEMS.find((p) => p.id === itemId) ?? REQUEST_ITEMS[0];
+
+  // Choosing the band is the click; having to find the field it revealed
+  // would be a second one.
+  useEffect(() => {
+    if (band === CUSTOM) customRef.current?.focus();
+  }, [band]);
 
   const visible = useMemo(
     () =>
@@ -36,15 +50,25 @@ export default function Comenzi() {
   );
 
   const unit = item.unitMeasure ? ` ${item.unitMeasure}` : '';
-  const qtyLine =
-    band && band !== 'Nu știu încă' ? `Cantitate: ${band}${unit}` : null;
+  const typed = parseInt(customQty, 10) || 0;
+
+  // What the summary and the draft both read from, so they cannot disagree.
+  const quantity =
+    band === CUSTOM
+      ? typed > 0
+        ? `${typed.toLocaleString('ro-RO')}${unit}`
+        : null
+      : band === 'Nu știu încă'
+        ? 'de stabilit'
+        : band
+          ? `${band}${unit}`
+          : null;
 
   // Handed to the contact form so the visitor does not retype the choices.
   const requestDraft = [
     `Produs: ${item.nume}`,
     item.dimensiuni ? `Dimensiuni: ${item.dimensiuni}` : null,
-    qtyLine,
-    band === 'Nu știu încă' ? 'Cantitate: de stabilit' : null,
+    quantity ? `Cantitate: ${quantity}` : null,
     '',
     'Detalii suplimentare (dimensiuni, material, grafică, termen dorit):',
   ]
@@ -102,11 +126,13 @@ export default function Comenzi() {
                   Cantitate{item.unitMeasure ? ` (${item.unitMeasure})` : ''}
                 </span>
                 <div className="qty-bands" role="radiogroup" aria-labelledby="qty-label">
-                  {QUANTITY_BANDS.map((b) => (
+                  {[...QUANTITY_BANDS, CUSTOM].map((b) => (
                     <button
                       key={b}
                       type="button"
-                      className={`qty-btn${band === b ? ' is-active' : ''}`}
+                      className={`qty-btn${b === CUSTOM ? ' qty-btn--custom' : ''}${
+                        band === b ? ' is-active' : ''
+                      }`}
                       role="radio"
                       aria-checked={band === b}
                       onClick={() => setBand(b)}
@@ -115,12 +141,30 @@ export default function Comenzi() {
                     </button>
                   ))}
                 </div>
+
+                {band === CUSTOM && (
+                  <div className="calc__custom">
+                    <label className="sr-only" htmlFor="custom-qty">
+                      Cantitatea dorită{item.unitMeasure ? ` (${item.unitMeasure})` : ''}
+                    </label>
+                    <input
+                      ref={customRef}
+                      id="custom-qty"
+                      type="number"
+                      inputMode="numeric"
+                      min={1}
+                      value={customQty}
+                      onChange={(e) => setCustomQty(e.target.value)}
+                      placeholder="ex: 750"
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="calc__total">
                 <p className="calc__summary-label">Rezumat</p>
                 <p className="calc__summary" aria-live="polite">
-                  {band ?? 'Alege cantitatea'}
+                  {quantity ?? 'Alege cantitatea'}
                 </p>
                 <p className="calc__disclaimer">
                   Prețul depinde de dimensiuni, material și tiraj — îl stabilim după ce vedem
