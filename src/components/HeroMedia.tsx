@@ -18,7 +18,10 @@ export default function HeroMedia({ progress }: { progress: MotionValue<number> 
   // useTransform-driven styles bypass MotionConfig's reducedMotion handling —
   // that only governs animate/variants — so the scroll effect is disabled
   // here explicitly. home.css carries a CSS guard for the same reason.
-  const y = useTransform(progress, [0, 1], reduced ? ['0%', '0%'] : ['-5%', '16%']);
+  // Starts at 0, not -5%: a negative start lifts the frame off the copy's
+  // centre line before a single pixel has been scrolled. The drift still
+  // ends in the same place.
+  const y = useTransform(progress, [0, 1], reduced ? ['0%', '0%'] : ['0%', '16%']);
   const scale = useTransform(progress, [0, 1], reduced ? [1, 1] : [1, 1.06]);
   const fade = useTransform(progress, [0, 1], reduced ? [1, 1] : [1, 0.55]);
 

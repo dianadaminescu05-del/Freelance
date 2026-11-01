@@ -38,12 +38,17 @@
 
 .hero-media {
   position: absolute;
-  inset: 0 0 auto auto;
+  /* Offset by the header rather than pinned to the hero's padding box.
+     Absolute positioning resolves against the padding box, so inset:0 spans
+     the 128px sitting behind the fixed header — the panel would centre its
+     frame on the hero's geometric middle while the copy centres on the
+     visible area below the header, leaving the video riding ~64px high. */
+  inset: var(--header-height) 0 auto auto;
   z-index: 0;
   display: flex;
   align-items: center;
   width: 62%;
-  height: 100%;
+  height: calc(100% - var(--header-height));
   /* Left edge slants: top sits further right than the bottom. */
   clip-path: polygon(26% 0, 100% 0, 100% 100%, 0 100%);
 }
