@@ -395,23 +395,28 @@ Manual de Identitate Vizuală PNRR 2024, p.8 — these are enforced in
 
 The first draft used 30px logos and 24px gaps; both were under the minimum.
 
-### Remaining asset
+### The three emblems — all official
 
-| File | Status |
+| File | Source |
 |---|---|
-| `ue.svg` | drawn to the published geometric spec (3:2, Reflex Blue, 12 gold stars on a circle of radius H/3) |
-| `guvern.svg` | **supplied by the client** — official RGB seal, viewBox tightened from a 3509×2480 page canvas to the artwork (it occupied 16% of it and rendered at a fraction of its slot) |
-| `pnrr.svg` | **still missing** → red dashed placeholder |
+| `ue.png` | RO "Finanțat de Uniunea Europeană / NextGenerationEU" lockup, RGB positive — European Commission [logo download centre](https://ec.europa.eu/regional_policy/information-sources/logo-download-center_en), `nextgenerationeu_ro.zip` |
+| `guvern.svg` | official RGB seal, supplied by the client |
+| `pnrr.png` | extracted at high resolution from p.12 of the visual identity manual |
 
-Sources:
-- **"Pachet logo-uri PNRR"** — <https://mfe.gov.ro/pnrr/>
-- Official Romanian NextGenerationEU emblem pack, if the auditor wants the
-  exact EU file rather than the spec-drawn one —
-  `ec.europa.eu/regional_policy/sources/information/logos_downloadcenter/nextgenerationeu_ro.zip`
+Two notes on how these were obtained:
 
-A missing slot renders a conspicuous red dashed placeholder on purpose: a
-missing mandatory emblem is a compliance failure and should look broken
-rather than disappear quietly.
+**The EU asset is the approved lockup, not a flag plus text.** EU rules
+forbid separating the emblem from the funding statement or re-setting that
+statement in another typeface, so an earlier version that paired a
+spec-drawn flag with HTML text was replaced by the Commission's own file.
+
+**`pnrr.png` is a raster, not vector.** mfe.gov.ro serves the logo pack
+behind a WAF that returns 403 to automated requests, and no vector mirror
+exists. Rather than spoofing a browser past bot detection, the logo was
+rendered from p.12 of the official manual at ~3x and cropped to its ink
+bounds. It is visually identical and ample for a 40px slot, but swap in the
+vector from "Pachet logo-uri PNRR" if someone downloads it by hand — the
+link works fine in a normal browser.
 
 The Facebook URL (`https://www.facebook.com/PNRROficial`) comes from p.28 of
 the manual — the same paragraph that states the website rules.

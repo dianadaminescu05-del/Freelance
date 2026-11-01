@@ -10,10 +10,16 @@ import { useState } from 'react';
  * inside the fixed header rather than in the page flow.
  *
  * Official kit: "Pachet logo-uri PNRR" on https://mfe.gov.ro/pnrr/
- * Drop guvern.svg and pnrr.svg into public/pnrr/ and the placeholders
- * disappear. ue.svg is the EU emblem drawn to the published geometric
- * spec; replace it with the official NextGenerationEU lockup if the
- * auditor wants the exact file.
+ *
+ * Current assets, all from official sources:
+ *   ue.png     RO "Finanțat de Uniunea Europeană / NextGenerationEU" lockup,
+ *              RGB positive, from the Commission's logo download centre
+ *   guvern.svg official RGB seal, supplied by the client
+ *   pnrr.png   extracted from p.12 of the visual identity manual, because
+ *              mfe.gov.ro's WAF blocks automated download of the logo pack
+ *
+ * Sizes and spacing follow that manual (p.8): minimum 1 cm per logo, and
+ * at least one EU-logo width between them. See tokens.css.
  */
 
 function LogoSlot({ src, alt, label }: { src: string; alt: string; label: string }) {
@@ -36,16 +42,21 @@ export function PnrrBar() {
   return (
     <div className="pnrr-bar">
       <div className="pnrr-bar__inner">
-        <span className="pnrr-bar__eu">
-          <img className="pnrr-slot pnrr-slot--flag" src="/pnrr/ue.svg" alt="Uniunea Europeană" />
-          <span className="pnrr-bar__eu-text">
-            Finanțat de Uniunea Europeană
-            <strong>NextGenerationEU</strong>
-          </span>
-        </span>
+        {/* The official RO lockup, emblem and funding statement as one asset.
+            EU rules forbid separating the two or re-setting the statement in
+            another typeface, so this replaces the earlier flag + HTML text. */}
+        <LogoSlot
+          src="/pnrr/ue.png"
+          alt="Finanțat de Uniunea Europeană — NextGenerationEU"
+          label="Finanțat de Uniunea Europeană"
+        />
 
         <LogoSlot src="/pnrr/guvern.svg" alt="Guvernul României" label="Guvernul României" />
-        <LogoSlot src="/pnrr/pnrr.svg" alt="Planul Național de Redresare și Reziliență" label="PNRR" />
+        {/* Raster, not vector: mfe.gov.ro's WAF blocks automated download of
+            the logo pack, so this was extracted at high resolution from p.12
+            of the official Manual de Identitate Vizuală. Swap in the vector
+            from "Pachet logo-uri PNRR" when it can be fetched by hand. */}
+        <LogoSlot src="/pnrr/pnrr.png" alt="Planul Național de Redresare și Reziliență" label="PNRR" />
       </div>
     </div>
   );

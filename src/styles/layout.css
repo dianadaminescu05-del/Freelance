@@ -351,33 +351,11 @@
   display: none;
 }
 
-.pnrr-bar__eu {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-shrink: 0;
-}
-.pnrr-bar__eu-text {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.6875rem;
-  line-height: 1.25;
-  color: var(--ink);
-  white-space: nowrap;
-}
-.pnrr-bar__eu-text strong {
-  font-weight: 700;
-}
-
 .pnrr-slot {
   height: var(--pnrr-logo-h);
   width: auto;
   flex-shrink: 0;
   object-fit: contain;
-}
-.pnrr-slot--flag {
-  /* The emblem is a flag: a hairline keeps it from bleeding into white. */
-  border: 1px solid rgb(var(--ink-rgb) / 0.12);
 }
 
 /* A missing mandatory emblem is a compliance failure — make it obvious
@@ -409,9 +387,6 @@
     /* Row gap is tight; the column gap keeps the manual's 1x-EU-logo rule. */
     gap: 0.4rem var(--pnrr-gap);
     overflow-x: visible;
-  }
-  .pnrr-bar__eu-text {
-    font-size: 0.625rem;
   }
 }
 
