@@ -71,7 +71,10 @@ export const HERO_STATS = [
   // also 26, and two identical numbers side by side read as a bug. The
   // computed figure is still used in the Despre noi subtitle.
   { n: '1999', l: 'anul\nînființării' },
-  { n: '26', l: 'angajați\nîn producție' },
+  // "în prezent", not "în producție": the document gives a single figure,
+  // "Nr. angajati actuali: 26", with no departmental split — and separately
+  // records "Posturi: 14". Claiming all 26 are on the floor was ours.
+  { n: '26', l: 'angajați\nîn prezent' },
   { n: '85%', l: 'din pizzeriile\ndin Lugoj' },
 ];
 

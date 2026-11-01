@@ -457,7 +457,7 @@ quotations — defensible, but nobody at Almariones has signed them off:
 | "model 1 / model 2" suffixes | Their list repeats two names verbatim; the suffixes follow the "2" in their own filenames. |
 | "buc" as the quantity unit on `/comenzi` | Safe — the catalogue is all discrete boxes — but stated nowhere. |
 | The third pizza product | Their table lists *Cutii pizza* twice; the photos show three distinct sets, so the third comes from filenames. |
-| "angajați **în producție**" in the hero | The document says "Nr. angajati actuali: 26" with no departmental split. It also records "Posturi: 14". |
+| ~~"angajați **în producție**" in the hero~~ | **Fixed 2026-11-01** — now "angajați în prezent", which is what "Nr. angajati actuali: 26" says. The document gives no departmental split, and separately records "Posturi: 14". |
 
 Verified as genuinely sourced in the same pass: all 20 product names, the
 three dimension strings (they are inside the client's own names), the seven
