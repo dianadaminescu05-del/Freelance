@@ -102,17 +102,19 @@
     linear-gradient(to top, rgb(var(--ink-rgb) / 0.75) 0%, transparent 42%);
 }
 
-/* Hairline along the diagonal, so the cut reads as deliberate */
+/* Hairline along the diagonal, so the cut reads as deliberate.
+
+   It has to trace the panel's clip-path edge — (26% 0) to (0 100%) — not the
+   element's corner-to-corner diagonal, which is a different line entirely and
+   lands in the middle of the footage. So: a thin parallelogram sharing that
+   edge, extending inward from it. A gradient cannot do this, because its
+   angle would have to track the panel's aspect ratio. */
 .hero-media::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom right,
-    transparent calc(50% - 1px),
-    rgb(var(--accent-4-rgb) / 0.28) 50%,
-    transparent calc(50% + 1px)
-  );
+  background: rgb(var(--accent-4-rgb) / 0.28);
+  clip-path: polygon(26% 0, calc(26% + 1.5px) 0, 1.5px 100%, 0 100%);
   pointer-events: none;
 }
 
@@ -153,13 +155,10 @@
       transparent 78%
     );
   }
+  /* Same trick against the band's top edge: (0 22%) to (100% 0). */
   .hero-media::after {
-    background: linear-gradient(
-      to bottom right,
-      transparent calc(50% - 1px),
-      rgb(var(--accent-4-rgb) / 0.22) 50%,
-      transparent calc(50% + 1px)
-    );
+    background: rgb(var(--accent-4-rgb) / 0.22);
+    clip-path: polygon(0 22%, 100% 0, 100% 1.5px, 0 calc(22% + 1.5px));
   }
   .home-hero__inner {
     padding-bottom: 20rem;
