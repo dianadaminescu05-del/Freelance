@@ -476,6 +476,44 @@
   text-transform: uppercase;
   color: var(--on-ink-muted);
 }
+/* Quantity as a band, replacing the preset tiers and the number field. */
+.qty-bands {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+.qty-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(248, 247, 245, 0.28);
+  border-radius: var(--radius);
+  background: var(--on-ink-fill);
+  color: var(--on-ink);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background var(--dur-fast) ease-out, border-color var(--dur-fast) ease-out;
+}
+.qty-btn:hover {
+  background: rgba(248, 247, 245, 0.16);
+  color: #fff;
+}
+/* Dark text on the bright accent: white on it is 2.4:1, ink-ish is 9.6:1. */
+.qty-btn.is-active {
+  background: var(--accent-4);
+  border-color: var(--accent-4);
+  color: #06222e;
+}
+.qty-btn.is-active:hover {
+  background: #5cc8ee;
+  color: #06222e;
+}
+
 .calc input,
 .calc select,
 .calc textarea {

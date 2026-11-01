@@ -1,6 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import { Box, Boxes, PawPrint, Truck } from 'lucide-react';
-import { CATEGORII, PRODUSE, type Categorie } from './produse';
+import { CATEGORII, PRODUSE, type Categorie, type ProductImage } from './produse';
 
 /* ---------------------------------------------------------------- Home */
 
@@ -188,7 +188,27 @@ export type RequestItem = {
   unitMeasure?: string;
   /** Pre-selects the matching option on the contact form. */
   subject: string;
+  /** Catalogue shots, so the picker can be chosen by eye. The printing
+   *  services have none — nothing was photographed for them. */
+  imagini?: ProductImage[];
 };
+
+/**
+ * Quantity bands.
+ *
+ * These describe what the BUYER is after, not what the company sells, which
+ * is why they are safe where the old tiers were not: those claimed
+ * Almariones' order sizes, and no document states any. Nobody has to type a
+ * number, and "nu știu încă" is a real answer for someone still scoping.
+ */
+export const QUANTITY_BANDS = [
+  'sub 100',
+  '100 – 500',
+  '500 – 1.000',
+  '1.000 – 5.000',
+  'peste 5.000',
+  'Nu știu încă',
+];
 
 const TIPARIRE_CATEGORY = 'Servicii tipărire';
 
@@ -200,6 +220,7 @@ export const REQUEST_ITEMS: RequestItem[] = [
     dimensiuni: p.dimensiuni,
     unitMeasure: 'buc',
     subject: p.categorie as string,
+    imagini: p.imagini,
   })),
   ...SERVICII_TIPARIRE.map((nume) => ({
     id: `tiparire-${nume.toLowerCase().replace(/[^a-z]+/g, '-')}`,

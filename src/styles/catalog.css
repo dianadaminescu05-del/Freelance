@@ -378,3 +378,90 @@
     aspect-ratio: 3 / 2;
   }
 }
+
+/* --- Picker variant (Cere ofertă) --------------------------------------
+   Same card shell as the catalogue, behaving as a radio. Tighter grid: the
+   picker is a column beside the summary panel, not a full-width page.
+   ---------------------------------------------------------------------- */
+
+.pgrid--pick {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+/* Two up on a phone, always. A 165px minimum missed it by a hair at 375px
+   and dropped to a single column — 28 cards one per row is a scroll nobody
+   finishes. */
+@media (max-width: 560px) {
+  .pgrid--pick {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .pcard__btn--pick .pcard__body {
+    padding: 0.6rem 0.65rem 0.7rem;
+  }
+  .pcard__btn--pick .pcard__name {
+    font-size: 0.875rem;
+  }
+}
+
+.pcard__btn--pick .pcard__media {
+  aspect-ratio: 4 / 3;
+}
+.pcard__btn--pick .pcard__body {
+  padding: 0.7rem 0.8rem 0.85rem;
+}
+.pcard__btn--pick .pcard__name {
+  font-size: 0.9375rem;
+}
+.pcard__btn--pick .pcard__dim {
+  font-size: 0.8125rem;
+}
+
+/* Selection is carried by the border, the tick and the name weight, so it
+   does not rest on colour alone. */
+.pcard__btn--pick.is-selected {
+  border-color: var(--accent-dark);
+  box-shadow: 0 0 0 1px var(--accent-dark), 0 6px 20px rgb(var(--ink-rgb) / 0.1);
+}
+.pcard__btn--pick.is-selected .pcard__name {
+  color: var(--accent-darker);
+}
+
+.pcard__tick {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity var(--dur-fast) ease-out, transform var(--dur-fast) var(--ease-out);
+}
+.pcard__btn--pick.is-selected .pcard__tick {
+  opacity: 1;
+  transform: scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pcard__tick {
+    transition: none;
+  }
+}
+
+/* The printing services were never photographed; a stand-in shot would be
+   inventing what they look like. */
+.pcard__noimg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper-warm);
+  color: var(--mid);
+}

@@ -483,10 +483,22 @@ mici / Printuri mari categories that had already been deleted from
 hârtie kraft), invented specs ("A5", "A4 bi-fold", "flex exterior"),
 invented finishes, and invented quantity tiers. It now draws on `produse.ts`
 for the 21 real products and five real categories, plus the seven printing
-services the `Servicii.JPG` poster names. Quantity is a free field, since no
-document states the company's order sizes, and a free-text box collects
-dimensions and material. `CONTACT_SUBJECTS` was realigned to the same
+services the `Servicii.JPG` poster names. `CONTACT_SUBJECTS` was realigned to the same
 categories so a handed-over subject always matches an option.
+
+It was reworked again the same day to remove every text input. The table of
+names became the catalogue's own card grid: packaging is photographed, and
+a buyer recognises the box long before they recognise "Cutie individuală
+duplex", so choosing by eye is one click and nothing to type. Quantity is a
+band rather than a figure — and unlike the tiers it replaced, a band states
+what the *buyer* wants, so it claims nothing about Almariones' order sizes.
+The free-text dimensions box is gone; that detail belongs in the contact
+form's message field, which this page already pre-fills. The page now
+renders zero `input`, `select` or `textarea` elements.
+
+The seven printing services have no photograph — nothing was shot for them
+— so they fall back to a plain tile rather than borrowing someone else's
+picture.
 
 ## Open questions for the client
 
