@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero';
 import { EASE, fadeUpLarge, inViewOnce } from '../components/motion';
 import { CAPABILITIES, HALA, TIMELINE, VALUES } from '../data/content';
 import { SITE, yearsActive } from '../data/site';
+import { asset } from '../lib/asset';
 
 export default function DespreNoi() {
   return (
@@ -135,7 +136,7 @@ export default function DespreNoi() {
                 {...inViewOnce}
               >
                 <img
-                  src={`/depozit/${img.slug}-1400.jpg`}
+                  src={asset(`depozit/${img.slug}-1400.jpg`)}
                   alt={img.alt}
                   width={1400}
                   height={933}

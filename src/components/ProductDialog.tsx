@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, X } from 'lucide-react';
 import type { CatalogProduct } from '../data/produse';
+import { asset } from '../lib/asset';
 
 type Props = {
   product: CatalogProduct | null;
@@ -61,7 +62,7 @@ export default function ProductDialog({ product, onClose }: Props) {
           <div className="pdialog__media">
             <img
               key={image.slug}
-              src={`/produse/${image.slug}-1200.jpg`}
+              src={asset(`produse/${image.slug}-1200.jpg`)}
               alt={image.alt}
               width={1200}
               height={1200}
@@ -84,7 +85,7 @@ export default function ProductDialog({ product, onClose }: Props) {
                     aria-pressed={i === index}
                     onClick={() => setIndex(i)}
                   >
-                    <img src={`/produse/${img.slug}-600.jpg`} alt="" aria-hidden="true" />
+                    <img src={asset(`produse/${img.slug}-600.jpg`)} alt="" aria-hidden="true" />
                     <span className="sr-only">{img.alt}</span>
                   </button>
                 ))}

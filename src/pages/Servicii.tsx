@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard';
 import ProductDialog from '../components/ProductDialog';
 import { EASE } from '../components/motion';
 import { CATEGORII, GAMA_COMPLETA, PRODUSE, type CatalogProduct } from '../data/produse';
+import { asset } from '../lib/asset';
 
 const TOATE = 'Toate';
 
@@ -52,8 +53,8 @@ export default function Servicii() {
                 rather than cropped into a letterbox band. */}
             <figure className="range-intro__media">
               <img
-                src={`/produse/${GAMA_COMPLETA.slug}-1200.jpg`}
-                srcSet={`/produse/${GAMA_COMPLETA.slug}-600.jpg 600w, /produse/${GAMA_COMPLETA.slug}-1200.jpg 1200w`}
+                src={asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)}
+                srcSet={`${asset(`produse/${GAMA_COMPLETA.slug}-600.jpg`)} 600w, ${asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)} 1200w`}
                 sizes="(max-width: 900px) 92vw, 520px"
                 alt={GAMA_COMPLETA.alt}
                 width={1200}

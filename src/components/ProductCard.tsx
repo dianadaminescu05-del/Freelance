@@ -1,9 +1,10 @@
 import { ArrowUpRight, Images } from 'lucide-react';
 import type { CatalogProduct } from '../data/produse';
+import { asset } from '../lib/asset';
 
 /** srcset so a 260px card does not download the 1200px file. */
 function srcSet(slug: string) {
-  return `/produse/${slug}-600.jpg 600w, /produse/${slug}-1200.jpg 1200w`;
+  return `${asset(`produse/${slug}-600.jpg`)} 600w, ${asset(`produse/${slug}-1200.jpg`)} 1200w`;
 }
 
 type Props = {
@@ -25,7 +26,7 @@ export default function ProductCard({ product, onOpen, eager }: Props) {
         <span className="pcard__media">
           <img
             className="pcard__img pcard__img--base"
-            src={`/produse/${first.slug}-600.jpg`}
+            src={asset(`produse/${first.slug}-600.jpg`)}
             srcSet={srcSet(first.slug)}
             sizes="(max-width: 560px) 90vw, (max-width: 900px) 45vw, 270px"
             alt={first.alt}
@@ -37,7 +38,7 @@ export default function ProductCard({ product, onOpen, eager }: Props) {
           {second && (
             <img
               className="pcard__img pcard__img--alt"
-              src={`/produse/${second.slug}-600.jpg`}
+              src={asset(`produse/${second.slug}-600.jpg`)}
               srcSet={srcSet(second.slug)}
               sizes="(max-width: 560px) 90vw, (max-width: 900px) 45vw, 270px"
               alt=""

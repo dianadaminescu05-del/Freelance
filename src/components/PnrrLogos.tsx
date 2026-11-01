@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { asset } from '../lib/asset';
 
 /**
  * PNRR funding visibility — the mandatory emblems.
@@ -46,17 +47,17 @@ export function PnrrBar() {
             EU rules forbid separating the two or re-setting the statement in
             another typeface, so this replaces the earlier flag + HTML text. */}
         <LogoSlot
-          src="/pnrr/ue.png"
+          src={asset("pnrr/ue.png")}
           alt="Finanțat de Uniunea Europeană — NextGenerationEU"
           label="Finanțat de Uniunea Europeană"
         />
 
-        <LogoSlot src="/pnrr/guvern.svg" alt="Guvernul României" label="Guvernul României" />
+        <LogoSlot src={asset("pnrr/guvern.svg")} alt="Guvernul României" label="Guvernul României" />
         {/* Raster, not vector: mfe.gov.ro's WAF blocks automated download of
             the logo pack, so this was extracted at high resolution from p.12
             of the official Manual de Identitate Vizuală. Swap in the vector
             from "Pachet logo-uri PNRR" when it can be fetched by hand. */}
-        <LogoSlot src="/pnrr/pnrr.png" alt="Planul Național de Redresare și Reziliență" label="PNRR" />
+        <LogoSlot src={asset("pnrr/pnrr.png")} alt="Planul Național de Redresare și Reziliență" label="PNRR" />
       </div>
     </div>
   );
