@@ -323,15 +323,26 @@
   align-items: center;
   min-height: var(--tap);
   padding: 0.4rem 1.1rem;
-  border: none;
+  /* White on the paper section, like the cards below. The hairline is what
+     makes the chip readable as a control — white on --paper is ~1.03:1, so
+     without it the unselected filters would have no edge at all. The
+     selected chip carries the same border in its own colour, so switching
+     does not shift the row by 2px. */
+  border: 1px solid var(--light);
   border-radius: var(--radius);
-  background: var(--paper-warm);
+  background: var(--white);
   color: var(--mid);
   font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background var(--dur-fast) ease-out, color var(--dur-fast) ease-out;
+  transition: background var(--dur-fast) ease-out, color var(--dur-fast) ease-out,
+    border-color var(--dur-fast) ease-out;
+}
+.chip:hover {
+  background: var(--paper-warm);
+  border-color: #d3d0c9;
+  color: var(--ink);
 }
 /* The brand blue, same step the primary button and the active quantity
    band use — white on --accent-dark is 4.87:1, where the bright --accent
@@ -339,11 +350,14 @@
    so a filter reads the same wherever it appears. */
 .chip.is-active {
   background: var(--accent-dark);
+  border-color: var(--accent-dark);
   color: #fff;
   font-weight: 600;
 }
 .chip.is-active:hover {
   background: var(--accent-darker);
+  border-color: var(--accent-darker);
+  color: #fff;
 }
 
 .table-wrap {
