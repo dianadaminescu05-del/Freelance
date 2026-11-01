@@ -450,10 +450,22 @@ also 26 and two identical numbers read as a bug.
 were prototype placeholders; no document gives real ones, and invented prices
 are worse than none because a visitor treats them as binding.
 
-The page keeps the product/quantity/finish picker, then hands the selection to
-the contact form via router state, which pre-fills the subject and drafts the
-message. To restore pricing: add `pret` back to `QuantityTier` and the totals
-block in `pages/Comenzi.tsx`. Nothing else depends on it.
+The page keeps a picker, then hands the selection to the contact form via
+router state, which pre-fills the subject and drafts the message. To restore
+pricing: add a price to `RequestItem` and a totals block in
+`pages/Comenzi.tsx`. Nothing else depends on it.
+
+The picker itself was rebuilt on 2026-11-01. It had been missed by the fact
+pass and was still running the prototype's invented content — the Printuri
+mici / Printuri mari categories that had already been deleted from
+`/servicii`, products in no document (Roll-up 85cm, Etichete adezive, Pungi
+hârtie kraft), invented specs ("A5", "A4 bi-fold", "flex exterior"),
+invented finishes, and invented quantity tiers. It now draws on `produse.ts`
+for the 21 real products and five real categories, plus the seven printing
+services the `Servicii.JPG` poster names. Quantity is a free field, since no
+document states the company's order sizes, and a free-text box collects
+dimensions and material. `CONTACT_SUBJECTS` was realigned to the same
+categories so a handed-over subject always matches an option.
 
 ## Open questions for the client
 
@@ -468,12 +480,15 @@ Blocking, in rough priority:
    ordering and placement are done. Still needed: `guvern.svg` and
    `pnrr.svg` from the official kit, and the programme's Facebook URL.
    See "PNRR funding visibility" above.
-3. **The company does offer small-format printing after all.** A poster
-   photographed in their own facility (`Servicii.JPG` in the client folder)
-   advertises *Servicii tipărire*: Logo, Flyers, Cărți de vizită, Broșuri,
-   Postere, Calendare, Banner. The catalogue currently covers packaging
-   only, because that is all that was photographed. These services need
-   adding back — as a services list, not a photo catalogue.
+3. ~~**The company does offer small-format printing after all.**~~
+   **Resolved.** The `Servicii.JPG` poster in their own facility advertises
+   *Servicii tipărire*: Logo, Flyers, Cărți de vizită, Broșuri, Postere,
+   Calendare, Banner. Those seven are now selectable on `/comenzi` under a
+   *Servicii tipărire* category, worded exactly as the poster words them —
+   no formats, weights or finishes, because the poster states none. They
+   stay off `/servicii`, which is a photo catalogue and none of them were
+   photographed. **Still worth confirming with the client:** whether the
+   poster is current, and what each service actually covers.
 3. **Permission to name clients.** The documents list 17; the site shows 4.
 4. **Delivery claims on /b2b** (3.5t fleet, 7 zones, weekly routes, 24h) have
    no source and are still live. Left untouched rather than invented away.
@@ -490,7 +505,7 @@ Alpha Bank, CEC, overdraft facility) are internal background only.
 - The contact form validates and shows a success state but sends nothing. Wire
   `handleSubmit` in `pages/Contact.tsx` to a real endpoint.
 - Lucide has no WhatsApp brand glyph; `MessageCircle` stands in.
-- Prices in `data/content.ts` are the prototype's placeholder tiers.
+- `/comenzi` carries no prices by design; see "No prices, deliberately".
 - The `ui-ux-pro-max` pass recommended a navy/`#0369A1` palette with Plus
   Jakarta Sans. Not applied — the brief was to keep Almariones' own brand. Its
   structural read ("Trust & Authority": credentials, partner logos, metrics)

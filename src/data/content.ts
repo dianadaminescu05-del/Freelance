@@ -1,6 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import { Box, Boxes, PawPrint, Truck } from 'lucide-react';
-import { PRODUSE, type Categorie } from './produse';
+import { CATEGORII, PRODUSE, type Categorie } from './produse';
 
 /* ---------------------------------------------------------------- Home */
 
@@ -145,104 +145,68 @@ export const CAPABILITIES = [
 /* --------------------------------------------------------------- Comenzi */
 
 /**
- * No prices here, deliberately.
+ * Cere ofertă — what a visitor can put in a request.
  *
- * The figures that used to sit in this file (45 RON for 100 business cards,
- * and so on) were placeholders carried over from the prototype — no source
- * document gives real tariffs. Publishing invented prices is worse than
- * publishing none: a visitor reasonably treats them as a quote.
+ * Driven by the real catalogue plus the printing services the company
+ * advertises on its own premises. Everything the prototype used to carry
+ * here is gone: the Printuri mici / Printuri mari categories (deleted from
+ * /servicii as invented, but left standing here), products that exist in no
+ * document (Roll-up 85cm, Etichete adezive, Pungi hârtie kraft), the specs
+ * attached to the ones that do ("A5", "A4 bi-fold", "flex exterior"), the
+ * finishes, and the quantity tiers. None of it had a source.
  *
- * So the page configures a REQUEST rather than computing a total. Restore
- * pricing by adding `pret` back to the tiers once the client supplies real
- * ones; the UI changes needed are isolated to pages/Comenzi.tsx.
+ * The page configures a REQUEST, not a quote — no document gives tariffs,
+ * and invented prices are worse than none because a visitor treats them as
+ * binding.
  */
-export type QuantityTier = { cant: number };
 
-export type Product = {
+/** From the "Servicii tipărire" poster photographed in the company's own
+ *  facility (Servicii.JPG). Listed exactly as the poster words them — no
+ *  formats, weights or finishes, because the poster states none. */
+export const SERVICII_TIPARIRE = [
+  'Logo',
+  'Flyers',
+  'Cărți de vizită',
+  'Broșuri',
+  'Postere',
+  'Calendare',
+  'Banner',
+];
+
+export type RequestItem = {
   id: string;
   nume: string;
   categorie: string;
-  unitMeasure: string;
-  /** Common order sizes, offered as shortcuts — not price breaks. */
-  tiers: QuantityTier[];
-  finisaje?: string[];
+  /** Only where the client stated it. */
+  dimensiuni?: string;
+  /** Pieces for the catalogue, which is all discrete boxes. Left off the
+   *  printing services, where it genuinely varies — a banner is quoted by
+   *  area and a business card by the hundred. */
+  unitMeasure?: string;
   /** Pre-selects the matching option on the contact form. */
   subject: string;
 };
 
-export const PRODUCTS: Product[] = [
-  {
-    id: 'cv',
-    nume: 'Cărți de vizită',
-    categorie: 'Printuri mici',
+const TIPARIRE_CATEGORY = 'Servicii tipărire';
+
+export const REQUEST_ITEMS: RequestItem[] = [
+  ...PRODUSE.map((p) => ({
+    id: p.slug,
+    nume: p.nume,
+    categorie: p.categorie as string,
+    dimensiuni: p.dimensiuni,
     unitMeasure: 'buc',
-    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
-    finisaje: ['Standard luciu', 'Mat UV', 'Soft-touch'],
-    subject: 'Cărți de vizită',
-  },
-  {
-    id: 'fl',
-    nume: 'Fluturași A5',
-    categorie: 'Printuri mici',
-    unitMeasure: 'buc',
-    tiers: [{ cant: 500 }, { cant: 1000 }, { cant: 2500 }, { cant: 5000 }],
-    finisaje: ['Față simplu', 'Față-verso'],
-    subject: 'Fluturași / Flyer-e',
-  },
-  {
-    id: 'brosuri',
-    nume: 'Broșuri A4 bi-fold',
-    categorie: 'Printuri mici',
-    unitMeasure: 'buc',
-    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
-    finisaje: ['Hârtie 115g', 'Hârtie 150g'],
-    subject: 'Broșuri / Cataloage',
-  },
-  {
-    id: 'banner',
-    nume: 'Banner flex exterior',
-    categorie: 'Printuri mari',
-    unitMeasure: 'm²',
-    tiers: [{ cant: 1 }, { cant: 5 }, { cant: 10 }, { cant: 25 }],
-    subject: 'Bannere / Printuri mari',
-  },
-  {
-    id: 'rollup',
-    nume: 'Roll-up 85cm',
-    categorie: 'Printuri mari',
-    unitMeasure: 'buc',
-    tiers: [{ cant: 1 }, { cant: 3 }, { cant: 5 }],
-    subject: 'Bannere / Printuri mari',
-  },
-  {
-    id: 'cutii',
-    nume: 'Cutii personalizate',
-    categorie: 'Ambalaje',
-    unitMeasure: 'buc',
-    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
-    finisaje: ['Offset standard', 'Laminare mat', 'Laminare luciu', 'UV selectiv'],
-    subject: 'Ambalaje personalizate',
-  },
-  {
-    id: 'etichete',
-    nume: 'Etichete adezive',
-    categorie: 'Ambalaje',
-    unitMeasure: 'buc',
-    tiers: [{ cant: 500 }, { cant: 1000 }, { cant: 2500 }, { cant: 5000 }],
-    finisaje: ['Mat', 'Luciu', 'Transparent'],
-    subject: 'Etichete adezive',
-  },
-  {
-    id: 'pungi',
-    nume: 'Pungi hârtie kraft',
-    categorie: 'Ambalaje',
-    unitMeasure: 'buc',
-    tiers: [{ cant: 100 }, { cant: 250 }, { cant: 500 }, { cant: 1000 }],
-    subject: 'Ambalaje simple / albe',
-  },
+    subject: p.categorie as string,
+  })),
+  ...SERVICII_TIPARIRE.map((nume) => ({
+    id: `tiparire-${nume.toLowerCase().replace(/[^a-z]+/g, '-')}`,
+    nume,
+    categorie: TIPARIRE_CATEGORY,
+    subject: TIPARIRE_CATEGORY,
+  })),
 ];
 
-export const PRODUCT_CATEGORIES = ['Toate', 'Ambalaje', 'Printuri mici', 'Printuri mari'];
+export const REQUEST_CATEGORIES = ['Toate', ...CATEGORII, TIPARIRE_CATEGORY];
 
 /* ------------------------------------------------------------------- B2B */
 
@@ -297,14 +261,12 @@ export const HALA = [
 
 /* --------------------------------------------------------------- Contact */
 
+/* Mirrors the catalogue's own categories plus the printing services, so a
+   subject handed over from /comenzi always matches an option here. The old
+   list carried the same invented entries the order page did. */
 export const CONTACT_SUBJECTS = [
-  'Ambalaje personalizate',
-  'Ambalaje simple / albe',
-  'Etichete adezive',
-  'Cărți de vizită',
-  'Fluturași / Flyer-e',
-  'Broșuri / Cataloage',
-  'Bannere / Printuri mari',
+  ...CATEGORII,
+  'Servicii tipărire',
   'Parteneriat B2B',
   'Altele',
 ];

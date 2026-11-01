@@ -476,44 +476,9 @@
   text-transform: uppercase;
   color: var(--on-ink-muted);
 }
-.calc__tiers {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-.tier-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--tap);
-  min-height: var(--tap);
-  padding: 0.4rem 0.9rem;
-  border: 1px solid rgba(248, 247, 245, 0.28);
-  border-radius: var(--radius);
-  background: var(--on-ink-fill);
-  color: var(--on-ink);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background var(--dur-fast) ease-out, border-color var(--dur-fast) ease-out;
-}
-.tier-btn:hover {
-  background: rgba(248, 247, 245, 0.16);
-  color: #fff;
-}
-.tier-btn.is-active {
-  background: var(--accent-4);
-  border-color: var(--accent-4);
-  color: #06222e;
-}
-.tier-btn.is-active:hover {
-  background: #5cc8ee;
-  color: #06222e;
-}
-
 .calc input,
-.calc select {
+.calc select,
+.calc textarea {
   width: 100%;
   min-height: var(--tap);
   padding: 0.6rem 0.85rem;
@@ -528,12 +493,26 @@
 .calc select {
   cursor: pointer;
 }
+.calc textarea {
+  min-height: 0;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Stated dimensions under the heading, where the client gave them. */
+.calc__meta {
+  margin: -1.1rem 0 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--on-ink-soft);
+}
 .calc input:hover,
-.calc select:hover {
+.calc select:hover,
+.calc textarea:hover {
   border-color: rgba(248, 247, 245, 0.45);
 }
 .calc input:focus-visible,
-.calc select:focus-visible {
+.calc select:focus-visible,
+.calc textarea:focus-visible {
   border-color: var(--accent-4);
 }
 
@@ -554,29 +533,6 @@
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--paper);
-}
-.calc__total-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.35rem;
-  font-size: 0.875rem;
-  color: var(--on-ink-muted);
-}
-.calc__price {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--paper);
-}
-.calc__price small {
-  margin-left: 0.3rem;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--on-ink-soft);
 }
 .calc__disclaimer {
   margin-top: 0.5rem;

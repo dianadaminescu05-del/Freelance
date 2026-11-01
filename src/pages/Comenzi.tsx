@@ -2,44 +2,43 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
 import PageHero from '../components/PageHero';
-import { PRODUCTS, PRODUCT_CATEGORIES } from '../data/content';
+import { REQUEST_CATEGORIES, REQUEST_ITEMS } from '../data/content';
 import { SITE } from '../data/site';
 
-const TABLE_HEADERS = ['Produs', 'Categorie', 'Cantitate uzuală', ''];
+const TABLE_HEADERS = ['Produs', 'Categorie', 'Dimensiuni', ''];
 
 export default function Comenzi() {
   const [category, setCategory] = useState('Toate');
-  const [productId, setProductId] = useState(PRODUCTS[0].id);
-  const [tierIndex, setTierIndex] = useState(0);
-  const [finishIndex, setFinishIndex] = useState(0);
-  const [customQty, setCustomQty] = useState('');
+  const [itemId, setItemId] = useState(REQUEST_ITEMS[0].id);
+  const [qty, setQty] = useState('');
+  const [detalii, setDetalii] = useState('');
 
-  const product = PRODUCTS.find((p) => p.id === productId) ?? PRODUCTS[0];
-  const tier = product.tiers[tierIndex];
-  const finish = product.finisaje?.[finishIndex];
+  const item = REQUEST_ITEMS.find((p) => p.id === itemId) ?? REQUEST_ITEMS[0];
 
   const visible = useMemo(
-    () => (category === 'Toate' ? PRODUCTS : PRODUCTS.filter((p) => p.categorie === category)),
+    () =>
+      category === 'Toate'
+        ? REQUEST_ITEMS
+        : REQUEST_ITEMS.filter((p) => p.categorie === category),
     [category],
   );
 
-  const typedQty = parseInt(customQty, 10) || 0;
-  const quantity = typedQty > 0 ? typedQty : tier.cant;
-
-  const selectProduct = (id: string) => {
-    setProductId(id);
-    setTierIndex(0);
-    setFinishIndex(0);
-    setCustomQty('');
+  const selectItem = (id: string) => {
+    setItemId(id);
+    setQty('');
+    setDetalii('');
   };
+
+  const quantity = parseInt(qty, 10) || 0;
+  const unit = item.unitMeasure ? ` ${item.unitMeasure}` : '';
 
   // Handed to the contact form so the visitor does not retype the choices.
   const requestDraft = [
-    `Produs: ${product.nume}`,
-    `Cantitate: ${quantity.toLocaleString('ro-RO')} ${product.unitMeasure}`,
-    finish ? `Finisaj: ${finish}` : null,
-    '',
-    'Detalii suplimentare (dimensiuni, grafică, termen dorit):',
+    `Produs: ${item.nume}`,
+    item.dimensiuni ? `Dimensiuni: ${item.dimensiuni}` : null,
+    quantity > 0 ? `Cantitate: ${quantity.toLocaleString('ro-RO')}${unit}` : null,
+    detalii.trim() ? `\n${detalii.trim()}` : null,
+    detalii.trim() ? null : '\nDetalii suplimentare (dimensiuni, grafică, termen dorit):',
   ]
     .filter((line) => line !== null)
     .join('\n');
@@ -49,7 +48,7 @@ export default function Comenzi() {
       <PageHero
         title="Cere o ofertă"
         breadcrumb="Cere o ofertă"
-        subtitle="Alege produsul și cantitatea, iar noi revenim cu un preț. Fiecare comandă se calculează în funcție de dimensiuni, material și tiraj."
+        subtitle="Alege produsul și spune-ne cantitatea, iar noi revenim cu un preț. Fiecare comandă se calculează în funcție de dimensiuni, material și tiraj."
       />
 
       <section className="page-section section--paper" style={{ paddingTop: '2.5rem' }}>
@@ -58,7 +57,7 @@ export default function Comenzi() {
             {/* ------------------------------------------------ Product list */}
             <div>
               <div className="chip-row" role="group" aria-label="Filtrează după categorie">
-                {PRODUCT_CATEGORIES.map((c) => (
+                {REQUEST_CATEGORIES.map((c) => (
                   <button
                     key={c}
                     type="button"
@@ -82,12 +81,12 @@ export default function Comenzi() {
                   </thead>
                   <tbody>
                     {visible.map((p) => {
-                      const selected = p.id === productId;
+                      const selected = p.id === itemId;
                       return (
                         <tr
                           key={p.id}
                           className={selected ? 'is-selected' : undefined}
-                          onClick={() => selectProduct(p.id)}
+                          onClick={() => selectItem(p.id)}
                           aria-selected={selected}
                         >
                           <td>
@@ -97,9 +96,9 @@ export default function Comenzi() {
                             </span>
                           </td>
                           <td className="cell-cat">{p.categorie}</td>
-                          <td className="cell-qty">
-                            de la {p.tiers[0].cant.toLocaleString('ro-RO')} {p.unitMeasure}
-                          </td>
+                          {/* Dimensions appear only where the client stated
+                              them — three of the twenty-one. */}
+                          <td className="cell-qty">{p.dimensiuni ?? '—'}</td>
                           <td>
                             <button
                               type="button"
@@ -107,7 +106,7 @@ export default function Comenzi() {
                               aria-pressed={selected}
                               onClick={(e) => {
                                 e.stopPropagation();
-                                selectProduct(p.id);
+                                selectItem(p.id);
                               }}
                             >
                               {selected && <Check size={13} strokeWidth={3} aria-hidden="true" />}
@@ -126,71 +125,45 @@ export default function Comenzi() {
             {/* --------------------------------------------- Request builder */}
             <aside className="calc">
               <p className="calc__eyebrow">Cererea ta</p>
-              <h3>{product.nume}</h3>
+              <h3>{item.nume}</h3>
+              {item.dimensiuni && <p className="calc__meta">{item.dimensiuni}</p>}
 
+              {/* A free field, not preset tiers. The tiers this replaced were
+                  invented — no document states the company's order sizes. */}
               <div className="calc__field">
-                <span className="calc__label">Cantitate ({product.unitMeasure})</span>
-                <div className="calc__tiers" role="group" aria-label="Cantitate">
-                  {product.tiers.map((t, i) => {
-                    const on = tierIndex === i && !customQty;
-                    return (
-                      <button
-                        key={t.cant}
-                        type="button"
-                        className={`tier-btn${on ? ' is-active' : ''}`}
-                        aria-pressed={on}
-                        onClick={() => {
-                          setTierIndex(i);
-                          setCustomQty('');
-                        }}
-                      >
-                        {t.cant.toLocaleString('ro-RO')}
-                        <span className="sr-only"> {product.unitMeasure}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="calc__field">
-                <label className="calc__label" htmlFor="custom-qty">
-                  Sau introdu cantitatea
+                <label className="calc__label" htmlFor="qty">
+                  Cantitate{item.unitMeasure ? ` (${item.unitMeasure})` : ''}
                 </label>
                 <input
-                  id="custom-qty"
+                  id="qty"
                   type="number"
                   inputMode="numeric"
                   min={1}
-                  value={customQty}
-                  onChange={(e) => setCustomQty(e.target.value)}
-                  placeholder={`ex: ${product.tiers[0].cant}`}
+                  value={qty}
+                  onChange={(e) => setQty(e.target.value)}
+                  placeholder="ex: 500"
                 />
               </div>
 
-              {product.finisaje && (
-                <div className="calc__field" style={{ marginBottom: '1.5rem' }}>
-                  <label className="calc__label" htmlFor="finish">
-                    Finisaj
-                  </label>
-                  <select
-                    id="finish"
-                    value={finishIndex}
-                    onChange={(e) => setFinishIndex(parseInt(e.target.value, 10))}
-                  >
-                    {product.finisaje.map((f, i) => (
-                      <option key={f} value={i} style={{ background: '#111', color: '#fff' }}>
-                        {f}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
+              <div className="calc__field" style={{ marginBottom: '1.5rem' }}>
+                <label className="calc__label" htmlFor="detalii">
+                  Dimensiuni, material, finisaj
+                </label>
+                <textarea
+                  id="detalii"
+                  rows={3}
+                  value={detalii}
+                  onChange={(e) => setDetalii(e.target.value)}
+                  placeholder="ex: 300 × 200 × 100 mm, carton ondulat, tipar 2 culori"
+                />
+              </div>
 
               <div className="calc__total">
                 <p className="calc__summary-label">Rezumat</p>
                 <p className="calc__summary" aria-live="polite">
-                  {quantity.toLocaleString('ro-RO')} {product.unitMeasure}
-                  {finish ? ` · ${finish}` : ''}
+                  {quantity > 0
+                    ? `${quantity.toLocaleString('ro-RO')}${unit}`
+                    : 'Cantitate nespecificată'}
                 </p>
                 <p className="calc__disclaimer">
                   Prețul depinde de dimensiuni, material și tiraj — îl stabilim după ce vedem
@@ -200,7 +173,7 @@ export default function Comenzi() {
 
               <Link
                 to="/contact"
-                state={{ produs: product.subject, mesaj: requestDraft }}
+                state={{ produs: item.subject, mesaj: requestDraft }}
                 className="btn btn--accent btn--block"
               >
                 Continuă cererea
