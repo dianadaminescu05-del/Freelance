@@ -54,8 +54,19 @@
    clear of the subject. */
 .hero-media__inner {
   position: relative;
-  width: 108%;
-  margin-left: -4%;
+  /* Sized and offset so the whole subject clears the diagonal. The clip eats
+     ~24% of the frame at the video's top edge, tapering to ~10% at the
+     bottom, while the box and its unfolded tray span ~10%-96% of the frame.
+     Those do not both fit if the frame is only shifted right — the box's far
+     side runs off the panel instead. So the frame is pulled in to 91% and
+     sat against the right edge, which clears the cut on the left and still
+     leaves ~25px beyond PACKCRAFT on the right.
+
+     flex: none because the panel is a flex row: left to itself it shrinks
+     the frame back to fit and quietly undoes the offset. */
+  flex: none;
+  width: 91%;
+  margin-left: 9%;
   aspect-ratio: 1080 / 658;
   will-change: transform;
   -webkit-mask-image: linear-gradient(
