@@ -333,10 +333,17 @@
   cursor: pointer;
   transition: background var(--dur-fast) ease-out, color var(--dur-fast) ease-out;
 }
+/* The brand blue, same step the primary button and the active quantity
+   band use — white on --accent-dark is 4.87:1, where the bright --accent
+   would be 3.27:1 and fail as a label. Shared by /servicii and /comenzi,
+   so a filter reads the same wherever it appears. */
 .chip.is-active {
-  background: var(--ink);
+  background: var(--accent-dark);
   color: #fff;
   font-weight: 600;
+}
+.chip.is-active:hover {
+  background: var(--accent-darker);
 }
 
 .table-wrap {

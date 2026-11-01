@@ -425,9 +425,17 @@ svg {
 
 /* A span, not a disabled button: there is nothing to submit yet, and a
    disabled control is skipped by the keyboard, so the reason for it being
-   there goes unread. aria-disabled keeps it announced. */
+   there goes unread. aria-disabled keeps it announced.
+
+   Muted by swapping the fill, not by fading the whole thing. WCAG 1.4.3
+   exempts inactive controls from contrast, but a 0.45 opacity measured
+   2.15:1 — keeping the label in the accessibility tree and then making it
+   unreadable defeats the reason for keeping it. --mid on --paper-warm is
+   4.55:1, so it reads as unavailable and still reads. */
 .btn.is-disabled {
-  opacity: 0.45;
+  background: var(--paper-warm);
+  border: 1px solid var(--light);
+  color: var(--mid);
   cursor: not-allowed;
   pointer-events: none;
 }
