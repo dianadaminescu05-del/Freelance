@@ -427,8 +427,9 @@ Copy and figures come from three client documents (not in the repo):
 *Prezentare generala SC Tipografia Almariones*, *Prezentare firma - descriere*
 and *Poze pe categorii web site*.
 
-Everything in `src/data/` that states a fact traces to one of them. The
-prototype had carried invented values, corrected on 2026-10-28:
+Everything in `src/data/` that states a fact traces to one of them, with
+the exceptions listed under "Ours, not the client's" below. The prototype
+had carried invented values, corrected on 2026-10-28:
 
 | Was | Now | Source |
 |---|---|---|
@@ -443,6 +444,26 @@ prototype had carried invented values, corrected on 2026-10-28:
 go stale, and increments on the anniversary rather than on 1 January. The hero
 shows the founding year instead, because until 01.11.2026 the computed age is
 also 26 and two identical numbers read as a bug.
+
+### Ours, not the client's
+
+Checked against all four sources on 2026-11-01. These are inferences, not
+quotations — defensible, but nobody at Almariones has signed them off:
+
+| What | Why it is not sourced |
+|---|---|
+| The five `CATEGORII` | *Poze pe categorii web site.docx* has a Categorie column with **every cell blank**. *Prezentare firma* asks "Categorii de produse oferite" and the answer line is empty. The one answer given is "Produse oferite: ambalaje si cutii din carton". The five buckets are generalised from the product names. |
+| "Cutii personalizate" specifically | The catch-all that absorbed whatever did not fit, including *Ladiță carton* and *Cutie evenimente*. |
+| "model 1 / model 2" suffixes | Their list repeats two names verbatim; the suffixes follow the "2" in their own filenames. |
+| "buc" as the quantity unit on `/comenzi` | Safe — the catalogue is all discrete boxes — but stated nowhere. |
+| The third pizza product | Their table lists *Cutii pizza* twice; the photos show three distinct sets, so the third comes from filenames. |
+| "angajați **în producție**" in the hero | The document says "Nr. angajati actuali: 26" with no departmental split. It also records "Posturi: 14". |
+
+Verified as genuinely sourced in the same pass: all 20 product names, the
+three dimension strings (they are inside the client's own names), the seven
+`SERVICII_TIPARIRE` entries and the category label "Servicii tipărire" (read
+off `Servicii.JPG` directly), the 85% pizzeria figure, the headcount of 26,
+and the four partner names.
 
 ## No prices, deliberately
 

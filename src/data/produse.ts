@@ -3,6 +3,18 @@
  *
  * Names come from the client's own file names and the "Poze pe categorii"
  * table — tidied for diacritics and typos ("individiala"), nothing more.
+ * Where their list repeats a name (Cutie individuala twice, Cutie
+ * individuala carton natur twice) the "model 1 / model 2" suffixes are
+ * ours, following the "2" their own filenames use.
+ *
+ * CATEGORII IS NOT THEIRS. Their table has a Categorie column and every
+ * cell in it is blank; "Prezentare firma" asks the same question and the
+ * answer line is empty too. The only answer given anywhere is one line —
+ * "Produse oferite: ambalaje si cutii din carton". These five buckets are
+ * generalised from the product names, which are sourced, so they assert no
+ * capability the company has not claimed. They are still our grouping, and
+ * "Cutii personalizate" is the catch-all that took whatever did not fit.
+ * Worth putting to the client rather than treating as given.
  * There are deliberately NO marketing descriptions: no source document
  * supplies any, and inventing them is how the old prototype ended up
  * claiming presses the company does not own. Dimensions appear only where
