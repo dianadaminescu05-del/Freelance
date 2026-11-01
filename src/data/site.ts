@@ -37,7 +37,11 @@ export type NavItem = { to: string; label: string };
 
 export const NAV_ITEMS: NavItem[] = [
   { to: '/despre-noi', label: 'Despre noi' },
-  { to: '/servicii', label: 'Servicii' },
+  /* The route stays /servicii so existing links and the home page's
+     ?categorie= deep links keep working, but the label follows the page:
+     it is a product catalogue, and the printing *services* now live on
+     /comenzi. Nav, breadcrumb and h1 all read "Produse". */
+  { to: '/servicii', label: 'Produse' },
   { to: '/comenzi', label: 'Cere ofertă' },
   { to: '/b2b', label: 'B2B' },
   { to: '/contact', label: 'Contact' },

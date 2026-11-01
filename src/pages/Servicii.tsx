@@ -1,11 +1,9 @@
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import ProductCard from '../components/ProductCard';
 import ProductDialog from '../components/ProductDialog';
-import { EASE } from '../components/motion';
 import { CATEGORII, GAMA_COMPLETA, PRODUSE, type CatalogProduct } from '../data/produse';
 import { asset } from '../lib/asset';
 
@@ -34,49 +32,26 @@ export default function Servicii() {
   return (
     <>
       <PageHero
-        title="Produse"
         breadcrumb="Produse"
-        subtitle="Ambalaje și cutii din carton, produse în hala noastră din Lugoj. Fiecare model se execută la dimensiunile și tirajul cerute."
+        title="Produse"
+        kicker={`${PRODUSE.length} de modele, toate din carton`}
+        subtitle="Cutii individuale, ambalaje alimentare, cutii pentru hrană animale, ambalaje de transport și separatoare — produse în hala noastră din Lugoj. Fiecare model se execută la dimensiunile și tirajul cerute."
+        media={
+          /* The source is square and beautifully composed — shown whole
+             rather than cropped into a letterbox band. */
+          <figure className="hero-figure">
+            <img
+              src={asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)}
+              srcSet={`${asset(`produse/${GAMA_COMPLETA.slug}-600.jpg`)} 600w, ${asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)} 1200w`}
+              sizes="(max-width: 900px) 92vw, 460px"
+              alt={GAMA_COMPLETA.alt}
+              width={1200}
+              height={1200}
+              decoding="async"
+            />
+          </figure>
+        }
       />
-
-      {/* ------------------------------------------------- Range opener */}
-      <section className="page-section section--paper" style={{ paddingBottom: '1.5rem' }}>
-        <div className="container">
-          <motion.div
-            className="range-intro"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: EASE }}
-          >
-            {/* The source is square and beautifully composed — shown whole
-                rather than cropped into a letterbox band. */}
-            <figure className="range-intro__media">
-              <img
-                src={asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)}
-                srcSet={`${asset(`produse/${GAMA_COMPLETA.slug}-600.jpg`)} 600w, ${asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)} 1200w`}
-                sizes="(max-width: 900px) 92vw, 520px"
-                alt={GAMA_COMPLETA.alt}
-                width={1200}
-                height={1200}
-                decoding="async"
-              />
-            </figure>
-
-            <div className="range-intro__text">
-              <p className="section-label">Gama completă</p>
-              <div className="divider" />
-              <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', marginBottom: '1.25rem' }}>
-                {PRODUSE.length} de modele, toate din carton
-              </h2>
-              <p className="lead">
-                Gama cuprinde cutii individuale, ambalaje alimentare, cutii pentru hrană animale,
-                ambalaje de transport și separatoare — produse în hala noastră din Lugoj.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* -------------------------------------------------------- Catalog */}
       <section className="page-section section--paper" style={{ paddingTop: '2.5rem' }}>

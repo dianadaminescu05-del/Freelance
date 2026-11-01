@@ -376,6 +376,67 @@ svg {
   color: var(--on-ink-soft);
 }
 
+/* --- Banner with artwork ------------------------------------------------
+   Only pages that have a picture worth leading on. Everywhere else the
+   banner stays the plain dark band.
+   ---------------------------------------------------------------------- */
+
+.page-hero--media {
+  padding-bottom: 4rem;
+}
+.page-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: 3.5rem;
+  align-items: center;
+}
+/* The headline shares the row now, so it stops at a size that leaves the
+   copy beside it room to breathe. */
+.page-hero--media h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+.page-hero--media .page-hero__sub {
+  max-width: 46ch;
+  font-size: 1rem;
+}
+.page-hero__kicker {
+  margin-top: 0.85rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--accent-on-ink); /* 8.25:1 on --ink */
+}
+.page-hero__media {
+  min-width: 0;
+}
+/* White frame on the dark band, same card language as the catalogue below
+   — the shots are on white, so anything else would show a seam. */
+.hero-figure {
+  overflow: hidden;
+  border: 1px solid var(--on-ink-line);
+  border-radius: 1rem;
+  background: var(--white);
+}
+.hero-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .page-hero__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  /* Capped so the square does not fill a phone screen on its own before
+     the catalogue is reached. */
+  .page-hero__media {
+    max-width: 420px;
+  }
+}
+
 /* --- Motion ------------------------------------------------------------
    Users who ask for less motion get none: no transitions, no transforms,
    no smooth scroll. framer-motion is handled separately via MotionConfig.

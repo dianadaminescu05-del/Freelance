@@ -25,34 +25,6 @@
   color: var(--mid);
 }
 
-/* --- Range opener ------------------------------------------------------ */
-
-.range-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 3rem;
-  align-items: center;
-}
-
-.range-intro__media {
-  overflow: hidden;
-  border: 1px solid var(--light);
-  border-radius: 1rem;
-  background: var(--white);
-}
-.range-intro__media img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-@media (max-width: 900px) {
-  .range-intro {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
-
 /* --- Grid -------------------------------------------------------------- */
 
 .pgrid {
