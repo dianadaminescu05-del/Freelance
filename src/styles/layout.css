@@ -309,9 +309,8 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  /* WhatsApp brand green is kept exactly; the glyph goes dark because a
-     white one on #25D366 measures 1.98:1, under the 3:1 icons need.
-     Dark-on-brand measures 6.21:1. */
+  /* WhatsApp brand green is kept exactly. `color` still drives anything
+     textual here; the mark itself is painted white by .wa-glyph below. */
   background: var(--whatsapp);
   color: #0b3d21;
   text-decoration: none;
@@ -321,6 +320,22 @@
 .whatsapp-fab:hover {
   background: #1fbe5b;
   box-shadow: 0 6px 26px rgba(37, 211, 102, 0.5);
+}
+
+/* The mark in WhatsApp's own colourway: white on the brand green.
+   That pairing is 1.98:1, under the 3:1 WCAG 1.4.11 asks of a non-text
+   graphic, and stands on the criterion's logotype exception — it is a brand
+   mark, and the white-on-green lockup is what makes it recognisable at a
+   glance. Deliberate, and scoped to the glyph: labels beside it keep the
+   dark foreground, where 1.98:1 would be a text failure instead.
+
+   The FAB has no label, so its accessible name is the aria-label on the
+   anchor rather than anything visual. */
+.whatsapp-fab .wa-glyph,
+.whatsapp-btn .wa-glyph {
+  /* The glyph is built from currentColor — a stroked bubble and a filled
+     handset — so one colour drives both. */
+  color: #ffffff;
 }
 
 @media (max-width: 640px) {

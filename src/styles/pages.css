@@ -844,7 +844,8 @@
   min-height: var(--tap);
   padding: 0.85rem 1.5rem;
   border-radius: var(--radius);
-  /* Brand green kept; label goes dark — white on #25D366 is 1.98:1. */
+  /* Brand green kept; the label goes dark because white on #25D366 is
+     1.98:1. Only the glyph is white — see .wa-glyph in layout.css. */
   background: var(--whatsapp);
   color: #0b3d21;
   font-size: 0.9375rem;
