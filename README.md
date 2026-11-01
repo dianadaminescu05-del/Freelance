@@ -502,6 +502,23 @@ The request panel shares the picker cards' shell — white, hairline border,
 1rem radius — rather than sitting as a dark box against a light grid. Every
 value inside had been picked for `--ink` and was re-picked for `--white`.
 
+### Several items in one request
+
+A real request is rarely one thing — a pizzeria wants boxes by the thousand
+and flyers by the hundred, in one ask — so the cards are checkboxes rather
+than a single choice and the panel holds a list. Quantity is per line: a
+compact `<select>` instead of the band buttons, because seven buttons on
+each of several lines would be forty-odd controls in a 340px column, and on
+a phone a select is one native tap.
+
+`subject` handed to the contact form is the shared category when every line
+agrees and `Altele` when they do not, rather than taking the first line's
+and quietly mislabelling the rest.
+
+Below 900px the panel stacks under 28 cards, so adding something would give
+no visible feedback at all. A fixed receipt bar carries the count and jumps
+to the panel; it is inset from the right to clear the WhatsApp FAB.
+
 The seven printing services have no photograph — nothing was shot for them
 — so they fall back to a plain tile rather than borrowing someone else's
 picture.

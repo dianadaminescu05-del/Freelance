@@ -422,3 +422,12 @@ svg {
     padding-bottom: 3rem;
   }
 }
+
+/* A span, not a disabled button: there is nothing to submit yet, and a
+   disabled control is skipped by the keyboard, so the reason for it being
+   there goes unread. aria-disabled keeps it announced. */
+.btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}

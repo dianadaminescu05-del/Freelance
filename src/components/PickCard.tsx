@@ -1,4 +1,4 @@
-import { Check, Printer } from 'lucide-react';
+import { Check, Plus, Printer } from 'lucide-react';
 import type { RequestItem } from '../data/content';
 import { asset } from '../lib/asset';
 
@@ -9,23 +9,26 @@ function srcSet(slug: string) {
 
 type Props = {
   item: RequestItem;
+  /** In the request already. */
   selected: boolean;
-  onSelect: (item: RequestItem) => void;
+  onToggle: (item: RequestItem) => void;
   /** Above-the-fold cards skip lazy loading so the grid paints immediately. */
   eager?: boolean;
 };
 
 /**
- * One choice in the Cere ofertă picker.
+ * One line-item toggle in the Cere ofertă picker.
  *
  * Shares the catalogue's card shell so a product looks the same wherever it
- * appears, but this is a radio, not a link: the whole card is the control
- * and selecting it needs one click and no typing.
+ * appears, but the whole card is the control: one click adds it to the
+ * request, another takes it out. A request usually has more than one thing
+ * in it — pizza boxes and flyers, each at its own quantity — so this is a
+ * set of checkboxes rather than a single choice.
  *
  * Printing services fall back to a plain tile — nothing was photographed for
  * them, and a stand-in photo would be inventing what they look like.
  */
-export default function PickCard({ item, selected, onSelect, eager }: Props) {
+export default function PickCard({ item, selected, onToggle, eager }: Props) {
   const photo = item.imagini?.[0];
 
   return (
@@ -33,11 +36,8 @@ export default function PickCard({ item, selected, onSelect, eager }: Props) {
       <button
         type="button"
         className={`pcard__btn pcard__btn--pick${selected ? ' is-selected' : ''}`}
-        // Radio semantics: a pressed toggle would say "Selectat" is something
-        // you can switch off, when the only way out is choosing another.
-        role="radio"
-        aria-checked={selected}
-        onClick={() => onSelect(item)}
+        aria-pressed={selected}
+        onClick={() => onToggle(item)}
       >
         <span className="pcard__media">
           {photo ? (
@@ -64,8 +64,13 @@ export default function PickCard({ item, selected, onSelect, eager }: Props) {
           {item.dimensiuni && <span className="pcard__dim">{item.dimensiuni}</span>}
         </span>
 
+        {/* The badge is decorative — aria-pressed already carries the state
+            — but it is what a sighted user reads the card by. */}
         <span className="pcard__tick" aria-hidden="true">
-          <Check size={15} strokeWidth={3} />
+          {selected ? <Check size={15} strokeWidth={3} /> : <Plus size={15} strokeWidth={3} />}
+        </span>
+        <span className="sr-only">
+          {selected ? ' — în cerere, apasă pentru a scoate' : ' — adaugă în cerere'}
         </span>
       </button>
     </li>
