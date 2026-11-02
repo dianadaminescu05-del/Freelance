@@ -4,7 +4,9 @@ import { ArrowRight, X } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import PickCard from '../components/PickCard';
 import { QUANTITY_BANDS, REQUEST_CATEGORIES, REQUEST_ITEMS } from '../data/content';
+import { PRODUSE } from '../data/produse';
 import { SITE } from '../data/site';
+import { asset } from '../lib/asset';
 
 /**
  * Cere ofertă — build a request of several items, then hand it to contact.
@@ -26,6 +28,10 @@ import { SITE } from '../data/site';
  * Exact dimensions, material and artwork are left to the contact form's
  * message field, which this page pre-fills.
  */
+
+/* Pulled from the catalogue rather than hard-coded, so the banner cannot
+   end up pointing at a shot the product list no longer has. */
+const HERO_SHOT = PRODUSE.find((p) => p.slug === 'cutii-pizza-albe')!.imagini[0];
 
 const CUSTOM = 'Altă cantitate…';
 const UNSET = 'Cantitate';
@@ -101,8 +107,23 @@ export default function Comenzi() {
   return (
     <>
       <PageHero
+        light
+        mediaFirst
         title="Cere o ofertă"
         subtitle="Adaugă în cerere tot ce te interesează și pune o cantitate pentru fiecare. Revenim cu un preț — fiecare comandă se execută la dimensiunile și tirajul cerute."
+        media={
+          <figure className="hero-figure">
+            <img
+              src={asset(`produse/${HERO_SHOT.slug}-1200.jpg`)}
+              srcSet={`${asset(`produse/${HERO_SHOT.slug}-600.jpg`)} 600w, ${asset(`produse/${HERO_SHOT.slug}-1200.jpg`)} 1200w`}
+              sizes="(max-width: 900px) 92vw, 360px"
+              alt={HERO_SHOT.alt}
+              width={1200}
+              height={1200}
+              decoding="async"
+            />
+          </figure>
+        }
       />
 
       <section className="page-section section--paper" style={{ paddingTop: '2.5rem' }}>
