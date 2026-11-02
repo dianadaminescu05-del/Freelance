@@ -777,55 +777,80 @@
   background: var(--white);
   overflow: hidden;
 }
-.dmap__svg {
+.dmap__canvas {
+  height: 340px;
+  background: var(--paper-warm);
+}
+/* Holds the map's footprint while its chunk loads: canvas height plus the
+   legend, so the page below does not jump. */
+.dmap--loading {
+  height: calc(340px + 7.4rem);
+  background: var(--paper-warm);
+}
+@media (max-width: 560px) {
+  .dmap--loading {
+    height: calc(280px + 12rem);
+  }
+}
+@media (max-width: 560px) {
+  .dmap__canvas {
+    height: 280px;
+  }
+}
+
+/* Leaflet ships its own chrome; these pull it onto the site's tokens
+   rather than leaving default blue links and hard corners. */
+.dmap .leaflet-container {
+  font-family: var(--font-body);
+  background: var(--paper-warm);
+}
+.dmap .leaflet-control-attribution {
+  background: rgb(255 255 255 / 0.88);
+  font-size: 0.6875rem;
+  color: var(--mid);
+}
+.dmap .leaflet-control-attribution a {
+  color: var(--accent-dark); /* 4.87:1 on white */
+}
+.dmap .leaflet-bar a {
+  color: var(--ink);
+  border-bottom-color: var(--light);
+}
+.dmap .leaflet-bar a:hover {
+  background: var(--paper-warm);
+}
+.dmap .leaflet-tooltip {
+  padding: 0.2rem 0.5rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  box-shadow: none;
+}
+.dmap .leaflet-tooltip-top::before {
+  border-top-color: var(--ink);
+}
+
+/* A styled span instead of Leaflet's default pin image, which is loaded by
+   a relative URL inside the stylesheet and would 404 under /Freelance/. */
+.dmap__pin {
   display: block;
-  width: 100%;
-  height: auto;
-  background: var(--paper);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgb(var(--ink-rgb) / 0.4);
+}
+.dmap__pin.is-hq {
+  width: 20px;
+  height: 20px;
+  background: var(--accent-2);
+  box-shadow: 0 0 0 5px rgb(var(--accent-2-rgb) / 0.22), 0 1px 5px rgb(var(--ink-rgb) / 0.4);
 }
 
-/* Scale rings. Decorative structure, not information — the legend carries
-   the numbers in text. */
-.dmap__ring {
-  fill: none;
-  stroke: var(--light);
-  stroke-width: 1;
-}
-.dmap__ring-label {
-  fill: var(--mid);
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-anchor: middle;
-}
-.dmap__spoke {
-  stroke: var(--light);
-  stroke-width: 1;
-}
-
-.dmap__pin circle {
-  fill: var(--accent-dark);
-}
-.dmap__pin text {
-  fill: var(--ink);
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-}
-.dmap__pin.is-hq circle {
-  fill: var(--accent-2);
-}
-.dmap__pin.is-hq text {
-  font-size: 13px;
-  font-weight: 700;
-}
-.dmap__halo {
-  fill: rgb(var(--accent-2-rgb) / 0.14);
-}
-
-/* The readable version. An SVG full of <text> is not a list, so the towns
-   are repeated here where they can be read, tabbed past and copied. */
 .dmap__legend {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -848,7 +873,6 @@
 .dmap__km {
   color: var(--mid);
   font-size: 0.8125rem;
-  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 560px) {

@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
-import DeliveryMap from '../components/DeliveryMap';
+import { Suspense, lazy } from 'react';
 import PageHero from '../components/PageHero';
+
+/* Leaflet and its stylesheet are ~45KB gzipped and only this page shows a
+   map, so they are split out rather than ridden along in the bundle every
+   visitor downloads. The placeholder reserves the map's exact height, so
+   nothing below it jumps when the chunk lands. */
+const DeliveryMap = lazy(() => import('../components/DeliveryMap'));
 import { B2B_BENEFITS, FLEET_STATS, PARTNERS } from '../data/content';
 
 export default function B2B() {
@@ -39,7 +45,9 @@ export default function B2B() {
 
             <div>
               <h3 className="subhead">Zone de livrare</h3>
-              <DeliveryMap />
+              <Suspense fallback={<div className="dmap dmap--loading" aria-hidden="true" />}>
+                <DeliveryMap />
+              </Suspense>
               <p className="note" style={{ marginTop: '0.75rem' }}>
                 Alte localități la cerere.
               </p>

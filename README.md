@@ -548,10 +548,30 @@ Blocking, in rough priority:
 3. **Permission to name clients.** The documents list 17; the site shows 4.
 4. **Delivery claims on /b2b** (3.5t fleet, 7 zones, weekly routes, 24h) have
    no source and are still live. Left untouched rather than invented away.
-5. **Product photography.** The 20 existing shots are usable but were taken on
+   The zone list is now a Leaflet map (`components/DeliveryMap.tsx`), which
+   sharpened two things:
+   - The distances it used to print are gone. They were not one kind of
+     measurement: Timișoara's "55 km" is straight-line, Arad's "110 km" is
+     road. On a map Arad would sit nearer than Deva while claiming to be
+     20km further. Road distances can return when the client gives a set.
+   - **Oțelu Roșu was missing.** *Prezentare generala* names it beside
+     Caransebeș and Timișoara; it had been left off while four towns no
+     document mentions — Reșița, Deva, Hunedoara, Arad — were on. All eight
+     are plotted; `sourced` in `DELIVERY_ZONES` marks the four that are
+     documented. Trimming to those four is a one-line change.
+
+5. **Google Fonts is a third-party request.** `index.html` loads Inter and
+   Space Grotesk from `fonts.googleapis.com` / `fonts.gstatic.com`. German
+   courts have held that serving Google Fonts from Google's CDN without
+   consent breaches GDPR, and this is an EU-funded site with no consent
+   banner. Self-hosting the two families removes the question and one
+   round-trip. Not done — it is a deliberate decision, not a bug.
+   (The map adds no Google request: OpenStreetMap tiles, no key, no
+   cookies.)
+6. **Product photography.** The 20 existing shots are usable but were taken on
    an office desk with visible clutter. The brief also asks for exterior,
    interior static and interior dynamic shots, none of which exist yet.
-6. **Pizza box photos (19–20)** carry other businesses' branding.
+7. **Pizza box photos (19–20)** carry other businesses' branding.
 
 Not for the website: the banking details in *Prezentare generala* (Unicredit,
 Alpha Bank, CEC, overdraft facility) are internal background only.
