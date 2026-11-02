@@ -508,6 +508,30 @@ svg {
   object-fit: cover;
 }
 
+/* The group shot needs holding back; the pizza shot does not.
+
+   Their content boxes are different shapes: 1250x791 is 1.580:1, which is
+   the 380x240 frame's own ratio, so filling the width leaves it flush top
+   and bottom with nowhere to breathe. The pizza shot's 1222x628 is 1.95:1,
+   so at full width it lands at 195px and keeps ~22px above and below —
+   which is the look worth matching.
+
+   200px tall gives the group shot the same 20px, at 317px wide. Only this
+   one is inset; applying it to both would strand the pizza shot again. */
+/* Scoped under --light to match the specificity of the rule above it;
+   .hero-figure--inset img alone loses to .page-hero--light .hero-figure img
+   and silently does nothing. */
+.page-hero--light .hero-figure--inset img {
+  /* Both axes stated. `width: auto` on a square source gives a 200x200
+     box, and cover then crops the sides off a 1.58:1 subject — the group
+     shot came out small and clipped. 316x200 is the content's own ratio,
+     so cover fills it exactly and nothing is lost. */
+  width: 316px;
+  height: 200px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 @media (max-width: 900px) {
   /* Stacked, a fixed height is meaningless — the copy wraps to whatever it
      needs and the artwork sits under it. */

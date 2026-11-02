@@ -48,7 +48,7 @@ export default function Servicii() {
         media={
 /* Supplied as a cut-out, so it needs no frame and no blend
              trick — the banner and its hatch show through the alpha. */
-          <figure className="hero-figure">
+          <figure className="hero-figure hero-figure--inset">
             <img
               src={asset('banner/gama-completa.webp')}
               alt="Gama de ambalaje și cutii din carton produse de Almariones"
