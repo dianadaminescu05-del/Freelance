@@ -108,7 +108,6 @@ export default function Comenzi() {
     <>
       <PageHero
         light
-        mediaFirst
         title="Cere o ofertă"
         subtitle="Adaugă în cerere tot ce te interesează și pune o cantitate pentru fiecare. Revenim cu un preț — fiecare comandă se execută la dimensiunile și tirajul cerute."
         media={

@@ -15,9 +15,6 @@ type Props = {
   /** White banner instead of ink — for artwork shot on white, which then
    *  needs no frame because it blends straight into the band. */
   light?: boolean;
-  /** Artwork on the left. Visual only: the copy stays first in the DOM, so
-   *  the heading is still what a screen reader and a phone meet first. */
-  mediaFirst?: boolean;
 };
 
 /** Dark banner shared by every inner page. */
@@ -27,7 +24,6 @@ export default function PageHero({
   kicker,
   media,
   light,
-  mediaFirst,
 }: Props) {
   return (
     <div
@@ -41,13 +37,7 @@ export default function PageHero({
     >
       <AccentRail />
       <div className="container">
-        <div
-          className={
-            media
-              ? `page-hero__grid${mediaFirst ? ' page-hero__grid--media-first' : ''}`
-              : undefined
-          }
-        >
+        <div className={media ? 'page-hero__grid' : undefined}>
           <div>
             <motion.h1
               initial={{ opacity: 0, y: 40 }}

@@ -33,7 +33,6 @@ export default function Servicii() {
     <>
       <PageHero
         light
-        mediaFirst
         title="Produse"
         kicker={`${PRODUSE.length} de modele, toate din carton`}
         /* The category list that used to run here is the chip row directly

@@ -394,7 +394,10 @@ svg {
 
 .page-hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  /* Copy first, so it starts on the container's own edge — the same
+     vertical the logo sits on. The artwork column is sized to the artwork
+     rather than left at 440px, where a 240px square would float in it. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
   gap: 3.5rem;
   align-items: center;
 }
@@ -407,6 +410,14 @@ svg {
   max-width: 46ch;
   font-size: 1rem;
 }
+/* The banner height is shared with every other page, so a larger picture
+   has to come out of the padding rather than out of the height. The sum
+   is exact: 132 top + 4 bottom leaves 244px inside a 380px banner, which
+   is the 240px artwork with 4px to spare. Loosen either and these two
+   pages grow past the other four. */
+.page-hero--media {
+  padding: calc(var(--header-height) + 0.25rem) 0 0.25rem;
+}
 .page-hero__kicker {
   margin-top: 0.85rem;
   font-family: var(--font-display);
@@ -418,21 +429,6 @@ svg {
 }
 .page-hero__media {
   min-width: 0;
-}
-/* Artwork on the left. Done with order, not DOM order: the heading stays
-   first in the markup, so a screen reader and a phone both meet it before
-   the picture. */
-.page-hero__grid--media-first {
-  /* Sized to the capped artwork rather than the 460px the framed version
-     needed, so the shot does not float in a column wider than itself. */
-  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-  gap: 3rem;
-}
-.page-hero__grid--media-first > *:first-child {
-  order: 2;
-}
-.page-hero__grid--media-first .page-hero__media {
-  order: 1;
 }
 
 /* White frame on the dark band, same card language as the catalogue below
@@ -473,7 +469,15 @@ svg {
 .page-hero--light h1 {
   color: var(--ink);
 }
-.page-hero--light .page-hero__kicker {
+.page-hero--light /* The banner height is shared with every other page, so a larger picture
+   has to come out of the padding rather than out of the height. The sum
+   is exact: 132 top + 4 bottom leaves 244px inside a 380px banner, which
+   is the 240px artwork with 4px to spare. Loosen either and these two
+   pages grow past the other four. */
+.page-hero--media {
+  padding: calc(var(--header-height) + 0.25rem) 0 0.25rem;
+}
+.page-hero__kicker {
   color: var(--accent-dark); /* 4.87:1 */
 }
 .page-hero--light .page-hero__sub {
@@ -488,13 +492,16 @@ svg {
 /* Capped to what the shared banner height allows. The source is square,
    so this caps the width too; the white space either side of it is
    invisible against the band. */
+/* 240px, up from 200px: as much as the shared banner height allows once
+   the padding above is accounted for. The source is square, so this caps
+   the width too. */
 .page-hero--light .hero-figure img {
   /* The shot is on white, and the hatch is behind it. Multiply leaves the
      backdrop untouched wherever the source is white, so the photo's ground
      disappears and the lines run on through it — which is the blend the
      flat white version had, now that there is a pattern to blend into. */
   mix-blend-mode: multiply;
-  max-height: 200px;
+  max-height: 240px;
   width: auto;
   max-width: 100%;
   margin: 0 auto;
@@ -507,24 +514,21 @@ svg {
   .page-hero {
     min-height: 0;
   }
-  .page-hero__grid,
-  .page-hero__grid--media-first {
+  /* Stacked, the copy leads and the artwork follows — which is already
+     the DOM order. */
+  .page-hero__grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-  /* Stacked, the copy leads whichever side the artwork takes on desktop. */
-  .page-hero__grid--media-first > *:first-child {
-    order: 1;
-  }
-  .page-hero__grid--media-first .page-hero__media {
-    order: 2;
   }
   /* Capped so the square does not fill a phone screen on its own before
      the catalogue is reached. */
   .page-hero__media {
     max-width: 420px;
   }
-  .page-hero--light .hero-figure img {
+  /* 240px, up from 200px: as much as the shared banner height allows once
+   the padding above is accounted for. The source is square, so this caps
+   the width too. */
+.page-hero--light .hero-figure img {
     max-height: 260px;
   }
 }
