@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check, MapPin } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
+import DeliveryMap from '../components/DeliveryMap';
 import PageHero from '../components/PageHero';
-import { B2B_BENEFITS, DELIVERY_ZONES, FLEET_STATS, PARTNERS } from '../data/content';
+import { B2B_BENEFITS, FLEET_STATS, PARTNERS } from '../data/content';
 
 export default function B2B() {
   return (
@@ -38,17 +39,7 @@ export default function B2B() {
 
             <div>
               <h3 className="subhead">Zone de livrare</h3>
-              <div className="zone-list">
-                {DELIVERY_ZONES.map((z) => (
-                  <div key={z.oras} className={`zone-row${z.highlight ? ' is-hq' : ''}`}>
-                    <span className="oras">
-                      {z.highlight && <MapPin size={15} strokeWidth={2} aria-hidden="true" />}
-                      {z.oras}
-                    </span>
-                    <span className="dist">{z.dist}</span>
-                  </div>
-                ))}
-              </div>
+              <DeliveryMap />
               <p className="note" style={{ marginTop: '0.75rem' }}>
                 Alte localități la cerere.
               </p>

@@ -234,14 +234,42 @@ export const REQUEST_CATEGORIES = ['Toate', ...CATEGORII, TIPARIRE_CATEGORY];
 
 /* ------------------------------------------------------------------- B2B */
 
-export const DELIVERY_ZONES = [
-  { oras: 'Lugoj', dist: 'sediu', highlight: true },
-  { oras: 'Timișoara', dist: '55 km' },
-  { oras: 'Caransebeș', dist: '60 km' },
-  { oras: 'Reșița', dist: '75 km' },
-  { oras: 'Deva', dist: '90 km' },
-  { oras: 'Hunedoara', dist: '105 km' },
-  { oras: 'Arad', dist: '110 km' },
+/**
+ * Places the company delivers to, as map points.
+ *
+ * Real coordinates, so the map plots measurable positions instead of being
+ * drawn by eye.
+ *
+ * The distances the list used to print are gone. They did not survive
+ * being checked: Timișoara's "55 km" is a straight-line figure, Arad's
+ * "110 km" a road one, and on a map the two cannot coexist — Arad is 72km
+ * out and would have been drawn nearer than Deva while claiming to be 20km
+ * further. No document gives any of them. Road distances can come back
+ * when the client supplies a real set.
+ *
+ * `sourced` marks the four named in "Prezentare generala": "livreaza
+ * ambalaje pentru 85% dintre pizzeriile din Lugoj, dar si pentru pizzerii
+ * si restaurante din Caransebes, Otelul Rosu, Timisoara". Oțelu Roșu is
+ * named there and had been left off this list entirely; Reșița, Deva,
+ * Hunedoara and Arad are on it and appear in no document. See README.
+ */
+export type DeliveryPoint = {
+  oras: string;
+  lat: number;
+  lon: number;
+  hq?: boolean;
+  sourced?: boolean;
+};
+
+export const DELIVERY_ZONES: DeliveryPoint[] = [
+  { oras: 'Lugoj', lat: 45.6886, lon: 21.9033, hq: true, sourced: true },
+  { oras: 'Timișoara', lat: 45.7489, lon: 21.2087, sourced: true },
+  { oras: 'Caransebeș', lat: 45.4214, lon: 22.2186, sourced: true },
+  { oras: 'Oțelu Roșu', lat: 45.5256, lon: 22.3633, sourced: true },
+  { oras: 'Reșița', lat: 45.3008, lon: 21.8893 },
+  { oras: 'Deva', lat: 45.8833, lon: 22.9 },
+  { oras: 'Hunedoara', lat: 45.75, lon: 22.9 },
+  { oras: 'Arad', lat: 46.1866, lon: 21.3123 },
 ];
 
 export const FLEET_STATS = [

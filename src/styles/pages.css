@@ -769,6 +769,94 @@
   text-underline-offset: 3px;
 }
 
+/* --- Delivery map ------------------------------------------------------ */
+
+.dmap {
+  border: 1px solid var(--light);
+  border-radius: 1rem;
+  background: var(--white);
+  overflow: hidden;
+}
+.dmap__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--paper);
+}
+
+/* Scale rings. Decorative structure, not information — the legend carries
+   the numbers in text. */
+.dmap__ring {
+  fill: none;
+  stroke: var(--light);
+  stroke-width: 1;
+}
+.dmap__ring-label {
+  fill: var(--mid);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-anchor: middle;
+}
+.dmap__spoke {
+  stroke: var(--light);
+  stroke-width: 1;
+}
+
+.dmap__pin circle {
+  fill: var(--accent-dark);
+}
+.dmap__pin text {
+  fill: var(--ink);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+.dmap__pin.is-hq circle {
+  fill: var(--accent-2);
+}
+.dmap__pin.is-hq text {
+  font-size: 13px;
+  font-weight: 700;
+}
+.dmap__halo {
+  fill: rgb(var(--accent-2-rgb) / 0.14);
+}
+
+/* The readable version. An SVG full of <text> is not a list, so the towns
+   are repeated here where they can be read, tabbed past and copied. */
+.dmap__legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.5rem;
+  padding: 1rem 1.25rem 1.15rem;
+  border-top: 1px solid var(--light);
+  list-style: none;
+}
+.dmap__legend li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+  font-size: 0.9375rem;
+}
+.dmap__legend li.is-hq {
+  font-weight: 700;
+}
+.dmap__km {
+  color: var(--mid);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 560px) {
+  .dmap__legend {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ========================================================== B2B ========= */
 
 .fleet-grid {
@@ -808,56 +896,6 @@
   color: var(--paper);
 }
 
-.zone-list {
-  border: 1px solid var(--light);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.zone-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.85rem 1.1rem;
-  border-bottom: 1px solid var(--light);
-  border-left: 3px solid transparent;
-}
-.zone-row:last-child {
-  border-bottom: none;
-}
-.zone-row:nth-child(even) {
-  background: var(--paper);
-}
-.zone-row:nth-child(odd) {
-  background: var(--white);
-}
-.zone-row.is-hq {
-  background: var(--ink);
-  border-left-color: var(--accent);
-}
-.zone-row .oras {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-.zone-row .dist {
-  font-size: 0.875rem;
-  font-weight: 400;
-  color: var(--mid);
-  white-space: nowrap;
-}
-.zone-row.is-hq .oras {
-  color: var(--paper);
-}
-.zone-row.is-hq .dist {
-  color: var(--on-ink-soft);
-}
-.zone-row.is-hq .oras svg {
-  color: var(--accent-4);
-}
 
 .benefit-row {
   display: flex;
