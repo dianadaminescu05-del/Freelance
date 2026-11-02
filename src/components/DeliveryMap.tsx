@@ -98,8 +98,10 @@ export default function DeliveryMap({ points = DELIVERY_ZONES }: { points?: Deli
       <ul className="dmap__legend">
         {points.map((p) => (
           <li key={p.oras} className={p.hq ? 'is-hq' : undefined}>
-            <span>{p.oras}</span>
-            {p.hq && <span className="dmap__km">sediu</span>}
+            <span className="dmap__town">
+              {p.oras}
+              {p.hq && <span className="dmap__chip">sediu</span>}
+            </span>
           </li>
         ))}
       </ul>

@@ -878,9 +878,24 @@
 .dmap__legend li.is-hq {
   font-weight: 700;
 }
-.dmap__km {
-  color: var(--mid);
-  font-size: 0.8125rem;
+.dmap__town {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* Magenta tint rather than a filled chip: the label is the darkened
+   --accent-2-text step, which measures 4.79:1 on a 0.12 wash. Filled, the
+   only label that clears 4.5:1 on the bright magenta is ink — and a dark
+   word on a bright pill reads as a button, which this is not. */
+.dmap__chip {
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: rgb(var(--accent-2-rgb) / 0.12);
+  color: var(--accent-2-text);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 560px) {
