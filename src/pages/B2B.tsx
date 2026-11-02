@@ -8,7 +8,7 @@ import PageHero from '../components/PageHero';
    visitor downloads. The placeholder reserves the map's exact height, so
    nothing below it jumps when the chunk lands. */
 const DeliveryMap = lazy(() => import('../components/DeliveryMap'));
-import { B2B_BENEFITS, B2B_FACTS, PARTNERS } from '../data/content';
+import { B2B_BENEFITS, PARTNERS } from '../data/content';
 
 export default function B2B() {
   return (
@@ -32,15 +32,6 @@ export default function B2B() {
                 Livrăm ambalaje pentru 85% dintre pizzeriile din Lugoj, dar și pentru pizzerii
                 și restaurante din Caransebeș, Oțelu Roșu și Timișoara.
               </p>
-
-              <div className="fleet-grid">
-                {B2B_FACTS.map((s) => (
-                  <div key={s.label} className="fleet-cell">
-                    <div className="val">{s.val}</div>
-                    <div className="label">{s.label}</div>
-                  </div>
-                ))}
-              </div>
             </div>
 
             <div>

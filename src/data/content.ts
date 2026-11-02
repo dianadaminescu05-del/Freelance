@@ -272,29 +272,19 @@ export const DELIVERY_ZONES: DeliveryPoint[] = [
   { oras: 'Arad', lat: 46.1866, lon: 21.3123 },
 ];
 
-/* Replaces FLEET_STATS, which was four invented figures — 3.5t, 7 zones,
-   weekly routes, 24h. Searching all three documents for every transport
-   term turned up no vehicle, no tonnage, no route and no delivery time;
-   the nearest hits were "mașinile de operat" (production machinery, in a
-   list of photos to take) and "pregătirii logistice" (cash flow, in the
-   banking paragraph).
+/* There is deliberately no stat block on /b2b.
 
-   Each of these four is a single unambiguous statement from "Prezentare
-   firma" or "Prezentare generala", quoted below. None needs arithmetic or
-   a judgement call about what counts — the client list, for instance, is
-   spelled differently across the two documents, so a count of it would be
-   our deduplication rather than their figure. */
-export const B2B_FACTS = [
-  // "Data deschiderii: 01.11.1999"
-  { val: '1999', label: 'anul înființării' },
-  // "din 01.08.2006 s-a concesionat teren si s-a construit hala proprie
-  //  unde se desfasoara activitatea acum"
-  { val: '2006', label: 'hală proprie' },
-  // "Nr. angajati actuali: 26"
-  { val: '26', label: 'angajați în prezent' },
-  // "avand un capital privat romanesc 100%"
-  { val: '100%', label: 'capital românesc' },
-];
+   The fleet tiles that used to sit there — 3.5t, 7 zones, weekly routes,
+   24h — were invented, and replacing them turned out to be impossible
+   honestly: every sourced figure the company has is already placed.
+   CAPABILITIES on /despre-noi holds 1999, 100% capital, the 2006 hall,
+   3 -> 26 and the 14 posts; VALUES holds the stated strengths; the home
+   hero holds 1999, 26 and the 85%. Anything here would have been one of
+   those again, which is exactly what it was.
+
+   The section carries the documents' own delivery sentence and the map.
+   That is what is known about delivery, and it is enough. */
+
 
 /* Names corrected against "Prezentare generala". The document lists 17
    clients in total; this stays at four pending permission to publish the

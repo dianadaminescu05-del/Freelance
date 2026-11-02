@@ -30,7 +30,12 @@ export const SITE = {
      stated page rather than a guess. */
   pnrrFacebook: 'https://www.facebook.com/PNRROficial',
   blurb:
-    'Ambalaje și cutii din carton, produse în Lugoj din 1999. Capital integral românesc, hală proprie și relații de lungă durată cu partenerii noștri.',
+    /* "din 2002", not "din 1999": the company was founded in 1999 as a
+       printer and only moved into cardboard packaging in 2002 — "din 2002
+       s-a inceput cu productia de ambalaje din carton". Both this and the
+       Despre noi subtitle had been claiming the packaging ran from the
+       founding, three years early. */
+    'Ambalaje și cutii din carton, produse în Lugoj din 2002. Capital integral românesc, hală proprie și relații de lungă durată cu partenerii noștri.',
 } as const;
 
 export type NavItem = { to: string; label: string };

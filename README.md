@@ -433,6 +433,7 @@ had carried invented values, corrected on 2026-10-28:
 
 | Was | Now | Source |
 |---|---|---|
+| "produse în Lugoj din 1999" | din 2002 | packaging began 2002; 1999–2002 was printing |
 | "15+ ani experiență" | founding year 1999 | registration date 01.11.1999 |
 | "Hellout", "Oliv" | Hella, Autoliv | client list |
 | "Almariones SRL" | SC Tipografia Almariones | both documents |
@@ -558,6 +559,13 @@ Blocking, in rough priority:
    documents' own sentence about the pizzerias. "Flota noastră" and
    "Transport propriu" went with them, since keeping either while removing
    the figures would have contradicted the page.
+
+   The replacement tiles were themselves removed the same day. Every
+   sourced figure the company has was already placed: CAPABILITIES on
+   /despre-noi holds 1999, 100% capital, the 2006 hall, 3 -> 26 and the 14
+   posts; VALUES holds the stated strengths; the home hero holds 1999, 26
+   and the 85%. Anything on /b2b would have been one of those again. The
+   section is the documents' own delivery sentence plus the map.
 
    **Still open on the same page:** `B2B_BENEFITS` — negotiated prices,
    dedicated stock, a personal account manager, consolidated monthly
