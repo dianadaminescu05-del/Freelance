@@ -104,7 +104,7 @@ export default function Contact() {
 
   return (
     <>
-      <PageHero title="Contact" />
+      <PageHero light title="Contact" />
 
       <section className="page-section section--paper">
         <div className="container">

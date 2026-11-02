@@ -10,6 +10,7 @@ export default function DespreNoi() {
   return (
     <>
       <PageHero
+        light
         title="Despre noi"
         subtitle={`Tipografie din 1999, ambalaje din carton din 2002 — ${yearsActive()} de ani în Lugoj.`}
       />

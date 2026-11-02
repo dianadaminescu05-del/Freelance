@@ -5,6 +5,7 @@ export default function NotFound() {
   return (
     <>
       <PageHero
+        light
         title="404"
         subtitle="Pagina căutată nu există sau a fost mutată."
       />

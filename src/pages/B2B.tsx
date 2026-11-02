@@ -14,6 +14,7 @@ export default function B2B() {
   return (
     <>
       <PageHero
+        light
         title="Parteneriate B2B"
         subtitle="Livrare directă, prețuri negociate și un partener de producție de încredere pe termen lung."
       />
