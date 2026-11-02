@@ -341,6 +341,37 @@ svg {
   min-height: calc(var(--header-height) + 252px);
   background: var(--ink);
   padding: calc(var(--header-height) + 1.5rem) 0 1.5rem;
+  /* Line colour for the hatch below; each banner variant sets its own. */
+  --hero-lines: rgba(248, 247, 245, 0.07);
+}
+
+/* Diagonal hatch across the banner.
+
+   A mask, not a background image: the 6x6 tile carries the shape and
+   background-color carries the colour, so the one asset serves the dark
+   banners and the white one from --hero-lines. A coloured data URI could
+   not — a data URI cannot read a custom property.
+
+   Decorative, so it is a pseudo-element rather than markup. z-index 0 with
+   the container at 1: the hatch is positioned and the container is not, so
+   without that it would paint over the text. */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--hero-lines);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cg fill='%23000'%3E%3Cpolygon points='5 0 6 0 0 6 0 5'/%3E%3Cpolygon points='6 5 6 6 5 6'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cg fill='%23000'%3E%3Cpolygon points='5 0 6 0 0 6 0 5'/%3E%3Cpolygon points='6 5 6 6 5 6'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 6px 6px;
+  mask-size: 6px 6px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}
+.page-hero > .container {
+  position: relative;
+  z-index: 1;
 }
 .page-hero h1 {
   font-size: clamp(2.75rem, 7vw, 6rem);
@@ -430,6 +461,14 @@ svg {
 
 .page-hero--light {
   background: var(--white);
+  /* Light grey on white, at 0.05 rather than the 0.07 the dark banners
+     use. The hatch itself is decorative and owes nothing, but the lead sits
+     on top of it: --mid measures 5.33:1 on plain white and drops as the
+     lines darken the ground beneath it — 4.59:1 at 0.07, which passes but
+     with almost nothing to spare. 0.05 keeps it at 4.80:1 and the pattern
+     is no less legible. The audit cannot see this: it reads element
+     backgrounds, and this is a pseudo-element. */
+  --hero-lines: rgba(17, 17, 17, 0.05);
 }
 .page-hero--light h1 {
   color: var(--ink);
@@ -450,6 +489,11 @@ svg {
    so this caps the width too; the white space either side of it is
    invisible against the band. */
 .page-hero--light .hero-figure img {
+  /* The shot is on white, and the hatch is behind it. Multiply leaves the
+     backdrop untouched wherever the source is white, so the photo's ground
+     disappears and the lines run on through it — which is the blend the
+     flat white version had, now that there is a pattern to blend into. */
+  mix-blend-mode: multiply;
   max-height: 200px;
   width: auto;
   max-width: 100%;
