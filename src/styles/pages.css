@@ -776,6 +776,14 @@
   border-radius: 1rem;
   background: var(--white);
   overflow: hidden;
+  /* Leaflet layers its own panes from 400 up to 1000 for the zoom control,
+     and this site's whole scale tops out at --z-skip: 100 — so the map's
+     chrome scrolled over the fixed nav. Isolating gives the map its own
+     stacking context, which resolves those numbers against each other
+     inside it and leaves the whole map at its natural depth in the page.
+     Raising --z-nav instead would have meant out-bidding a third party's
+     internals, and losing again the next time they change. */
+  isolation: isolate;
 }
 .dmap__canvas {
   height: 340px;
