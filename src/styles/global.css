@@ -411,6 +411,22 @@ svg {
 .page-hero__media {
   min-width: 0;
 }
+/* Artwork on the left. Done with order, not DOM order: the heading stays
+   first in the markup, so a screen reader and a phone both meet it before
+   the picture. */
+.page-hero__grid--media-first {
+  /* Sized to the capped artwork rather than the 460px the framed version
+     needed, so the shot does not float in a column wider than itself. */
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 3rem;
+}
+.page-hero__grid--media-first > *:first-child {
+  order: 2;
+}
+.page-hero__grid--media-first .page-hero__media {
+  order: 1;
+}
+
 /* White frame on the dark band, same card language as the catalogue below
    — the shots are on white, so anything else would show a seam. */
 .hero-figure {
@@ -425,15 +441,73 @@ svg {
   height: auto;
 }
 
+/* --- Light banner ------------------------------------------------------
+   For artwork shot on white: the band matches the shot exactly, so the
+   frame comes off and the products sit straight on the page. --white, not
+   --paper, or the cut-out would show as a square a shade brighter than
+   the band around it.
+
+   Every value below was picked for --ink and is re-picked here; ratios are
+   against --white.
+   ---------------------------------------------------------------------- */
+
+.page-hero--light {
+  background: var(--white);
+}
+.page-hero--light h1 {
+  color: var(--ink);
+}
+.page-hero--light .page-hero__kicker {
+  color: var(--accent-dark); /* 4.87:1 */
+}
+.page-hero--light .page-hero__sub {
+  color: var(--mid); /* 5.2:1 */
+}
+.page-hero--light .breadcrumb a,
+.page-hero--light .breadcrumb .sep,
+.page-hero--light .breadcrumb .current {
+  color: var(--mid);
+}
+.page-hero--light .breadcrumb a:hover {
+  color: var(--ink);
+}
+/* No frame and no rounding — the whole point is that it blends. */
+.page-hero--light .hero-figure {
+  border: none;
+  border-radius: 0;
+  background: none;
+}
+/* Capped height rather than a narrower column: the source is square, so
+   letting it set its own height made the band taller than its copy. The
+   white letterboxing left and right is invisible against the band. */
+.page-hero--light .hero-figure img {
+  max-height: 320px;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
 @media (max-width: 900px) {
-  .page-hero__grid {
+  .page-hero__grid,
+  .page-hero__grid--media-first {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+  /* Stacked, the copy leads whichever side the artwork takes on desktop. */
+  .page-hero__grid--media-first > *:first-child {
+    order: 1;
+  }
+  .page-hero__grid--media-first .page-hero__media {
+    order: 2;
   }
   /* Capped so the square does not fill a phone screen on its own before
      the catalogue is reached. */
   .page-hero__media {
     max-width: 420px;
+  }
+  .page-hero--light .hero-figure img {
+    max-height: 260px;
   }
 }
 

@@ -14,15 +14,43 @@ type Props = {
   /** Artwork beside the copy. Without it the banner stays the plain dark
    *  band every other inner page uses. */
   media?: ReactNode;
+  /** White banner instead of ink — for artwork shot on white, which then
+   *  needs no frame because it blends straight into the band. */
+  light?: boolean;
+  /** Artwork on the left. Visual only: the copy stays first in the DOM, so
+   *  the heading is still what a screen reader and a phone meet first. */
+  mediaFirst?: boolean;
 };
 
 /** Dark banner shared by every inner page. */
-export default function PageHero({ title, subtitle, breadcrumb, kicker, media }: Props) {
+export default function PageHero({
+  title,
+  subtitle,
+  breadcrumb,
+  kicker,
+  media,
+  light,
+  mediaFirst,
+}: Props) {
   return (
-    <div className={`page-hero${media ? ' page-hero--media' : ''}`}>
+    <div
+      className={[
+        'page-hero',
+        media && 'page-hero--media',
+        light && 'page-hero--light',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <AccentRail />
       <div className="container">
-        <div className={media ? 'page-hero__grid' : undefined}>
+        <div
+          className={
+            media
+              ? `page-hero__grid${mediaFirst ? ' page-hero__grid--media-first' : ''}`
+              : undefined
+          }
+        >
           <div>
             <motion.div
               initial={{ opacity: 0 }}

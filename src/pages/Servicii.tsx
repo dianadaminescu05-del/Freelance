@@ -32,6 +32,8 @@ export default function Servicii() {
   return (
     <>
       <PageHero
+        light
+        mediaFirst
         breadcrumb="Produse"
         title="Produse"
         kicker={`${PRODUSE.length} de modele, toate din carton`}
