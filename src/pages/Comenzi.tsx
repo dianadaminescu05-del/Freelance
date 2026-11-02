@@ -4,7 +4,6 @@ import { ArrowRight, X } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import PickCard from '../components/PickCard';
 import { QUANTITY_BANDS, REQUEST_CATEGORIES, REQUEST_ITEMS } from '../data/content';
-import { PRODUSE } from '../data/produse';
 import { SITE } from '../data/site';
 import { asset } from '../lib/asset';
 
@@ -28,10 +27,6 @@ import { asset } from '../lib/asset';
  * Exact dimensions, material and artwork are left to the contact form's
  * message field, which this page pre-fills.
  */
-
-/* Pulled from the catalogue rather than hard-coded, so the banner cannot
-   end up pointing at a shot the product list no longer has. */
-const HERO_SHOT = PRODUSE.find((p) => p.slug === 'cutii-pizza-albe')!.imagini[0];
 
 const CUSTOM = 'Altă cantitate…';
 const UNSET = 'Cantitate';
@@ -113,12 +108,10 @@ export default function Comenzi() {
         media={
           <figure className="hero-figure">
             <img
-              src={asset(`produse/${HERO_SHOT.slug}-1200.jpg`)}
-              srcSet={`${asset(`produse/${HERO_SHOT.slug}-600.jpg`)} 600w, ${asset(`produse/${HERO_SHOT.slug}-1200.jpg`)} 1200w`}
-              sizes="(max-width: 900px) 92vw, 360px"
-              alt={HERO_SHOT.alt}
-              width={1200}
-              height={1200}
+              src={asset('banner/cutii-pizza.webp')}
+              alt="Cutii de pizza personalizate prin tipar, produse de Almariones"
+              width={1254}
+              height={1254}
               decoding="async"
             />
           </figure>

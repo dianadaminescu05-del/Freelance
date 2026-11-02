@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import ProductCard from '../components/ProductCard';
 import ProductDialog from '../components/ProductDialog';
-import { CATEGORII, GAMA_COMPLETA, PRODUSE, type CatalogProduct } from '../data/produse';
+import { CATEGORII, PRODUSE, type CatalogProduct } from '../data/produse';
 import { asset } from '../lib/asset';
 
 const TOATE = 'Toate';
@@ -39,16 +39,14 @@ export default function Servicii() {
            below, where it filters rather than just enumerates. */
         subtitle="Produse în hala noastră din Lugoj. Fiecare model se execută la dimensiunile și tirajul cerute."
         media={
-          /* The source is square and beautifully composed — shown whole
-             rather than cropped into a letterbox band. */
+/* Supplied as a cut-out, so it needs no frame and no blend
+             trick — the banner and its hatch show through the alpha. */
           <figure className="hero-figure">
             <img
-              src={asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)}
-              srcSet={`${asset(`produse/${GAMA_COMPLETA.slug}-600.jpg`)} 600w, ${asset(`produse/${GAMA_COMPLETA.slug}-1200.jpg`)} 1200w`}
-              sizes="(max-width: 900px) 92vw, 460px"
-              alt={GAMA_COMPLETA.alt}
-              width={1200}
-              height={1200}
+              src={asset('banner/gama-completa.webp')}
+              alt="Gama de ambalaje și cutii din carton produse de Almariones"
+              width={1254}
+              height={1254}
               decoding="async"
             />
           </figure>
