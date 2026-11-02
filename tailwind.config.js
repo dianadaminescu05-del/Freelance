@@ -5,7 +5,14 @@ export default {
   // Preflight is off on purpose: src/styles/global.css already carries the
   // reset, and Tailwind's version would strip the h1–h3 font rules defined
   // there. Utilities still work normally.
-  corePlugins: { preflight: false },
+  //
+  // container is off because this project already has its own .container —
+  // max-width var(--container), 1200px — and Tailwind emits a .container of
+  // the same specificity after it, so Tailwind's breakpoint max-widths won.
+  // Every page's content was being capped at 1024px while .nav-inner, which
+  // is not called "container", stayed at 1200px. That is what put the page
+  // copy 82px to the right of the logo above it.
+  corePlugins: { preflight: false, container: false },
 
   theme: {
     extend: {

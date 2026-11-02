@@ -605,6 +605,21 @@ Blocking, in rough priority:
 Not for the website: the banking details in *Prezentare generala* (Unicredit,
 Alpha Bank, CEC, overdraft facility) are internal background only.
 
+## Tailwind's container is disabled
+
+`corePlugins: { container: false }`, and it has to stay off.
+
+The project has its own `.container` — `max-width: var(--container)`, 1200px.
+Tailwind emits a `.container` of identical specificity *after* it, carrying
+breakpoint max-widths of 640/768/1024/1280/1536px, so source order decided
+it and Tailwind won. Every page's content was capped at 1024px on a 1188px
+screen while `.nav-inner`, which is not called "container", stayed at
+1200px — which put all page copy 82px to the right of the logo above it.
+
+Nothing in the codebase uses Tailwind's container utility, so turning it off
+costs nothing. If it ever comes back on, the symptom is the whole site
+narrowing and falling out of line with the header.
+
 ## Known gaps
 
 - The contact form validates and shows a success state but sends nothing. Wire
