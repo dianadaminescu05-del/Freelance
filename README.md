@@ -546,8 +546,29 @@ Blocking, in rough priority:
    photographed. **Still worth confirming with the client:** whether the
    poster is current, and what each service actually covers.
 3. **Permission to name clients.** The documents list 17; the site shows 4.
-4. **Delivery claims on /b2b** (3.5t fleet, 7 zones, weekly routes, 24h) have
-   no source and are still live. Left untouched rather than invented away.
+4. ~~**Delivery claims on /b2b** (3.5t fleet, 7 zones, weekly routes, 24h)~~
+   **Resolved 2026-11-02.** All three documents were searched for every
+   transport term — transport, vehicul, mașină, camion, flotă, tone,
+   livrare, logistic, rută, ore, 24, urgent, săptămânal. No vehicle, no
+   tonnage, no route and no delivery time appears anywhere; the nearest
+   hits were "mașinile de operat" (production machinery, in a list of
+   photos to commission) and "pregătirii logistice" (cash flow, in the
+   banking paragraph). The four tiles are now `B2B_FACTS`, each a single
+   quoted statement — 1999, 2006, 26, 100% — and the lead is the
+   documents' own sentence about the pizzerias. "Flota noastră" and
+   "Transport propriu" went with them, since keeping either while removing
+   the figures would have contradicted the page.
+
+   **Still open on the same page:** `B2B_BENEFITS` — negotiated prices,
+   dedicated stock, a personal account manager, consolidated monthly
+   invoicing, production priority, monthly consumption reports — are six
+   service promises with no source. They are qualitative rather than
+   numeric, so they read as softer than "24h" did, but nothing in the
+   documents offers any of them.
+
+   **And elsewhere:** "livrare proprie" still appears in the home hero and
+   the footer blurb. The documents say the company delivers; they do not
+   say it owns the vehicles.
    The zone list is now a Leaflet map (`components/DeliveryMap.tsx`), which
    sharpened two things:
    - The distances it used to print are gone. They were not one kind of

@@ -272,11 +272,28 @@ export const DELIVERY_ZONES: DeliveryPoint[] = [
   { oras: 'Arad', lat: 46.1866, lon: 21.3123 },
 ];
 
-export const FLEET_STATS = [
-  { val: '3.5t', label: 'capacitate max' },
-  { val: '7', label: 'zone acoperite' },
-  { val: 'Săptămânal', label: 'rute programate' },
-  { val: '24h', label: 'livrare urgentă' },
+/* Replaces FLEET_STATS, which was four invented figures — 3.5t, 7 zones,
+   weekly routes, 24h. Searching all three documents for every transport
+   term turned up no vehicle, no tonnage, no route and no delivery time;
+   the nearest hits were "mașinile de operat" (production machinery, in a
+   list of photos to take) and "pregătirii logistice" (cash flow, in the
+   banking paragraph).
+
+   Each of these four is a single unambiguous statement from "Prezentare
+   firma" or "Prezentare generala", quoted below. None needs arithmetic or
+   a judgement call about what counts — the client list, for instance, is
+   spelled differently across the two documents, so a count of it would be
+   our deduplication rather than their figure. */
+export const B2B_FACTS = [
+  // "Data deschiderii: 01.11.1999"
+  { val: '1999', label: 'anul înființării' },
+  // "din 01.08.2006 s-a concesionat teren si s-a construit hala proprie
+  //  unde se desfasoara activitatea acum"
+  { val: '2006', label: 'hală proprie' },
+  // "Nr. angajati actuali: 26"
+  { val: '26', label: 'angajați în prezent' },
+  // "avand un capital privat romanesc 100%"
+  { val: '100%', label: 'capital românesc' },
 ];
 
 /* Names corrected against "Prezentare generala". The document lists 17
