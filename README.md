@@ -434,6 +434,7 @@ had carried invented values, corrected on 2026-10-28:
 | Was | Now | Source |
 |---|---|---|
 | "produse în Lugoj din 1999" | din 2002 | packaging began 2002; 1999–2002 was printing |
+| "Fiecare model se execută la dimensiunile și tirajul cerute" | "Modele la dimensiuni standard… Dezvoltăm produse noi la solicitarea clienților" | nothing states made-to-measure sizes, and no document mentions quantities at all |
 | "15+ ani experiență" | founding year 1999 | registration date 01.11.1999 |
 | "Hellout", "Oliv" | Hella, Autoliv | client list |
 | "Almariones SRL" | SC Tipografia Almariones | both documents |
@@ -457,6 +458,7 @@ quotations — defensible, but nobody at Almariones has signed them off:
 | "Cutii personalizate" specifically | The catch-all that absorbed whatever did not fit, including *Ladiță carton* and *Cutie evenimente*. |
 | "model 1 / model 2" suffixes | Their list repeats two names verbatim; the suffixes follow the "2" in their own filenames. |
 | "buc" as the quantity unit on `/comenzi` | Safe — the catalogue is all discrete boxes — but stated nowhere. |
+| "dimensiuni standard" on `/servicii` | Conservative rather than sourced. The documents give three dimensions, all for animal-feed boxes, and say nothing about whether the other eighteen models are fixed or made to order. "Standard" is the safe reading, but it may *understate* a packaging maker — worth asking the client, since the honest answer might be better for them than what is on the page. |
 | The third pizza product | Their table lists *Cutii pizza* twice; the photos show three distinct sets, so the third comes from filenames. |
 | ~~"angajați **în producție**" in the hero~~ | **Fixed 2026-11-01** — now "angajați în prezent", which is what "Nr. angajati actuali: 26" says. The document gives no departmental split, and separately records "Posturi: 14". |
 

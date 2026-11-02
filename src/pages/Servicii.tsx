@@ -36,8 +36,15 @@ export default function Servicii() {
         title="Produse"
         kicker={`${PRODUSE.length} de modele, toate din carton`}
         /* The category list that used to run here is the chip row directly
-           below, where it filters rather than just enumerates. */
-        subtitle="Produse în hala noastră din Lugoj. Fiecare model se execută la dimensiunile și tirajul cerute."
+           below, where it filters rather than just enumerates.
+
+           "Fiecare model se execută la dimensiunile și tirajul cerute" is
+           gone. No document says anything about made-to-measure sizes, and
+           nothing anywhere mentions quantities — the same claim the
+           invented order tiers made, surviving in prose because it was not
+           a number. The second sentence is the documents' own: "solicitarea
+           de noi produse din partea acestora". */
+        subtitle="Modele la dimensiuni standard, produse în hala noastră din Lugoj. Dezvoltăm produse noi la solicitarea clienților."
         media={
 /* Supplied as a cut-out, so it needs no frame and no blend
              trick — the banner and its hatch show through the alpha. */

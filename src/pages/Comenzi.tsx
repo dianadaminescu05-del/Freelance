@@ -104,7 +104,7 @@ export default function Comenzi() {
       <PageHero
         light
         title="Cere o ofertă"
-        subtitle="Adaugă în cerere tot ce te interesează și pune o cantitate pentru fiecare. Revenim cu un preț — fiecare comandă se execută la dimensiunile și tirajul cerute."
+        subtitle="Adaugă în cerere tot ce te interesează și pune o cantitate pentru fiecare. Revenim cu un preț."
         media={
           <figure className="hero-figure">
             <img
