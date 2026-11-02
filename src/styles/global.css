@@ -395,9 +395,10 @@ svg {
 .page-hero__grid {
   display: grid;
   /* Copy first, so it starts on the container's own edge — the same
-     vertical the logo sits on. The artwork column is sized to the artwork
-     rather than left at 440px, where a 240px square would float in it. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+     vertical the logo sits on. The artwork column reaches back to roughly
+     where "Produse" sits in the nav above: content ends at the container's
+     right padding, so a 380px track starts about 768px in, under that tab. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
   gap: 3.5rem;
   align-items: center;
 }
@@ -492,20 +493,20 @@ svg {
 /* Capped to what the shared banner height allows. The source is square,
    so this caps the width too; the white space either side of it is
    invisible against the band. */
-/* 240px, up from 200px: as much as the shared banner height allows once
-   the padding above is accounted for. The source is square, so this caps
-   the width too. */
+/* Fills the track at 240px tall, which is all the shared banner height
+   allows — so the square source is centre-cropped to about 1.58:1. Checked
+   against both shots first: the products sit centrally with wide white
+   margins, so nothing is lost. `contain` would have kept it square and
+   240px wide, which is what made it look small and stranded on the right. */
 .page-hero--light .hero-figure img {
   /* The shot is on white, and the hatch is behind it. Multiply leaves the
      backdrop untouched wherever the source is white, so the photo's ground
      disappears and the lines run on through it — which is the blend the
      flat white version had, now that there is a pattern to blend into. */
   mix-blend-mode: multiply;
-  max-height: 240px;
-  width: auto;
-  max-width: 100%;
-  margin: 0 auto;
-  object-fit: contain;
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
 }
 
 @media (max-width: 900px) {
@@ -525,11 +526,16 @@ svg {
   .page-hero__media {
     max-width: 420px;
   }
-  /* 240px, up from 200px: as much as the shared banner height allows once
-   the padding above is accounted for. The source is square, so this caps
-   the width too. */
-.page-hero--light .hero-figure img {
-    max-height: 260px;
+  /* Stacked, there is no track to fill and no shared height to fight, so
+     the shot goes back to its own proportions, uncropped. Every property
+     the desktop rule sets has to be undone here, not just the height. */
+  .page-hero--light .hero-figure img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 300px;
+    margin: 0 auto;
+    object-fit: contain;
   }
 }
 
