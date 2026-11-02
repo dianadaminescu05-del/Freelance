@@ -8,7 +8,6 @@ export default function B2B() {
     <>
       <PageHero
         title="Parteneriate B2B"
-        breadcrumb="B2B"
         subtitle="Livrare proprie, prețuri negociate și un partener de producție de încredere pe termen lung."
       />
 

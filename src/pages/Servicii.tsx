@@ -34,10 +34,11 @@ export default function Servicii() {
       <PageHero
         light
         mediaFirst
-        breadcrumb="Produse"
         title="Produse"
         kicker={`${PRODUSE.length} de modele, toate din carton`}
-        subtitle="Cutii individuale, ambalaje alimentare, cutii pentru hrană animale, ambalaje de transport și separatoare — produse în hala noastră din Lugoj. Fiecare model se execută la dimensiunile și tirajul cerute."
+        /* The category list that used to run here is the chip row directly
+           below, where it filters rather than just enumerates. */
+        subtitle="Produse în hala noastră din Lugoj. Fiecare model se execută la dimensiunile și tirajul cerute."
         media={
           /* The source is square and beautifully composed — shown whole
              rather than cropped into a letterbox band. */

@@ -11,7 +11,6 @@ export default function DespreNoi() {
     <>
       <PageHero
         title="Despre noi"
-        breadcrumb="Despre noi"
         subtitle={`Producem ambalaje și cutii din carton în Lugoj de ${yearsActive()} de ani.`}
       />
 

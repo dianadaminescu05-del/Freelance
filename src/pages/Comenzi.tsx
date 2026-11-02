@@ -102,7 +102,6 @@ export default function Comenzi() {
     <>
       <PageHero
         title="Cere o ofertă"
-        breadcrumb="Cere o ofertă"
         subtitle="Adaugă în cerere tot ce te interesează și pune o cantitate pentru fiecare. Revenim cu un preț — fiecare comandă se execută la dimensiunile și tirajul cerute."
       />
 

@@ -1,13 +1,11 @@
 import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import AccentRail from './AccentRail';
-import Breadcrumb from './Breadcrumb';
 import { EASE } from './motion';
 
 type Props = {
   title: string;
   subtitle?: string;
-  breadcrumb: string;
   /** A short display line under the title, for a page with a figure worth
    *  leading on. */
   kicker?: string;
@@ -26,7 +24,6 @@ type Props = {
 export default function PageHero({
   title,
   subtitle,
-  breadcrumb,
   kicker,
   media,
   light,
@@ -52,14 +49,6 @@ export default function PageHero({
           }
         >
           <div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Breadcrumb current={breadcrumb} />
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}

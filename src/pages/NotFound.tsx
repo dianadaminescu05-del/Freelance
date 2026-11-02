@@ -6,7 +6,6 @@ export default function NotFound() {
     <>
       <PageHero
         title="404"
-        breadcrumb="Pagină inexistentă"
         subtitle="Pagina căutată nu există sau a fost mutată."
       />
       <section className="page-section section--paper">

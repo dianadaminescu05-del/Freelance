@@ -324,43 +324,23 @@ svg {
   flex: 1;
 }
 
-/* --- Breadcrumb -------------------------------------------------------- */
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  font-size: 0.875rem;
-}
-.breadcrumb a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 32px;
-  color: var(--on-ink-muted);
-  text-decoration: none;
-  transition: color var(--dur-fast) ease-out;
-}
-.breadcrumb a:hover {
-  color: var(--on-ink-strong);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.breadcrumb .sep {
-  color: var(--on-ink-muted);
-}
-.breadcrumb .current {
-  color: var(--on-ink-soft);
-}
-
 /* --- Page hero (dark banner shared by all inner pages) ----------------- */
 
+/* One height for every inner page, so moving between them does not shift
+   the content under it. The number is set by the tallest copy — /comenzi
+   at 194px — plus room to breathe, not by whichever page happens to have
+   the most to say. The home hero is separate and unaffected.
+
+   Centred rather than top-aligned, so a one-line title like Contact sits
+   in the band instead of clinging to the header. */
 .page-hero {
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--header-height) + 252px);
   background: var(--ink);
-  padding-top: calc(var(--header-height) + 2.5rem);
-  padding-bottom: 5rem;
+  padding: calc(var(--header-height) + 1.5rem) 0 1.5rem;
 }
 .page-hero h1 {
   font-size: clamp(2.75rem, 7vw, 6rem);
@@ -381,9 +361,6 @@ svg {
    banner stays the plain dark band.
    ---------------------------------------------------------------------- */
 
-.page-hero--media {
-  padding-bottom: 4rem;
-}
 .page-hero__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
@@ -463,25 +440,17 @@ svg {
 .page-hero--light .page-hero__sub {
   color: var(--mid); /* 5.2:1 */
 }
-.page-hero--light .breadcrumb a,
-.page-hero--light .breadcrumb .sep,
-.page-hero--light .breadcrumb .current {
-  color: var(--mid);
-}
-.page-hero--light .breadcrumb a:hover {
-  color: var(--ink);
-}
 /* No frame and no rounding — the whole point is that it blends. */
 .page-hero--light .hero-figure {
   border: none;
   border-radius: 0;
   background: none;
 }
-/* Capped height rather than a narrower column: the source is square, so
-   letting it set its own height made the band taller than its copy. The
-   white letterboxing left and right is invisible against the band. */
+/* Capped to what the shared banner height allows. The source is square,
+   so this caps the width too; the white space either side of it is
+   invisible against the band. */
 .page-hero--light .hero-figure img {
-  max-height: 320px;
+  max-height: 200px;
   width: auto;
   max-width: 100%;
   margin: 0 auto;
@@ -489,6 +458,11 @@ svg {
 }
 
 @media (max-width: 900px) {
+  /* Stacked, a fixed height is meaningless — the copy wraps to whatever it
+     needs and the artwork sits under it. */
+  .page-hero {
+    min-height: 0;
+  }
   .page-hero__grid,
   .page-hero__grid--media-first {
     grid-template-columns: 1fr;
@@ -553,8 +527,7 @@ svg {
     padding: 3.5rem 0;
   }
   .page-hero {
-    padding-top: calc(var(--header-height) + 1.75rem);
-    padding-bottom: 3rem;
+    padding: calc(var(--header-height) + 1.75rem) 0 2.5rem;
   }
 }
 
